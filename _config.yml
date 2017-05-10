@@ -1,0 +1,22 @@
+# Dependencies
+markdown:         kramdown
+highlighter:      rouge
+
+# Permalinks
+permalink:        pretty
+
+# Setup
+title:            Niuware WebFramework
+tagline:          ''
+description:      'Lightweight and ready-to-go Web and API framework for PHP.'
+url:              http://niuware.github.io
+baseurl:          /
+
+author:
+  name:           'Niuware'
+  url:            https://niuware.github.io
+
+github:
+  repo:           https://github.com/niuware/web-framework
+
+exclude:          [ Gemfile, Gemfile.lock, LICENSE.md, README.md ]

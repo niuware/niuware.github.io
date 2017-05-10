@@ -1,8 +1,31 @@
-<html>
-<head>
-	<title>niuware.github.io</title>
-</head>
-<body>
-	// TODO: Create this website
-</body>
-</html>
+---
+layout: default
+title: Home
+---
+
+{% assign pages_list = site.pages %}
+{% for node in pages_list %}
+  {% if node.title == "Intro" %}
+    {{ node.content }}
+  {% endif %}
+{% endfor %}
+
+{% comment %}
+<!--
+<div class="posts">
+  {% for post in site.posts %}
+  <div class="post">
+    <h1 class="post-title">
+      <a href="{{ post.url }}">
+        {{ post.title }}
+      </a>
+    </h1>
+
+    <span class="post-date">{{ post.date | date_to_string }}</span>
+
+    {{ post.content }}
+  </div>
+  {% endfor %}
+</div>
+-->
+{% endcomment %}
