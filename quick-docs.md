@@ -96,8 +96,9 @@ The following table shows the application constants that you need to configure:
         <tr>
             <td>BASE_PATH</td>
             <td>
-                Suffix after the BASE_URL.<br /> 
-                Usually is just '/'
+                If your BASE_URL has a sub path, write it here.<br /> 
+                For example: If BASE_URL is http://my_url.com/ then BASE_PATH should be '/'.<br />
+                If BASE_URL is http://my_url.com/<strong>sub_domain/</strong> then BASE_PATH should be <strong>sub_domain/</strong> (don't forget to write the trailing slash)
             </td>
         </tr>
         <tr>
