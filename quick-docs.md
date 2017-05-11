@@ -201,6 +201,8 @@ Defining easy to access routes for your application is one important task for yo
 
 Web applications created with Niuware WebFramework have two sides: the *main application* or User frontend side and the *admin application* or User admin side. For example suppose you create an online shop; you'll need the frontend side where all the products will be browsable by any user, and an admin panel side where some special users will be able to add or edit products for the shop.
 
+You can also leave the routes empty and the framework will return an `HTTP 403 response`. This is useful when you want to use the framework with **API mode-only**.
+
 <a name="routing-main"></a>
 ### Routing: Main application
 
