@@ -40,6 +40,9 @@ This is a quick documentation on how to use all of the available features in Niu
   8.1 <a href="#api-syntax">Method Syntax</a>  
   8.2 <a href="#api-protocol">Protocol Restriction</a>  
   8.3 <a href="#api-params">Request Parameters</a>
+9. <a href="#security">Security</a>  
+  9.1 <a href="#security-pass">Passwords</a>  
+  9.2 <a href="#security-token">Tokens</a>
 
 <a name="install"></a>
 ## 1. Installation
@@ -1462,6 +1465,61 @@ final class Cart {
 
         $params['id'] = '6';
         $params['token'] = '7458ABDG83';
+    }
+}
+
+{% endhighlight %}
+
+<a name="security"></a>
+## 9. Security
+
+The core includes 3 simple methods to manage string hashing.
+
+<a name="security-pass"></a>
+### Passwords
+
+Use the methods `hash` and `verifyHash` from the `Security` core class to create and verify password strings.
+
+{% highlight php %}
+<?php 
+
+namespace Niuware\WebFramework\Security;
+
+final class MyClass {
+
+    public function someMethod() {
+
+        $savedPassword = Security::hash($newPassword);
+
+        ...
+
+        if (Security::verifyHash($inputPassword, $savedPassword)) {
+
+            // Password is correct
+        }
+        else {
+
+            // Password is incorrect
+        }
+    }
+}
+
+{% endhighlight %}
+
+### Tokens
+
+Use the method `generateToken` from the `Security` core class to generate securily cryptographic token strings.
+
+{% highlight php %}
+<?php 
+
+namespace Niuware\WebFramework\Security;
+
+final class MyClass {
+
+    public function someMethod() {
+
+        $token = Security::generateToken();
     }
 }
 
