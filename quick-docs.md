@@ -364,7 +364,7 @@ use Niuware\WebFramework\Controller;
 
 final class Cart extends Controller {
 
-    public function myCart($params = []) {
+    public function myCart(HttpRequest $request) {
 
     }
 }
@@ -392,17 +392,17 @@ use Niuware\WebFramework\Controller;
 final class Cart extends Controller {
 
     // Executed when the server receives a GET request
-    public function getMyCart($params = []) {
+    public function getMyCart(HttpRequest $request) {
 
     }
 
     // Executed when the server receives a POST request
-    public function postMyCart($params = []) {
+    public function postMyCart(HttpRequest $request) {
 
     }
 
     // Executed for any request (GET or POST)
-    public function myCart($params = []) {
+    public function myCart(HttpRequest $request) {
 
     }
 }
@@ -418,17 +418,17 @@ The request parameters for a GET protocol method can be placed as part of the ur
 
 > http://my_url/my-cart/**param_0_value**/**param_1_value**/ ...
 
-The GET protocol method will recieve the values in the `$params` array as:
+The GET protocol method will recieve the values in the HttpRequest object `$request` as:
 
 {% highlight php %}
 <?php 
 
 ...
 
-    public function getMyCart($params = []) {
+    public function getMyCart(HttpRequest $request) {
 
-        $params[0] = param_0_value;
-        $params[1] = param_1_value;
+        $request->{0} = param_0_value;
+        $request->{1} = param_1_value;
     }
 ...
 {% endhighlight %}
@@ -439,17 +439,17 @@ You can also receive GET request parameters as a query string, for example:
 
 > Notice you need to add the **last slash** before the parameter list as is the name of the method to execute
 
-and your GET protocol method will recieve the parameters values in an associative array as follows:
+and your GET protocol method will recieve the parameters values in an HttpRequest object as follows:
 
 {% highlight php %}
 <?php 
 
 ...
 
-    public function getMyCart($params = []) {
+    public function getMyCart(HttpRequest $request) {
 
-        $params['param0'] = value0;
-        $params['param1'] = value1;
+        $request->param0 = value0;
+        $request->param1 = value1;
     }
 ...
 {% endhighlight %}
@@ -465,16 +465,16 @@ then your GET protocol method will recieve the parameters as
 
 ...
 
-    public function getMyCart($params = []) {
+    public function getMyCart(HttpRequest $request) {
 
         // From the URL
-        $params[0] = param0;
-        $params[1] = param1;
-        $params[2] = ?param2=value2&param3=value3;
+        $request->{0} = param0;
+        $request->{1} = param1;
+        $request->{2} = ?param2=value2&param3=value3;
 
         // From the query string
-        $params['param2'] = value2;
-        $params['param3'] = value3;
+        $request->param2 = value2;
+        $request->param3 = value3;
     }
 ...
 {% endhighlight %}
@@ -486,33 +486,33 @@ The request parameters for a POST protocol method can be placed as part of the u
 
 > http://my_url/my-cart/**param_0_value**/**param_1_value**/ ...
 
-The POST protocol method will recieve the values in the `$params` array as:
+The POST protocol method will recieve the values in an HttpRequest object `$request` as:
 
 {% highlight php %}
 <?php 
 
 ...
 
-    public function postMyCart($params = []) {
+    public function postMyCart(HttpRequest $request) {
 
-        $params[0] = param_0_value;
-        $params[1] = param_1_value;
+        $request->{0} = param_0_value;
+        $request->{1} = param_1_value;
     }
 ...
 {% endhighlight %}
 
-You can also receive POST request parameters as a usual POST request, for example data in an HTML form. The POST protocol will receive the parameters as an associative array:
+You can also receive POST request parameters as a usual POST request, for example data in an HTML form. The POST protocol will receive the parameters as an HttpRequest object:
 
 {% highlight php %}
 <?php 
 
 ...
 
-    public function postMyCart($params = []) {
+    public function postMyCart(HttpRequest $request) {
 
         // From the query string
-        $params['form_elem_name_0'] = value0;
-        $params['form_elem_name_1'] = value1;
+        $request->form_elem_name_0 = value0;
+        $request->form_elem_name_1 = value1;
     }
 ...
 {% endhighlight %}
@@ -538,7 +538,7 @@ use Niuware\WebFramework\Controller;
 
 final class Cart extends Controller {
 
-    public function getMyCart($params = []) {
+    public function getMyCart(HttpRequest $request) {
 
         // Do something here
 
@@ -549,7 +549,7 @@ final class Cart extends Controller {
         $otherController->title = "My Other Title";
         $otherController->view = "other.view.php";
 
-        return $otherController->getOtherMethod($params);
+        return $otherController->getOtherMethod($request);
     }
 }
 
@@ -628,7 +628,7 @@ use Niuware\WebFramework\HtmlResponse;
 
 final class Cart extends Controller {
 
-    public function getMyCart($params = []) {
+    public function getMyCart(HttpRequest $request) {
 
         // By default it will render the views/my-cart.view.php file
         HtmlResponse::getInstance()->render($this);
@@ -708,7 +708,7 @@ Usage:
 
 final class MyController extends Controller {
 
-    public function getMyPage($params = []) {
+    public function getMyPage(HttpRequest $request) {
 
         $this->title = "My New Title";
 
@@ -750,7 +750,7 @@ Usage:
 
 final class MyController extends Controller {
 
-    public function getMyPage($params = []) {
+    public function getMyPage(HttpRequest $request) {
 
         $this->view = "view_filename.view.php";
 
@@ -791,7 +791,7 @@ Usage:
 
 final class MyController extends Controller {
 
-    public function getMyPage($params = []) {
+    public function getMyPage(HttpRequest $request) {
 
         // Do not write the .css extension
         $this->styles = [
@@ -840,7 +840,7 @@ Usage:
 
 final class MyController extends Controller {
 
-    public function getMyPage($params = []) {
+    public function getMyPage(HttpRequest $request) {
 
         // Do not write the .js extension
         $this->js = [
@@ -886,7 +886,7 @@ Usage:
 
 final class MyController extends Controller {
 
-    public function getMyPage($params = []) {
+    public function getMyPage(HttpRequest $request) {
 
         $this->cdn = [
             'absolute_url_to_cdn_file' => [
@@ -932,7 +932,7 @@ Usage:
 
 final class MyController extends Controller {
 
-    public function getMyPage($params = []) {
+    public function getMyPage(HttpRequest $request) {
 
         $this->metaTags = [
             'meta_name_1' => 'meta_content_1',
@@ -977,7 +977,7 @@ Usage:
 
 final class MyController extends Controller {
 
-    public function getMyPage($params = []) {
+    public function getMyPage(HttpRequest $request) {
 
         $this->metaProps = [
             'meta_property_name_1' => 'meta_property_content_1',
@@ -1012,7 +1012,7 @@ You can bind variables from a controller to a view by assigning new properties t
 
 final class MyController extends Controller {
 
-    public function getMyPage($params = []) {
+    public function getMyPage(HttpRequest $request) {
 
         // Assign the array as an attribute to the controller
         $this->myArray = [ ... ]
@@ -1069,12 +1069,12 @@ use Niuware\WebFramework\Auth;
 
 final class Login extends Controller {
 
-    public function getLogin($params = []) {
+    public function getLogin(HttpRequest $request) {
         
         Auth::grantAuth();
     }
     
-    public function getLogout($params = []) {
+    public function getLogout(HttpRequest $request) {
         
         Auth::revokeAuth();
     }
@@ -1095,7 +1095,7 @@ use Niuware\WebFramework\Auth;
 
 final class MyController extends Controller {
 
-    public function getMyPage($params = []) {
+    public function getMyPage(HttpRequest $request) {
 
         // For main application use:
         Auth::grantAuth();
@@ -1122,7 +1122,7 @@ use Niuware\WebFramework\Auth;
 
 final class MyController extends Controller {
 
-    public function getMyPage($params = []) {
+    public function getMyPage(HttpRequest $request) {
 
         if (!Auth::verifiedAuth()) {
 
@@ -1159,7 +1159,7 @@ use Niuware\WebFramework\Auth;
 
 final class MyController extends Controller {
 
-    public function getMyPage($params = []) {
+    public function getMyPage(HttpRequest $request) {
 
         // Verify if a session variable exists
         if (Auth::has('myVar')) {
@@ -1202,7 +1202,7 @@ use Niuware\WebFramework\Auth;
 
 final class MyController extends Controller {
 
-    public function getMyPage($params = []) {
+    public function getMyPage(HttpRequest $request) {
 
         // Authentication session variables remain active
         Auth::destroy();
@@ -1264,7 +1264,7 @@ use Niuware\WebFramework\Helper;
 
 final class MyController extends Controller {
 
-    public function getMyPage($params = []) {
+    public function getMyPage(HttpRequest $request) {
 
         Helper::myCustomFunc();
 
@@ -1328,7 +1328,7 @@ use Niuware\WebFramework\Helpers;
 
 final class MyController extends Controller {
 
-    public function getMyPage($params = []) {
+    public function getMyPage(HttpRequest $request) {
 
         $myCustom = new Helpers\MyCustomClass();
 
@@ -1383,16 +1383,16 @@ namespace Niuware\WebFramework\Api;
 
 final class Cart {
 
-    public function addProduct($params = []) {
+    public function addProduct(HttpRequest $request) {
 
     }
 
     // The following declarations will work as well
-    // public function addproduct($params = [])
-    // public function AddProduct($params = [])
+    // public function addproduct(HttpRequest $request)
+    // public function AddProduct(HttpRequest $request)
 
     // The following declaration won't be accessed
-    // private function addProduct($params = [])
+    // private function addProduct(HttpRequest $request)
 }
 
 {% endhighlight %}
@@ -1407,7 +1407,7 @@ Same as the `Controller` classes, you can define <a href="#controllers-protocol"
 <a name="api-params"></a>
 ### API Classes: Request Parameters
 
-To recieve parameters from an API call, use the URL query for a GET request, and use the `params` array for a POST request.
+To recieve parameters from an API call, use the URL query for a GET request, and use the `$request` HttpRequest object for a POST request.
 
 GET Request:
 
@@ -1422,10 +1422,10 @@ namespace Niuware\WebFramework\Api;
 
 final class Cart {
 
-    public function getAddProduct($params = []) {
+    public function getAddProduct(HttpRequest $request) {
 
-        $params['id'] = '6';
-        $params['token'] = '7458ABDG83';
+        $request->id = '6';
+        $request->token = '7458ABDG83';
     }
 }
 
@@ -1461,10 +1461,10 @@ namespace Niuware\WebFramework\Api;
 
 final class Cart {
 
-    public function postAddProduct($params = []) {
+    public function postAddProduct(HttpRequest $request) {
 
-        $params['id'] = '6';
-        $params['token'] = '7458ABDG83';
+        $request->id = '6';
+        $request->token = '7458ABDG83';
     }
 }
 
