@@ -72,6 +72,6 @@ Your application has a path, the listener,... what is missing? Yep, the thing to
 <br />
 ## What to do now?
 
-You've just realized how easy is to create and start running your new web application, but the framework is not just this. You need to know the cool stuff like how easy is to accept and restrict HTTP requests from Controllers and API classes, define custom view names, reusing Controllers, add custom classes and functions as well as using Eloquent Model classes.
+You've just realized how easy is to create and start running your new web application, but the framework is not just this. You need to know the cool stuff like how easy is to accept and restrict HTTP requests from Controllers and API classes, define custom view names, reusing Controllers, add custom classes and functions as well as using Eloquent Model classes and use Twig (optionally) as the view template renderer.
 
 → Continue with the [Quick documentation]({%link quick-docs.md %}) 

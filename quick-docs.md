@@ -52,6 +52,19 @@ For using the Niuware WebFramework follow this steps:
 1. Download the repository from [GitHub](https://github.com/niuware/web-framework.git).
 2. Run `composer install` to install the Eloquent ORM (Illuminate/database) component.
 
+If you want to use **Twig** template engine, set the `DEFAULT_RENDERER` value to `'twig'` in the <a href="#install-constant">settings file</a>, and modify your composer.json file as follows:
+
+{% highlight json %}
+
+{
+    "require": {
+        "illuminate/database": "^5.4",
+        "twig/twig" : "^2.3.2"
+    }
+}
+
+{% endhighlight %}
+
 <a name="install-config"></a>
 ### Installation: Configuration File
 
@@ -126,6 +139,20 @@ The following table shows the application constants that you need to configure:
                 Absolute URL for the Web Admin application. <br />
                 For example: <em>http://my_domain/admin/</em> <br/> 
                 <strong>Should include the trailing slash.</strong>
+            </td>
+        </tr>
+        <tr>
+            <td>DEBUG_MODE</td>
+            <td>
+                Sets the debug mode for the application<br />
+                Either <em>true</em> or <em>false</em>
+            </td>
+        </tr>
+        <tr>
+            <td>DEFAULT_RENDERER</td>
+            <td>
+                Sets the default template renderer.<br />
+                Either <em>php</em> or <em>twig</em> <br/> 
             </td>
         </tr>
         <tr>
@@ -639,6 +666,8 @@ final class Cart extends Controller {
 
 If you want to specify the filename of the view to load, simply set the template attribute as <a href="#views-attributes-view">described here</a>.
 
+> If you are using **Twig** as the template renderer change your view template file names from *xyz.view.php* to *xyz.view.twig*. Also be sure to set twig in your composer file and set *'twig'* as the `DEFAULT_RENDERER` value in your application <a href="#install-config">settings file</a>.
+
 <a name="views-special"></a>
 ### Views: Special Views
 
@@ -766,6 +795,10 @@ Output:
 {% highlight html %}
 
 Loaded file: views/view_filename.view.php
+
+or when using Twig:
+
+Loaded file: views/view_filename.view.twig
 
 {% endhighlight %}
 
@@ -1039,6 +1072,23 @@ Then in your view, you just need to use it as you would expect:
     <?php
         }
     ?>
+</ul>
+
+...
+
+{% endhighlight %}
+
+When using twig:
+
+{% highlight twig %}
+[my-controller.view.twig]
+
+...
+
+<ul>
+    { % for data in myArray % }
+        <li>{ { data } }</li>
+    { % endfor % }
 </ul>
 
 ...
