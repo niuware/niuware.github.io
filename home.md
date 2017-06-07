@@ -7,7 +7,7 @@ title:  "Intro"
 
 Niuware WebFramework is a lightweight and ready to use PHP framework for developing full MVC and MVP web applications using synchronous and asynchronous requests.
 
-The latest version integrates the [Eloquent ORM](https://laravel.com/docs/master/eloquent) (well known for its use in Laravel Framework) for implementing automatic models associated with your application database.
+The latest version integrates the [Eloquent ORM](https://laravel.com/docs/master/eloquent) (well known for its use in Laravel Framework) for implementing automatic models associated with your application database and Twig for rendering templates. Now migrations are easy to use through the framework console either in the terminal or web modes.
 
 <br />
 ## One, two, three installation
@@ -63,7 +63,7 @@ class Cart extends Controller {
 Your application has a path, the listener,... what is missing? Yep, the thing to display your stuff. The easiest way is just adding a file with the same name as your path and the framework will do the rest for you. For example:
 
 {% highlight html %}
-[my-cart.view.php]
+[my-cart.view.twig]
 
 <h1>This is my cart</h1>
 
@@ -72,6 +72,6 @@ Your application has a path, the listener,... what is missing? Yep, the thing to
 <br />
 ## What to do now?
 
-You've just realized how easy is to create and start running your new web application, but the framework is not just this. You need to know the cool stuff like how easy is to accept and restrict HTTP requests from Controllers and API classes, define custom view names, reusing Controllers, add custom classes and functions as well as using Eloquent Model classes and use Twig (optionally) as the view template renderer.
+You've just realized how easy is to create and start running your new web application, but the framework is not just this. You need to know the cool stuff like how easy is to accept and restrict HTTP requests from Controllers and API classes, define custom view names, reusing Controllers, add custom classes and functions as well as using Eloquent Model classes and the database migration and seeding feature.
 
 → Continue with the [Quick documentation]({%link quick-docs.md %}) 
