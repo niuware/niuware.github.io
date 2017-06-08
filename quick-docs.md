@@ -1194,12 +1194,12 @@ final class MyController extends Controller {
 <a name="api"></a>
 ## 8. API Classes
 
-The main purpose of the Niuware WebFramework is to be used to create a RESTful API to build asynchronous Web applications and API services.
+Niuware WebFramework can be used to create a RESTful API to build asynchronous Web applications and API services.
 
 <a name="api-define"></a>
 ### API Classes: Definition
 
-API classes should be add in the `app/api` directory with the extension `.api.php`. Also the classes should exist inside the namespace `Niuware\WebFramework\Api`. The filename **should be in lowercase** so your API URL's remain in lowercase. Here is an example of how it should look like:
+API classes should be add in the `app/api` directory with the extension `.api.php`. Also the classes should exist inside the namespace `Niuware\WebFramework\Api` and extend from the core class `Niuware\WebFramework\ApiResponse`. The filename **should be in lowercase** so your API URL's remain in lowercase. Here is an example of how it should look like:
 
 {% highlight php %}
 [app/api/MyApi.api.php]
@@ -1208,7 +1208,9 @@ API classes should be add in the `app/api` directory with the extension `.api.ph
 
 namespace Niuware\WebFramework\Api;
 
-final class MyApi {
+use Niuware\WebFramework\ApiResponse;
+
+final class MyApi extends ApiResponse {
 
     ...
 }
@@ -1233,7 +1235,9 @@ In this case the class can be defined like the following example:
 
 namespace Niuware\WebFramework\Api;
 
-final class Cart {
+use Niuware\WebFramework\ApiResponse;
+
+final class Cart extends ApiResponse {
 
     public function addProduct(HttpRequest $request) {
 
@@ -1272,7 +1276,9 @@ GET Request:
 
 namespace Niuware\WebFramework\Api;
 
-final class Cart {
+use Niuware\WebFramework\ApiResponse;
+
+final class Cart extends ApiResponse {
 
     public function getAddProduct(HttpRequest $request) {
 
@@ -1330,7 +1336,9 @@ Cache-Control: no-cache
 
 namespace Niuware\WebFramework\Api;
 
-final class Cart {
+use Niuware\WebFramework\ApiResponse;
+
+final class Cart extends ApiResponse {
 
     public function postAddProduct(HttpRequest $request) {
 
