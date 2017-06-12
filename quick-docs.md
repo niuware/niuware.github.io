@@ -15,7 +15,7 @@ This is a quick documentation on how to use all of the available features in Niu
   3.2 <a href="#controllers-access">Calls</a>    
   3.3 <a href="#controllers-protocol">Protocol Restriction</a>    
   3.4 <a href="#controllers-protocol-get">GET Protocol Methods</a>  
-  3.5 <a href="#controllers-protocol-post">POST Protocol Methods</a>          
+  3.5 <a href="#controllers-protocol-post">POST Protocol Methods</a>           
   3.6 <a href="#controllers-recycle">Recycling</a>    
 4. <a href="#models">Models</a>  
   4.1 <a href="#models-define">Definition</a>  
@@ -37,18 +37,20 @@ This is a quick documentation on how to use all of the available features in Niu
   8.1 <a href="#api-define">Definition</a>  
   8.1 <a href="#api-syntax">Method Syntax</a>  
   8.2 <a href="#api-protocol">Protocol Restriction</a>  
-  8.3 <a href="#api-params">Request Parameters</a>
+  8.3 <a href="#api-params">Request Parameters</a>  
+  8.4 <a href="#api-response">Response Rendering</a>  
 9. <a href="#security">Security</a>  
   9.1 <a href="#security-pass">Passwords</a>  
   9.2 <a href="#security-token">Tokens</a>  
   9.3 <a href="#security-csrf">CSRF Token Form Validatio</a>  
-10. <a href="#console">Console</a>  
-11. <a href="#migration">Database Migrations</a>  
-  11.1 <a href="#migration-migrate">Migration files</a>  
-  11.2 <a href="#migration-seed">Seeding</a>  
-  11.3 <a href="#migration-rollback">Rollback</a>  
-  11.4 <a href="#migration-status">Status</a>  
-12. <a href="#exception">Exceptions</a>  
+10. <a href="#file">Files</a>  
+11. <a href="#console">Console</a>  
+12. <a href="#migration">Database Migrations</a>  
+  12.1 <a href="#migration-migrate">Migration files</a>  
+  12.2 <a href="#migration-seed">Seeding</a>  
+  12.3 <a href="#migration-rollback">Rollback</a>  
+  12.4 <a href="#migration-status">Status</a>  
+13. <a href="#exception">Exceptions</a>  
 
 <a name="install"></a>
 ## 1. Installation
@@ -1306,7 +1308,7 @@ $.ajax({
     type: "POST",
     url: "http://my_url/api/cart/add_product",
     dataType: 'json',
-    data: { params : requestData },
+    data: requestData,
     ...
 })
 
@@ -1349,13 +1351,58 @@ final class Cart extends ApiResponse {
 
 {% endhighlight %}
 
+<a name="api-response"></a>
+### API Classes: Response Rendering
+
+An API endpoint will render a response in JSON format. For this you only need to set the data you want to render using the `response` attribute and finally call the `render` method as the following example:
+
+{% highlight php %}
+[app/api/Cart.api.php]
+
+<?php 
+
+namespace Niuware\WebFramework\Api;
+
+use Niuware\WebFramework\ApiResponse;
+
+final class Cart extends ApiResponse {
+
+    public function postAddProduct(HttpRequest $request) {
+
+        $request->id = '6';
+        $request->token = '7458ABDG83';
+
+        $this->response->error = false;
+        $this->response->access_token = "7458ABDG83";
+        $this->response->other_var = "other value";
+
+        return $this->render();
+    }
+}
+
+{% endhighlight %}
+
+The output will be something like this:
+
+{% highlight json %}
+
+{
+    "error" : false,
+    "data" : {
+        "access_token" : "7458ABDG83",
+        "other_var" : "other value"
+    }
+}
+
+{% endhighlight %}
+
 <a name="security"></a>
 ## 9. Security
 
 The core includes 3 simple methods to manage string hashing.
 
 <a name="security-pass"></a>
-### Passwords
+### Security: Passwords
 
 Use the methods `hash` and `verifyHash` from the `Security` core class to create and verify password strings.
 
@@ -1386,7 +1433,7 @@ final class MyClass {
 {% endhighlight %}
 
 <a name="security-token"></a>
-### Tokens
+### Security: Tokens
 
 Use the method `generateToken` from the `Security` core class to generate securily cryptographic token strings.
 
@@ -1406,7 +1453,7 @@ final class MyClass {
 {% endhighlight %}
 
 <a name="security-csrf"></a>
-### CSRF Token Form Validation
+### Security: CSRF Token Form Validation
 
 In your form, use the `csrfToken` function to create the hidden field which contains the CSRF token.
 
@@ -1452,8 +1499,56 @@ final class MyController extends Controller {
 
 {% endhighlight %}
 
+<a name="file"></a>
+## 10. Files
+
+It's very easy to get files from a POST request using the `HttpRequest` parameter. To get an uploaded file and move it to a directory use the following example:
+
+{% highlight php %}
+[app/controllers/MyController.controller.php]
+
+<?php 
+
+namespace Niuware\WebFramework\Controllers;
+    
+use Niuware\WebFramework\Controller;
+use Niuware\WebFramework\Security;
+
+final class MyController extends Controller {
+
+    public function getMyPage(HttpRequest $request) {
+
+        if ($request->hasFile('myfile')) {
+
+            $myFile = $request->getFile('myfile');
+
+            // Upload the file with default options
+            $myFile->move();
+
+            // Changing filename only
+            // Notice no extension is needed.
+            $myFile->move('newName');
+
+            // Changing path only
+            $myFile->move('same', 'my/new/path');
+
+            // Changing both filename and path
+            $myFile->move('newName', 'my/new/path');
+        }
+
+        ... 
+
+        return $this->render();
+    }
+
+{% endhighlight %}
+
+In the previous example the name for the file will be the same as the uploaded one (if the file exists, a timestamp will be appended to the original name of the uploaded file). 
+
+The path will be automatically selected checking the MIME type (only image, video, audio; other MIME types will be uploaded to the  'public/assets/other' directory). For example an image file will be uploaded to `public/assets/image` by default. You can change the name and path using the parameters for the `move` method as `move(filename, path)`.
+
 <a name="console"></a>
-## 10. Console
+## 11. Console
 
 You can use the framework console to execute commands such as migratinos. To access it just go to the terminal and type:
 
@@ -1499,12 +1594,12 @@ You have to enable the console in your `settings.php` file [configuration](#inst
 </table>
 
 <a name="migration"></a>
-## 11. Database Migrations
+## 12. Database Migrations
 
 Use the power of database migration definitions to have a robust way to enhance your web application. Migrations are integrated into Niuware WebFramework using [Phinx](https://phinx.org/). Notice not all Phinx functionality is available through the Niuware WebFramework console.
 
 <a name="migration-migrate"></a>
-### Migration definitions
+### Database Migrations: Migration definitions
 
 To create a migration file use the command <strong>create</strong>:
 
@@ -1607,7 +1702,7 @@ For more information on Eloquent syntax for migrations visit the documentation f
 > Notice that the previous documentation has an static access to the Schema class `Schema::method`, whilst in Niuware WebFramework the access is through an instance as `$this->schema->method`.
 
 <a name="migration-rollback"></a>
-### Rollback
+### Database Migrations: Rollback
 
 If you want to rollback use the command <strong>rollback</strong>:
 
@@ -1620,7 +1715,7 @@ Web mode:
 For more information on how to use the rollback -d command visit the Phinx [documentation](http://docs.phinx.org/en/latest/commands.html#the-rollback-command).
 
 <a name="migration-seed"></a>
-### Seeding
+### Database Migrations: Seeding
 
 To create a seeding file use the command <strong>seedcreate</strong>:
 
@@ -1699,7 +1794,7 @@ Web mode:
 Notice that if you do not add the name of the seed class name, all seed files will be run. Be careful as seeds do not look up for repeated data, so if you run all seeds twice, data will be duplicated.
 
 <a name="migration-status"></a>
-### Status
+### Database Migrations: Status
 
 You can check the migrations status using the command <strong>status</strong>
 
@@ -1710,6 +1805,6 @@ Web mode:
 > http//my_url/console:nwf/migrations/status
 
 <a name="exception"></a>
-## 12. Exceptions
+## 13. Exceptions
 
 If there is a problem with the configuration of your Controller classes, view template files or Twig an Exception will be thrown. In general there is no need to visualize the errors in the PHP log file as you can see all details directly in the browser.
