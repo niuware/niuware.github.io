@@ -597,6 +597,27 @@ final class Cart extends Controller {
 
 {% endhighlight %}
 
+If you want to redirect the browser, call the `render` method with the name of the path:
+
+{% highlight php %}
+[app/controllers/Cart.controller.php]
+
+<?php 
+
+namespace Niuware\WebFramework\Controllers;
+    
+use Niuware\WebFramework\Controller;
+
+final class Cart extends Controller {
+
+    public function getMyCart(HttpRequest $request) {
+
+        return $this->render('path');
+    }
+}
+
+{% endhighlight %}
+
 <a name="models"></a>
 ## 4. Models
 
