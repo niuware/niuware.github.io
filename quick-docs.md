@@ -15,8 +15,9 @@ This is a quick documentation on how to use all of the available features in Niu
   3.2 <a href="#controllers-access">Calls</a>    
   3.3 <a href="#controllers-protocol">Protocol Restriction</a>    
   3.4 <a href="#controllers-protocol-get">GET Protocol Methods</a>  
-  3.5 <a href="#controllers-protocol-post">POST Protocol Methods</a>           
-  3.6 <a href="#controllers-recycle">Recycling</a>    
+  3.5 <a href="#controllers-protocol-post">POST Protocol Methods</a>  
+  3.6 <a href="#controllers-request">Request Attributes</a>           
+  3.7 <a href="#controllers-recycle">Recycling</a>    
 4. <a href="#models">Models</a>  
   4.1 <a href="#models-define">Definition</a>  
   4.2 <a href="#models-eloquent">Eloquent</a>  
@@ -44,6 +45,7 @@ This is a quick documentation on how to use all of the available features in Niu
   9.2 <a href="#security-token">Tokens</a>  
   9.3 <a href="#security-csrf">CSRF Token Form Validatio</a>  
 10. <a href="#file">Files</a>  
+  10.1 <a href="#file-attrib">Attributes</a>  
 11. <a href="#console">Console</a>  
 12. <a href="#migration">Database Migrations</a>  
   12.1 <a href="#migration-migrate">Migration files</a>  
@@ -520,6 +522,43 @@ You can also receive POST request parameters as a usual POST request, for exampl
     }
 ...
 {% endhighlight %}
+
+<a name="controllers-request"></a>
+### Controllers: Request Attributes
+
+To verify if the request has attributes you can use the `has` method as follows:
+
+{% highlight php %}
+<?php 
+
+...
+
+    public function postMyCart(HttpRequest $request) {
+
+        // Verify if access_token and option POST parameters exist and have 
+        // a valid value
+        if ($request->has(['access_token', 'option'])) {
+
+            // do something
+        }
+
+        // Verifies if access_token and option POST parameters exist and have
+        // a value including empty string as a valid value
+        if ($request->has(['access_token', 'option'], true)) {
+
+            // do something
+        }
+
+        // You can use the above method with a single parameter as well
+        if ($request->has('access_token')) {
+
+            // do something
+        }
+    }
+
+{% endhighlight %}
+
+For verifying attached files, go to the [Files](#file) section.
 
 <a name="controllers-recycle"></a>
 ### Controllers: Recycling
@@ -1504,6 +1543,59 @@ final class MyController extends Controller {
 
 It's very easy to get files from a POST request using the `HttpRequest` parameter. To get an uploaded file and move it to a directory use the following example:
 
+POST Request:
+
+{% highlight html %}
+
+<!-- Using an HTML From -->
+<form method="post" action="mypage">
+    {% raw %}{{ csrfToken() }}{% endraw %}
+    <input type="file" name="myfile" />
+</form>
+
+{% endhighlight %}
+
+{% highlight javascript %}
+
+// Using jQuery / Ajax
+
+var form = new FormData();
+form.append("myfile", "somefile.ext");
+
+$.ajax({
+    type: "POST",
+    async : true,
+    url: "http://my_url/my-page",
+    mimeType: 'multipart/form-data',
+    contentType : false,
+    processData : false,
+    headers : { "cache-control" : "no-cache" }
+    data: form,
+    ...
+})
+
+{% endhighlight %}
+
+{% highlight http %}
+
+Using HTTP native request
+
+POST /api/media/upload HTTP/1.1
+Host: my_url
+Cache-Control: no-cache
+Content-Type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW
+
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="myfile"; filename=""
+Content-Type: 
+
+
+------WebKitFormBoundary7MA4YWxkTrZu0gW--
+
+{% endhighlight %}
+
+Controller:
+
 {% highlight php %}
 [app/controllers/MyController.controller.php]
 
@@ -1518,22 +1610,71 @@ final class MyController extends Controller {
 
     public function getMyPage(HttpRequest $request) {
 
+        // When verifying a CSRF Token
+        //if (Security::verifyCsrfToken($request->csrf_token)) {
+        //}
+
         if ($request->hasFile('myfile')) {
 
-            $myFile = $request->getFile('myfile');
+            // Upload the file with default options
+            $file = $request->getFile('myfile')->save();
+
+            // Renaming the file
+            // Notice no extension is needed.
+            $request->getFile('myfile')->save('newName');
+
+            // Renaming the file to a unique random 32 lenght filename
+            $request->getFile('myfile')->save('unique');
+
+            // Changing the save path
+            $request->getFile('myfile')->save('', 'my/new/path');
+
+            // Renaming the file and changing the save path
+            $request->getFile('myfile')->save('newName', 'my/new/path');
+
+        }
+
+        ... 
+
+        return $this->render();
+    }
+
+{% endhighlight %}
+
+<a name="file-attrib"></a>
+### Files: Attributes
+
+The return value for the `save` method is an `Niuware\WebFramework\File` object, or `null` if there was an error uploading the file. You can retrieve the following attributes:
+
+{% highlight php %}
+[app/controllers/MyController.controller.php]
+
+<?php 
+
+namespace Niuware\WebFramework\Controllers;
+    
+use Niuware\WebFramework\Controller;
+
+final class MyController extends Controller {
+
+    public function getMyPage(HttpRequest $request) {
+
+        if ($request->hasFile('myfile')) {
 
             // Upload the file with default options
-            $myFile->move();
+            $file = $request->getFile('myfile')->save();
 
-            // Changing filename only
-            // Notice no extension is needed.
-            $myFile->move('newName');
+            $fileName = $file->filename;
+            $fileType = $file->filetype;
+            $filePath = $file->filepath;
+            $fileNameAndPath = $file->filenameAndPath;
 
-            // Changing path only
-            $myFile->move('same', 'my/new/path');
+            // Or you can have the following case as well
 
-            // Changing both filename and path
-            $myFile->move('newName', 'my/new/path');
+            if (($fileName = $request->getFile('myfile')->save('', 'public/assets/other/')->filename) !== null) {
+
+                // save the $filename string somewhere
+            }
         }
 
         ... 
@@ -1554,7 +1695,11 @@ You can use the framework console to execute commands such as migratinos. To acc
 
 > ~$ php core/nwf {command} [command_args]
 
-You have to enable the console in your `settings.php` file [configuration](#install-constant).
+or if you enabled the web mode, go to your browser and type:
+
+> http://my_url/console:nwf/{command}/{command_args}
+
+You have to enable the console in your `settings.php` file [configuration](#install-constant). The following are the valid values for the console configuration:
 
 <table class="reduced">
     <thead>
@@ -1568,14 +1713,14 @@ You have to enable the console in your `settings.php` file [configuration](#inst
             <td>terminal</td>
             <td>
                 Enables the use of the console using the terminal command <em>nwf</em>. <br />
-                For example: ~$ php core/nwf command command_args
+                For example: ~$ php core/nwf migrations rollback -d XXXXXXXX
             </td>
         </tr>
         <tr>
             <td>web</td>
             <td>
                 Enables the use of the console using a web browser through the <em>console:nwf</em> path. <br />
-                For example: http://my_url/console:nwf/command/command_arg_0/command_arg_1 ...
+                For example: http://my_url/console:nwf/migrations/rollback/-d/XXXXXXXX
             </td>
         </tr>
         <tr>
@@ -1689,7 +1834,7 @@ Terminal mode:
 > $ php core/nwf migrations migrate -t [MigrationVersion]
 
 Web mode:
-> http//my_url/console:nwf/migrations/migrate/MigrationVersion
+> http//my_url/console:nwf/migrations/migrate/-t/MigrationVersion
 
 Notice that if you do not add the target for the migration (Migration class name), all migrations that haven't been run will be executed.
 
@@ -1710,7 +1855,7 @@ Terminal mode:
 > $ php core/nwf migrations rollback [-t MigrationVersion]
 
 Web mode:
-> http//my_url/console:nwf/migrations/rollback/MigrationVersion
+> http//my_url/console:nwf/migrations/rollback/-t/MigrationVersion
 
 For more information on how to use the rollback -d command visit the Phinx [documentation](http://docs.phinx.org/en/latest/commands.html#the-rollback-command).
 
@@ -1719,7 +1864,11 @@ For more information on how to use the rollback -d command visit the Phinx [docu
 
 To create a seeding file use the command <strong>seedcreate</strong>:
 
+Terminal mode:
 > $ php core/nwf migrations seedcreate [NameOfSeedClass]
+
+Web mode:
+> http//my_url/console:nwf/migrations/seedcreate/NameOfSeedClass
 
 This will create a new seeding class in the `app/migrations/seeds` folder. For example:
 
@@ -1789,14 +1938,14 @@ Terminal mode:
 > $ php core/nwf migrations seedrun -s [NameOfSeedClass]
 
 Web mode:
-> http//my_url/console:nwf/migrations/seedrun/NameOfSeedClass
+> http//my_url/console:nwf/migrations/seedrun/-s/NameOfSeedClass
 
 Notice that if you do not add the name of the seed class name, all seed files will be run. Be careful as seeds do not look up for repeated data, so if you run all seeds twice, data will be duplicated.
 
 <a name="migration-status"></a>
 ### Database Migrations: Status
 
-You can check the migrations status using the command <strong>status</strong>
+You can output the migrations status using the command <strong>status</strong>
 
 Terminal mode:
 > $ php core/nwf migrations status
@@ -1807,4 +1956,30 @@ Web mode:
 <a name="exception"></a>
 ## 13. Exceptions
 
-If there is a problem with the configuration of your Controller classes, view template files or Twig an Exception will be thrown. In general there is no need to visualize the errors in the PHP log file as you can see all details directly in the browser.
+If there is a problem with the configuration of your Controller classes, view template files or other exceptions, the FrameworkException will be thrown and you will see the complete list of all thrown exceptions and errors on the screen. In general it is not needed to throw exceptions but you can throw a FrameworkException in your Controller class as follows:
+
+{% highlight php %}
+[app/controllers/MyController.controller.php]
+
+<?php 
+
+namespace Niuware\WebFramework\Controllers;
+    
+use Niuware\WebFramework\Controller;
+use Niuware\WebFramework\FrameworkException;
+
+final class MyController extends Controller {
+
+    public function getMyPage(HttpRequest $request) {
+
+        if ($somethingIsWrong) {
+
+            throw new FrameworkException($message, $error_code);
+        }
+
+        return $this->render();
+    }
+
+{% endhighlight %}
+
+In the case of the API classes, you will see only the last error/exception directly in the JSON rendered response.

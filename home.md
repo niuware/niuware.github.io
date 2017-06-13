@@ -7,7 +7,7 @@ title:  "Intro"
 
 Niuware WebFramework is a lightweight and ready to use PHP framework for developing full MVC and MVP web applications using synchronous and asynchronous requests.
 
-The latest version integrates the [Eloquent ORM](https://laravel.com/docs/master/eloquent) (well known for its use in Laravel Framework) for implementing automatic models associated with your application database and Twig for rendering templates. Now migrations are easy to use through the framework console either in the terminal or web modes.
+The latest version integrates the [Eloquent ORM](https://laravel.com/docs/master/eloquent) (well known for its use in Laravel Framework) for implementing automatic models associated with your application database and [Twig](https://twig.sensiolabs.org) for rendering templates. Now database migrations and seeding, integrated with [Phinx](https://phinx.org), are easy to execute through the framework console either in the terminal or browser mode.
 
 <br />
 ## One, two, three installation
@@ -49,9 +49,13 @@ You have defined the path, now is time to define who will listen to it. For this
 
 <?php
 
-class Cart extends Controller {
+...
+
+final class Cart extends Controller {
 
     public function myCart(HttpRequest $request) {
+
+        $this->greetings = "Hello!";
 
         return $this->render();
     }
@@ -62,10 +66,10 @@ class Cart extends Controller {
 
 Your application has a path, the listener,... what is missing? Yep, the thing to display your stuff. The easiest way is just adding a file with the same name as your path and the framework will do the rest for you. For example:
 
-{% highlight html %}
+{% highlight twig %}
 [public/views/my-cart.view.twig]
 
-<h1>This is my cart</h1>
+<h1>{% raw %}{{ greetings }}{% endraw %}, this is my cart</h1>
 
 ...
 
@@ -74,6 +78,6 @@ Your application has a path, the listener,... what is missing? Yep, the thing to
 <br />
 ## What to do now?
 
-You've just realized how easy is to create and start running your new web application, but the framework is not just this. You need to know the cool stuff like how easy is to restrict HTTP requests from Controllers and API classes, define custom view names, recycling Controllers, add custom classes and functions as well as using Eloquent Model classes and database migration features.
+You've just realized how easy is to create and start running your new web application, but the framework is not just this. You need to know the cool stuff like how easy is to restrict HTTP requests from Controllers and API classes, define custom view names, recycling Controllers, add custom classes and global helper functions, using Eloquent Model classes, database migration features and more.
 
 → Continue with the [Quick documentation]({%link quick-docs.md %}) 
