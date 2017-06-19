@@ -1436,6 +1436,14 @@ final class Cart extends ApiResponse {
         $this->response->access_token = "7458ABDG83";
         $this->response->other_var = "other value";
 
+        // Or bulk add.
+        // If the second parameter is true, clears all previous
+        // set attributes (the attribute 'error' remains unaffected)
+        $this->response->add([
+            'access_token' => "7458ABDG83",
+            'other_var' => "other value"
+        ], true);
+
         return $this->render();
     }
 }
@@ -1689,6 +1697,7 @@ final class MyController extends Controller {
             $fileType = $file->filetype;
             $filePath = $file->filepath;
             $fileNameAndPath = $file->filenameAndPath;
+            $fileUrl = $file->public_url; // may be empty if the path is not public
 
             // Or you can have the following case as well
 
