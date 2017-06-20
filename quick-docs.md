@@ -1661,6 +1661,11 @@ final class MyController extends Controller {
             // Renaming the file and changing the save path
             $request->getFile('myfile')->save('newName', 'my/new/path');
 
+            // By default a MIME type directory will be appended to the path
+            // If the file is an image then the file path will be:
+            // my/new/path/image
+            // You can remove this setting the third argument as false
+            $request->getFile('myfile')->save('newName', 'my/new/path', false);
         }
 
         ... 
