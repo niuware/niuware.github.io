@@ -417,6 +417,8 @@ final class Cart extends Controller {
 
 Notice that if you **cannot** use an any-protocol method combined with a GET/POST protocol method at the same time as the latter ones have execution priority.
 
+Requests other than GET, POST and DELETE will render an `HTTP 405 Method Not Allowed` error.
+
 <a name="controllers-protocol-get"></a>
 ### Controllers: GET Protocol Methods
 
@@ -509,6 +511,14 @@ The POST protocol method will recieve the values in an `HttpRequest` object `$re
 
 You can also receive POST request parameters as a usual POST request, for example data in an HTML form. The POST protocol will receive the parameters as an `HttpRequest` object:
 
+{% highlight html %}
+<form method="POST" action="http://my_url/my-cart/">
+    <input type="text" name="form_elem_name_0" value="value0" />
+    <input type="text" name="form_elem_name_2" value="value1" />
+</form>
+
+{% endhighlight %}
+
 {% highlight php %}
 <?php 
 
@@ -522,6 +532,8 @@ You can also receive POST request parameters as a usual POST request, for exampl
     }
 ...
 {% endhighlight %}
+
+> Although DELETE requests are accepted it is reserved for using in API classes. By default, a DELETE request method will only process request parameters in JSON format. If you want to use a DELETE request method, remember to send your data as a JSON.
 
 <a name="controllers-request"></a>
 ### Controllers: Request Attributes
@@ -1320,16 +1332,16 @@ Notice that only `public` methods are accessible to an API call, so you define `
 <a name="api-protocol"></a>
 ### API Classes: Protocol Restriction
 
-Same as the `Controller` classes, you can define <a href="#controllers-protocol">protocol restriction</a> using the prefix <em>get</em> or <em>post</em> for your method. If you omit this prefix, the method will accept API calls via GET and POST.
+Same as the `Controller` classes, you can define <a href="#controllers-protocol">protocol restriction</a> using the prefix <em>get</em>, <em>post</em> or <em>delete</em> with your method. If you omit this prefix, the request will accept API calls via GET, POST and DELETE request methods. All other request methods will render an `HTTP 405 Method Not Allowed` error.
 
 <a name="api-params"></a>
 ### API Classes: Request Parameters
 
-To recieve parameters from an API call, use the URL query for a GET request, and use the `$request` HttpRequest object for a POST request.
+To recieve parameters from an API call use the `HttpRequest $request` object for a GET, POST or DELETE request.
 
 GET Request:
 
-> http://my_url/api/cart/add_product/?**id=6**&**token=7458ABDG83**
+> http://my_url/api/cart/product/?**id=6**&**token=7458ABDG83**
 
 {% highlight php %}
 [app/api/Cart.api.php]
@@ -1342,10 +1354,12 @@ use Niuware\WebFramework\ApiResponse;
 
 final class Cart extends ApiResponse {
 
-    public function getAddProduct(HttpRequest $request) {
+    public function getProduct(HttpRequest $request) {
 
         $request->id = '6';
         $request->token = '7458ABDG83';
+
+        // Get the product details
     }
 }
 
@@ -1366,7 +1380,7 @@ var requestData = {
 
 $.ajax({
     type: "POST",
-    url: "http://my_url/api/cart/add_product",
+    url: "http://my_url/api/cart/product",
     dataType: 'json',
     data: requestData,
     ...
@@ -1402,14 +1416,80 @@ use Niuware\WebFramework\ApiResponse;
 
 final class Cart extends ApiResponse {
 
-    public function postAddProduct(HttpRequest $request) {
+    public function postProduct(HttpRequest $request) {
 
         $request->id = '6';
         $request->token = '7458ABDG83';
+
+        // Create or edit product
     }
 }
 
 {% endhighlight %}
+
+DELETE Request:
+
+{% highlight js %}
+
+// Using jQuery / Ajax
+
+var requestData = {
+    id : 6,
+    token : '7458ABDG83'
+};
+
+...
+
+$.ajax({
+    type: "DELETE",
+    url: "http://my_url/api/cart/product",
+    dataType: 'json',
+    data: requestData,
+    ...
+})
+
+{% endhighlight %}
+
+{% highlight http %}
+
+Using HTTP native request
+
+DELETE /api/cart/add_product HTTP/1.1
+Host: my_url
+Content-Type: application/json
+Cache-Control: no-cache
+
+{
+	"id": 6, 
+	"token": "7458ABDG83"
+}
+
+
+{% endhighlight %}
+
+{% highlight php %}
+[app/api/Cart.api.php]
+
+<?php 
+
+namespace Niuware\WebFramework\Api;
+
+use Niuware\WebFramework\ApiResponse;
+
+final class Cart extends ApiResponse {
+
+    public function deleteProduct(HttpRequest $request) {
+
+        $request->id = '6';
+        $request->token = '7458ABDG83';
+
+        // Delete the product
+    }
+}
+
+{% endhighlight %}
+
+> A DELETE request will only accept request parameters in JSON format, in other words, it will only process parameters from an 'application/json' CONTENT-TYPE method request. If you are using an HTML form, remember to send a JSON to your DELETE endpoint or use a POST request instead.
 
 <a name="api-response"></a>
 ### API Classes: Response Rendering
@@ -2016,5 +2096,7 @@ final class MyController extends Controller {
     }
 
 {% endhighlight %}
+
+> When debug mode is enabled, the trace of the Exception will not be displayed.
 
 In the case of the API classes, you will see only the last error/exception directly in the JSON rendered response.
