@@ -3,7 +3,7 @@ layout: partial
 title:  "Intro"
 ---
 
-# Introducing Niuware WebFramework
+<h1 class="page-title">Introducing Niuware WebFramework</h1>
 
 Niuware WebFramework is a lightweight and ready to use PHP framework for developing full MVC and MVP web applications using synchronous and asynchronous requests.
 

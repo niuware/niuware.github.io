@@ -43,7 +43,7 @@ This is a quick documentation on how to use all of the available features in Niu
 9. <a href="#security">Security</a>  
   9.1 <a href="#security-pass">Passwords</a>  
   9.2 <a href="#security-token">Tokens</a>  
-  9.3 <a href="#security-csrf">CSRF Token Form Validatio</a>  
+  9.3 <a href="#security-csrf">CSRF Token Form Validation</a>  
 10. <a href="#file">Files</a>  
   10.1 <a href="#file-attrib">Attributes</a>  
 11. <a href="#console">Console</a>  
