@@ -27,6 +27,7 @@ This is a quick documentation on how to use all of the available features in Niu
   5.3 <a href="#views-main">Main Views</a>  
   5.4 <a href="#views-attributes">Template Attributes</a>  
   5.5 <a href="#views-binding">View/Controller Binding</a>  
+  5.6 <a href="#views-functions">Functions and Filters</a>  
 6. <a href="#sessions">Sessions</a>  
   6.1 <a href="#sessions-auth">Authentication</a>  
   6.2 <a href="#sessions-custom">Custom Values</a>  
@@ -946,6 +947,94 @@ When using PHP:
 
 {% endhighlight %}
 
+<a name="views-functions"></a>
+### Views: Functions and Filters
+
+You can use the `TwigFilters.helper.php` and `TwigFunctions.helper.php` classes to define custom functions and filters. For example:
+
+{% highlight php %}
+
+<?php
+[app/helpers/TwigFunctions.helper.php]
+
+namespace Niuware\WebFramework\Helpers;
+
+use Niuware\WebFramework\Helper;
+
+class TwigFunctions {
+    
+    public function myCustomFunc($params) {
+        
+        return Helper::myCustomFunc($params);
+    }
+}
+
+
+{% endhighlight %}
+
+And use it in the view as:
+
+{% highlight twig %}
+[public/views/my-controller.view.twig]
+
+...
+<div>
+    {% raw %}
+    {{ myCustomFunc('something') }}
+    {% endraw %}
+</div>
+
+{% endhighlight %}
+
+The following is a list of defined functions that are ready to use within your views in the framework:
+
+<table class="variant">
+    <tbody>
+        <tr>
+            <td><strong>url</strong></td>
+            <td>url('path', [mode])</td>
+            <td>
+                Returns a valid route string <br />
+                The second optional parameter can be either 'main' or 'admin' which correspond to the Routes file.<br />
+                By default the path will be searched in the 'main' array
+            </td>
+        </tr>
+        <tr>
+            <td><strong>csrfToken</strong></td>
+            <td>csrfToken()</td>
+            <td>
+                Returns an input hidden field with the CSRF token <br />
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+You can use these functions as the following example:
+
+{% highlight twig %}
+[public/views/my-controller.view.twig]
+
+...
+<form>
+    {% raw %}
+    {{ csrfToken() }}
+    {% endraw %}
+    <a href="{% raw %}{{ url('create') }}{% endraw %}">Create user</a>
+</form>
+
+{% endhighlight %}
+
+The output will be something like:
+
+{% highlight html %}
+
+<form>
+    <input type="hidden" name="csrf_token" value="73aef6s76d7s6bd6ad7" />
+    <a href="http://my_url/create">Create user</a>
+</form>
+
+{% endhighlight %}
+
 <a name="sessions"></a>
 ## 6. Sessions
 
@@ -1174,42 +1263,6 @@ final class MyController extends Controller {
 
         ...
     }
-
-{% endhighlight %}
-
-For the views, you can use the `TwigFilters.helper.php` and `TwigFunctions.helper.php` classes to define custom functions and filters. For example:
-
-{% highlight php %}
-
-<?php
-[app/helpers/TwigFunctions.helper.php]
-
-namespace Niuware\WebFramework\Helpers;
-
-use Niuware\WebFramework\Helper;
-
-class TwigFunctions {
-    
-    public function myCustomFunc($params) {
-        
-        return Helper::myCustomFunc($params);
-    }
-}
-
-
-{% endhighlight %}
-
-And use it in the view as:
-
-{% highlight twig %}
-[public/views/my-controller.view.twig]
-
-...
-<div>
-    {% raw %}
-    {{ myCustomFunc('something') }}
-    {% endraw %}
-</div>
 
 {% endhighlight %}
 
