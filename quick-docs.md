@@ -8,8 +8,9 @@ This is a quick documentation on how to use all of the available features in Niu
 1. <a href="#install">Installation</a>  
   1.1 <a href="#install-config">Configuration File</a>  
 2. <a href="#routing">Routing</a>    
-  2.1 <a href="#routing-main">Main application</a>    
-  2.2 <a href="#routing-admin">Admin application</a>  
+  2.1 <a href="#routing-main">Main Application</a>    
+  2.2 <a href="#routing-admin">Admin Application</a>  
+  2.3 <a href="#routing-api">API-Only Mode</a>  
 3. <a href="#controllers">Controllers</a>    
   3.1 <a href="#controllers-define">Definition</a>    
   3.2 <a href="#controllers-access">Calls</a>    
@@ -211,10 +212,8 @@ Defining easy to access routes for your application is one important task for yo
 
 Web applications created with Niuware WebFramework have two sides: the *main application* or User frontend side and the *admin application* or User admin side. For example suppose you create an online shop; you'll need the frontend side where all the products will be browsable by your customers, and an admin panel side where your staff will be able to add or edit products for the shop.
 
-You can also leave the routes empty and the framework will return an `HTTP 403 response`. This is useful when you want to use the framework as **API mode-only**.
-
 <a name="routing-main"></a>
-### Routing: Main application
+### Routing: Main Application
 
 The main application path views can be public (by default) or require a user login. For adding routes for the main application side you only need to edit the `app/config/routes.php` file.
 
@@ -254,7 +253,7 @@ final class Routes {
 In the previous example you can notice each path has an array value as well. This array has two values: the Controller class which will listen to the path and a boolean value which tells the framework if the path requires a login or not. This value is set to false by default so it can be omitted. The usage of Controllers is detailed in the Controllers section of this page.
 
 <a name="routing-admin"></a>
-### Routing: Admin application
+### Routing: Admin Application
 
 All the admin application path views require a user login by default. The framework will add the prefix `admin/` to all routes set for the Admin application. As with the previous Main application routing section, you only need to edit the `app/config/routes.php` file.
 
@@ -292,6 +291,28 @@ final class Routes {
 {% endhighlight %}
 
 As mentioned before, all paths for the admin side require a user login so the value for each path is just a one element array which contains the Controller class which will listen to the path.
+
+<a name="routing-api"></a>
+### Routing: API-Only Mode
+
+You can also leave the routes empty to get an `HTTP 403 response`. This is useful when you want to use the framework only as an API, without any public web access:
+
+{% highlight php %}
+[app/config/routes.php]
+
+<?php 
+
+namespace Niuware\WebFramework;
+
+final class Routes {
+    
+    public static $views = [
+        'main' => [],
+        'admin' => []
+    ];
+}
+
+{% endhighlight %}
 
 <a name="controllers"></a>
 ## 3. Controllers
