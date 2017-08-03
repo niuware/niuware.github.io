@@ -340,6 +340,24 @@ final class MyController extends Controller {
 
 {% endhighlight %}
 
+For the Admin application the controller class files should be in the `controllers/admin` subdirectory and use the `Niuware\WebFramework\Controllers\Admin` namespace:
+
+{% highlight php %}
+[app/controllers/admin/MyAdminController.controller.php]
+
+<?php 
+
+namespace Niuware\WebFramework\Controllers\Admin;
+    
+use Niuware\WebFramework\Controller;
+
+final class MyAdminController extends Controller {
+
+    ...
+}
+
+{% endhighlight %}
+
 <a name="controllers-access"></a>
 ### Controllers: Calls
 
@@ -690,7 +708,7 @@ The view holds the template where all the controller data will be displayed.
 <a name="views-define"></a>
 ### Views: Definition
 
-All views must be placed in the `public/views` directory and their file must be defined with the extension `.view.twig`. For the case of admin side views, the files should have the ending `-admin`. The content of the views use Twig syntax, for more information visit the [Twig documentation](https://twig.sensiolabs.org/doc/2.x/).
+All views must be placed in the `public/views` directory and their file must be defined with the extension `.view.twig`. For the case of 'admin application side' views, the files should be inside the `views/admin` subdirectory. The content of the views use Twig syntax, for more information visit the [Twig documentation](https://twig.sensiolabs.org/doc/2.x/).
 
 By default, the framework will load a view filename that matches the current loaded path. For example for the next URL:
 
@@ -702,7 +720,9 @@ the framework will try to load the following view file:
 
 You can change the name of the view filename to load by setting the attribute `view` as shown in section Views: <a href="#views-attributes">Template Attributes</a>.
 
-For the Admin application, all views filenames should end with `-admin.view.twig`.
+For the Admin application, all views filenames should be in the `views/admin` subdirectory.
+
+`public/views/admin/my-account.view.twig`
 
 <a name="views-render"></a>
 ### Views: Rendering
@@ -1064,7 +1084,7 @@ Sessions are very useful for saving data for active users while they use your We
 <a name="sessions-auth"></a>
 ### Sessions: Authentication
 
-The `Auth` class can help you verify if a user has successfully logged in to either the Main or Admin application. For this you can use the `grantAuth` or `revokeAuth` methods. Usually this methods will be called in the `Login.controller.php` or `Login.admin.controller.php`.
+The `Auth` class can help you verify if a user has successfully logged in to either the Main or Admin application. For this you can use the `grantAuth` or `revokeAuth` methods. Usually this methods will be called in the `Login.controller.php`.
 
 The Niuware WebFramework comes with a default configuration for auto logging a user who navigates to login-protected views as you can see in the following `Login` controller:
 
