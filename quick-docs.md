@@ -19,6 +19,7 @@ This is a quick documentation on how to use all of the available features in Niu
   3.5 <a href="#controllers-protocol-post">POST Protocol Methods</a>  
   3.6 <a href="#controllers-request">Request Attributes</a>           
   3.7 <a href="#controllers-recycle">Recycling</a>    
+  3.8 <a href="#controllers-json">With JSON Response</a> 
 4. <a href="#models">Models</a>  
   4.1 <a href="#models-define">Definition</a>  
   4.2 <a href="#models-eloquent">Eloquent</a>  
@@ -665,6 +666,37 @@ final class Cart extends Controller {
     public function getMyCart(HttpRequest $request) {
 
         return $this->render('path');
+    }
+}
+
+{% endhighlight %}
+
+<a name="controllers-json"></a>
+### Controllers: With JSON Response
+
+A Controller can also render a JSON response (like an API class) instead of a view. For this, just use the core `Response` class as the following example:
+
+{% highlight php %}
+[app/controllers/Cart.controller.php]
+
+<?php 
+
+namespace Niuware\WebFramework\Controllers;
+    
+use Niuware\WebFramework\Controller;
+use Niuware\WebFramework\Response;
+
+final class Cart extends Controller {
+
+    public function getMyCart(HttpRequest $request) {
+
+        $response = new Response();
+
+        $response->something = "value";
+
+        $response->render();
+
+        return null;
     }
 }
 
