@@ -749,6 +749,14 @@ final class Cart extends Controller {
         // By default it will render the public/views/my-cart.view.twig file
         return $this->render();
     }
+
+    public function getMyOtherCart(HttpRequest $request) {
+
+        // You can also redirect to another controller adding a valid path 
+        // set on the application routes.php file
+        // For more details see the Controllers: Recycling section
+        return $this->render('some-other-path');
+    }
 }
 
 {% endhighlight %}
@@ -1061,6 +1069,7 @@ You can use these functions as the following example:
     {{ csrfToken() }}
     {% endraw %}
     <a href="{% raw %}{{ url('create') }}{% endraw %}">Create user</a>
+    <a href="{% raw %}{{ url('edit/id') }}{% endraw %}">Edit user</a>
 </form>
 
 {% endhighlight %}
