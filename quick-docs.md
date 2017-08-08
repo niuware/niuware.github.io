@@ -694,9 +694,20 @@ final class Cart extends Controller {
 
         $response->something = "value";
 
-        $response->render();
+        return $response;
+    }
+}
 
-        return null;
+{% endhighlight %}
+
+The response will be something like this:
+
+{% highlight json %}
+
+{
+    "error" : false,
+    "data" : {
+        "something" : "value"
     }
 }
 
@@ -2234,4 +2245,4 @@ final class MyController extends Controller {
 
 > When debug mode is enabled, the trace of the Exception will not be displayed.
 
-In the case of the API classes, you will see only the last error/exception directly in the JSON rendered response.
+In the case of the API classes, you will see only the last error/exception directly in the JSON rendered response. 
