@@ -1871,22 +1871,30 @@ final class MyController extends Controller {
 
         if ($request->hasFile('myfile')) {
 
+            // Use one of the following options to save a file
+
+            // Option 1
             // Upload the file with default options
             $file = $request->getFile('myfile')->save();
 
+            // Option 2
             // Renaming the file
-            // Notice no extension is needed.
+            // Notice no extension is needed
             $request->getFile('myfile')->save('newName');
 
+            // Option 3
             // Renaming the file to a unique random 32 lenght filename
             $request->getFile('myfile')->save('unique');
 
+            // Option 4
             // Changing the save path
             $request->getFile('myfile')->save('', 'my/new/path');
 
+            // Option 5
             // Renaming the file and changing the save path
             $request->getFile('myfile')->save('newName', 'my/new/path');
 
+            // Option 6
             // By default a MIME type directory will be appended to the path
             // If the file is an image then the file path will be:
             // my/new/path/image
