@@ -1057,8 +1057,12 @@ use Niuware\WebFramework\Helper;
 class TwigFunctions {
     
     public function myCustomFunc($params) {
+
+        // Notice that $params is an array 
+        // $params[0] = 'something'
+        // $params[1] = 'other thing'
         
-        return Helper::myCustomFunc($params);
+        return Helper::myHelperFunc($params);
     }
 }
 
@@ -1073,7 +1077,7 @@ And use it in the view as:
 ...
 <div>
     {% raw %}
-    {{ myCustomFunc('something') }}
+    {{ myCustomFunc('something', 'other thing') }}
     {% endraw %}
 </div>
 
