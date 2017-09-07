@@ -55,7 +55,8 @@ This is a quick documentation on how to use all of the available features in Niu
   12.2 <a href="#migration-seed">Seeding</a>  
   12.3 <a href="#migration-rollback">Rollback</a>  
   12.4 <a href="#migration-status">Status</a>  
-13. <a href="#exception">Exceptions</a>  
+13. <a href="#pagination">Pagination</a>  
+14. <a href="#exception">Exceptions</a>  
 
 <a name="install"></a>
 ## 1. Installation
@@ -2222,8 +2223,104 @@ Terminal mode:
 Web mode:
 > http//my_url/console:nwf/migrations/status
 
+<a name="pagination"></a>
+## 13. Pagination
+
+When querying data from your database it is easy to paginate results using the `Paginate` core class. Here is a basic example of how to use this feature:
+
+First, set the data in your controller class: 
+
+{% highlight php %}
+[app/controllers/MyController.controller.php]
+
+<?php 
+
+namespace Niuware\WebFramework\Controllers;
+    
+use Niuware\WebFramework\Controller;
+use Niuware\WebFramework\HttpRequest;
+use Niuware\WebFramework\Paginate;
+
+use Niuware\WebFramework\Models\Item;
+
+final class MyController extends Controller {
+
+    public function getMyPage(HttpRequest $request) {
+
+        // Let's suppose you have an 'Item' model
+        $items = Item::orderBy('name', 'asc')->get();
+
+        $this->paginate = new Paginate();
+
+        // You can optionally customize the number of items per page
+        // $this->paginate->itemsPerPage = 15
+
+        $this->paginate->paginate($items, $request);
+
+        return $this->render();
+    }
+
+{% endhighlight %}
+
+In the view, use the method `data` in the paginate object to display the items por the current page.
+
+{% highlight twig %}
+[public/views/my-page.view.twig]
+
+...
+
+<ul>
+    {% raw %}
+    {% for item in paginate.data %}
+        <li>{{ item.name }}</li>
+        ...
+    {% endfor %}
+    {% endraw %}
+</ul>
+
+{% endhighlight %}
+
+For displaying the menu to navigate through pages, use the method `render` in the paginate object. This method receives 5 optional string parameters which define in order: the *Previous* button link label, the *Next* button link label, the class for the *&lt;li&gt;* tag, the class for the *&lt;a&gt;* tag and finally the class for the current page (active) *&lt;li&gt;* tag. The default values are: *'&lt;'*, *'&gt;'*, *'page-item'*, *'page-link'* and *'active'*.
+
+{% highlight twig %}
+[public/views/my-page.view.twig]
+
+...
+
+{% raw %}
+{% if paginate is defined and paginate.shouldRender %}
+<nav>
+    <ul>
+        {{ paginate.render('Prev', 'Next') }}
+    </ul>
+</nav>
+{% endraw %}
+...
+
+{% endhighlight %}
+
+For the previous example the HTML output will be something like this:
+
+{% highlight html %}
+
+...
+
+<nav>
+    <ul>
+        <li class="page-item"><a class="page-link" href="myurl/?p=1">Prev</a></li>
+        <li class="page-item active"><a class="page-link" href="myurl/?p=1">1</a></li>
+        <li class="page-item"><a class="page-link" href="myurl/?p=2">2</a></li>
+        ...
+        <li class="page-item"><a class="page-link" href="myurl/?p=2">Next</a></li>
+    </ul>
+</nav>
+
+{% endhighlight %}
+
+> Note that if your current URL has query parameters, they will be included safely into the pagination result links.
+
 <a name="exception"></a>
-## 13. Exceptions
+## 14. Exceptions
 
 If there is a problem with the configuration of your Controller classes, view template files or other exceptions, the FrameworkException will be thrown and you will see the complete list of all thrown exceptions and errors on the screen. In general it is not needed to throw exceptions but you can throw a FrameworkException in your Controller class as follows:
 
@@ -2235,6 +2332,7 @@ If there is a problem with the configuration of your Controller classes, view te
 namespace Niuware\WebFramework\Controllers;
     
 use Niuware\WebFramework\Controller;
+use Niuware\WebFramework\HttpRequest;
 use Niuware\WebFramework\FrameworkException;
 
 final class MyController extends Controller {
