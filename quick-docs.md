@@ -1938,6 +1938,8 @@ final class MyController extends Controller {
             $file = $request->getFile('myfile')->save();
 
             $fileName = $file->filename;
+            $fileExtension = $file->extension;
+            $fileSize = $file->size;
             $fileType = $file->filetype;
             $filePath = $file->filepath;
             $fileNameAndPath = $file->filenameAndPath;
