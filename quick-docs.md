@@ -2259,7 +2259,7 @@ final class MyController extends Controller {
         $this->paginate = new Paginate();
 
         // You can optionally customize the number of items per page
-        // $this->paginate->itemsPerPage = 15
+        $this->paginate->itemsPerPage = 15
 
         $this->paginate->paginate($items, $request);
 
