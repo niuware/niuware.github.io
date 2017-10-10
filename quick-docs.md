@@ -56,7 +56,8 @@ This is a quick documentation on how to use all of the available features in Niu
   12.3 <a href="#migration-rollback">Rollback</a>  
   12.4 <a href="#migration-status">Status</a>  
 13. <a href="#pagination">Pagination</a>  
-14. <a href="#exception">Exceptions</a>  
+14. <a href="#exception">Exceptions</a>
+15. <a href="#compatibility">PHP < 7.0 compatibility</a>  
 
 <a name="install"></a>
 ## 1. Installation
@@ -2358,3 +2359,18 @@ final class MyController extends Controller {
 > When debug mode is enabled, the trace of the Exception will not be displayed.
 
 In the case of the API classes, you will see only the last error/exception directly in the JSON rendered response. 
+
+<a name="compatibility"></a>
+## 15. PHP < 7.0 compatibility
+
+The core of Niuware WebFramework is compatible with PHP 5.6+. In the other hand, the default versions for the dependencies Eloquent and Twig are set to use a minimum version of PHP 7.0. If you require to use a version lower than PHP 7.0 you can update the composer file for using illuminate/database < 5.5.0 and twig/twig < 2.0.0
+
+{% highlight text %}
+{
+    "require": {
+        "illuminate/database": "<5.5.0",
+        "twig/twig" : "<2.0.0",
+        "robmorgan/phinx" : "^0.8.0"
+    }
+}
+{% endhighlight %}
