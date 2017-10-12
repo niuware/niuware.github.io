@@ -233,7 +233,7 @@ Then your `routes.php` file should look like this:
 
 <?php 
 
-namespace Niuware\WebFramework;
+namespace App\Config;
 
 /**
  * Defines the routes for the web application
@@ -273,7 +273,7 @@ Then your `routes.php` file should look like this:
 
 <?php 
 
-namespace Niuware\WebFramework;
+namespace App\Config;
 
 /**
  * Defines the routes for the web application
@@ -305,7 +305,7 @@ You can also leave the routes empty to get an `HTTP 403 response`. This is usefu
 
 <?php 
 
-namespace Niuware\WebFramework;
+namespace App\Config;
 
 final class Routes {
     
@@ -325,14 +325,14 @@ Controller classes describe the functionality of your web application. Each cont
 <a name="controllers-define"></a>
 ### Controllers: Definition
 
-All controllers inherit from the Niuware WebFramework core class `Controller` and must be placed in the `app/controllers` directory. The name of the file and the class name **must match** as well. A controller class file must be defined with the extension `.controller.php` and exist inside the namespace `Niuware\WebFramework\Controllers`. Here is an example of how it should look like:
+All controllers inherit from the Niuware WebFramework core class `Controller` and must be placed in the `app/controllers` directory. The name of the file and the class name **must match** as well. A controller class file must be defined with the extension `.controller.php` and exist inside the namespace `App\Controllers`. Here is an example of how it should look like:
 
 {% highlight php %}
 [app/controllers/MyController.controller.php]
 
 <?php 
 
-namespace Niuware\WebFramework\Controllers;
+namespace App\Controllers;
     
 use Niuware\WebFramework\Controller;
 
@@ -343,14 +343,14 @@ final class MyController extends Controller {
 
 {% endhighlight %}
 
-For the Admin application the controller class files should be in the `controllers/admin` subdirectory and use the `Niuware\WebFramework\Controllers\Admin` namespace:
+For the Admin application the controller class files should be in the `controllers/admin` subdirectory and use the `App\Controllers\Admin` namespace:
 
 {% highlight php %}
 [app/controllers/admin/MyAdminController.controller.php]
 
 <?php 
 
-namespace Niuware\WebFramework\Controllers\Admin;
+namespace App\Controllers\Admin;
     
 use Niuware\WebFramework\Controller;
 
@@ -388,7 +388,7 @@ then the controller like this:
 
 <?php 
 
-namespace Niuware\WebFramework\Controllers;
+namespace App\Controllers;
     
 use Niuware\WebFramework\Controller;
 
@@ -407,7 +407,7 @@ Now the `Cart` controller class will be called when a user access this path, but
 
 <?php 
 
-namespace Niuware\WebFramework\Controllers;
+namespace App\Controllers;
     
 use Niuware\WebFramework\Controller;
 
@@ -434,7 +434,7 @@ It is easy to restrict the HTTP protocol that a Controller class can accept. For
 
 <?php 
 
-namespace Niuware\WebFramework\Controllers;
+namespace App\Controllers;
     
 use Niuware\WebFramework\Controller;
 
@@ -630,7 +630,7 @@ For this is as easy as instance an object of the Controller class you want.
 
 <?php 
 
-namespace Niuware\WebFramework\Controllers;
+namespace App\Controllers;
     
 use Niuware\WebFramework\Controller;
 
@@ -659,7 +659,7 @@ If you want to redirect the browser, call the `render` method with the name of t
 
 <?php 
 
-namespace Niuware\WebFramework\Controllers;
+namespace App\Controllers;
     
 use Niuware\WebFramework\Controller;
 
@@ -683,7 +683,7 @@ A Controller can also render a JSON response (like an API class) instead of a vi
 
 <?php 
 
-namespace Niuware\WebFramework\Controllers;
+namespace App\Controllers;
     
 use Niuware\WebFramework\Controller;
 use Niuware\WebFramework\Response;
@@ -723,14 +723,14 @@ Models are the way to connect a datasource with a Controller (and a View). Niuwa
 <a name="models-define"></a>
 ### Models: Definition
 
-All models inherit from the Illuminate\Database\Eloquent class `Model` and must be placed in the `app/models` directory. The model class file must be defined with the extension `.model.php` and exist inside the namespace `Niuware\WebFramework\Models`. Here is an example of how it should look like:
+All models inherit from the Illuminate\Database\Eloquent class `Model` and must be placed in the `app/models` directory. The model class file must be defined with the extension `.model.php` and exist inside the namespace `App\Models`. Here is an example of how it should look like:
 
 {% highlight php %}
 [app/models/Product.model.php]
 
 <?php
 
-namespace Niuware\WebFramework\Models;
+namespace App\Models;
     
 use Illuminate\Database\Eloquent\Model as Eloquent;
 
@@ -783,7 +783,7 @@ we can simply call the `render` method as this:
 
 <?php 
 
-namespace Niuware\WebFramework\Controllers;
+namespace App\Controllers;
     
 use Niuware\WebFramework\Controller;
 
@@ -1051,7 +1051,7 @@ You can use the `TwigFilters.helper.php` and `TwigFunctions.helper.php` classes 
 <?php
 [app/helpers/TwigFunctions.helper.php]
 
-namespace Niuware\WebFramework\Helpers;
+namespace App\Helpers;
 
 use Niuware\WebFramework\Helper;
 
@@ -1151,7 +1151,7 @@ The Niuware WebFramework comes with a default configuration for auto logging a u
 
 <?php 
 
-namespace Niuware\WebFramework\Controllers;
+namespace App\Controllers;
     
 use Niuware\WebFramework\Controller;
 use Niuware\WebFramework\Auth;
@@ -1177,7 +1177,7 @@ You can implement the authentication in any controller you want by using the `Au
 
 <?php 
 
-namespace Niuware\WebFramework\Controllers;
+namespace App\Controllers;
     
 use Niuware\WebFramework\Controller;
 use Niuware\WebFramework\Auth;
@@ -1205,7 +1205,7 @@ To verify if a user has logged in to your Web application use the following meth
 
 <?php 
 
-namespace Niuware\WebFramework\Controllers;
+namespace App\Controllers;
     
 use Niuware\WebFramework\Controller;
 use Niuware\WebFramework\Auth;
@@ -1242,7 +1242,7 @@ For adding and removing values to the current session, the `Auth` class contains
 
 <?php 
 
-namespace Niuware\WebFramework\Controllers;
+namespace App\Controllers;
     
 use Niuware\WebFramework\Controller;
 use Niuware\WebFramework\Auth;
@@ -1285,7 +1285,7 @@ You can easily destroy all custom values using the Auth class method `destroy`. 
 
 <?php 
 
-namespace Niuware\WebFramework\Controllers;
+namespace App\Controllers;
     
 use Niuware\WebFramework\Controller;
 use Niuware\WebFramework\Auth;
@@ -1326,7 +1326,7 @@ For adding global access functions and constants, add them in the Custom trait w
 
 <?php
 
-namespace Niuware\WebFramework\Helpers;
+namespace App\Helpers;
 
 trait Custom {
     
@@ -1347,7 +1347,7 @@ Then you can access them in `Controller` classes as follows:
 
 <?php 
 
-namespace Niuware\WebFramework\Controllers;
+namespace App\Controllers;
     
 use Niuware\WebFramework\Controller;
 use Niuware\WebFramework\Helper;
@@ -1368,14 +1368,14 @@ final class MyController extends Controller {
 <a name="custom-define"></a>
 ### Customization: Definition of Custom Classes
 
-For adding custom helper classes add them in the path `helpers/` with the extension `.helper.php` and exist inside the namespace `Niuware\WebFramework\Helpers`. Here is a simple example:
+For adding custom helper classes add them in the path `helpers/` with the extension `.helper.php` and exist inside the namespace `App\Helpers`. Here is a simple example:
 
 {% highlight php %}
 [app/helpers/MyCustomClass.helper.php]
 
 <?php 
 
-namespace Niuware\WebFramework\Helpers;
+namespace App\Helpers;
 
 final class MyCustomClass {
 
@@ -1392,17 +1392,17 @@ final class MyCustomClass {
 
 {% endhighlight %}
 
-When you want to access your custom class remember to use the namespace `Niuware\WebFramework\Helpers`:
+When you want to access your custom class remember to use the namespace `App\Helpers`:
 
 {% highlight php %}
 [app/controllers/MyController.controller.php]
 
 <?php 
 
-namespace Niuware\WebFramework\Controllers;
+namespace App\Controllers;
     
 use Niuware\WebFramework\Controller;
-use Niuware\WebFramework\Helpers;
+use App\Helpers;
 
 final class MyController extends Controller {
 
@@ -1425,14 +1425,14 @@ Niuware WebFramework can be used to create a RESTful API to build asynchronous W
 <a name="api-define"></a>
 ### API Classes: Definition
 
-API classes should be add in the `app/api` directory with the extension `.api.php`. Also the classes should exist inside the namespace `Niuware\WebFramework\Api` and extend from the core class `Niuware\WebFramework\ApiResponse`. The filename **should be in lowercase** so your API URL's remain in lowercase. Here is an example of how it should look like:
+API classes should be add in the `app/api` directory with the extension `.api.php`. Also the classes should exist inside the namespace `App\Api` and extend from the core class `Niuware\WebFramework\ApiResponse`. The filename **should be in lowercase** so your API URL's remain in lowercase. Here is an example of how it should look like:
 
 {% highlight php %}
 [app/api/MyApi.api.php]
 
 <?php 
 
-namespace Niuware\WebFramework\Api;
+namespace App\Api;
 
 use Niuware\WebFramework\ApiResponse;
 
@@ -1459,7 +1459,7 @@ In this case the class can be defined like the following example:
 
 <?php 
 
-namespace Niuware\WebFramework\Api;
+namespace App\Api;
 
 use Niuware\WebFramework\ApiResponse;
 
@@ -1500,7 +1500,7 @@ GET Request:
 
 <?php 
 
-namespace Niuware\WebFramework\Api;
+namespace App\Api;
 
 use Niuware\WebFramework\ApiResponse;
 
@@ -1562,7 +1562,7 @@ Cache-Control: no-cache
 
 <?php 
 
-namespace Niuware\WebFramework\Api;
+namespace App\Api;
 
 use Niuware\WebFramework\ApiResponse;
 
@@ -1624,7 +1624,7 @@ Cache-Control: no-cache
 
 <?php 
 
-namespace Niuware\WebFramework\Api;
+namespace App\Api;
 
 use Niuware\WebFramework\ApiResponse;
 
@@ -1653,7 +1653,7 @@ An API endpoint will render a response in JSON format. For this you only need to
 
 <?php 
 
-namespace Niuware\WebFramework\Api;
+namespace App\Api;
 
 use Niuware\WebFramework\ApiResponse;
 
@@ -1782,7 +1782,7 @@ In your controller verify the token by using the `verifyCsrfToken` method of the
 
 <?php 
 
-namespace Niuware\WebFramework\Controllers;
+namespace App\Controllers;
     
 use Niuware\WebFramework\Controller;
 use Niuware\WebFramework\Security;
@@ -1862,7 +1862,7 @@ Controller:
 
 <?php 
 
-namespace Niuware\WebFramework\Controllers;
+namespace App\Controllers;
     
 use Niuware\WebFramework\Controller;
 use Niuware\WebFramework\Security;
@@ -1925,7 +1925,7 @@ The return value for the `save` method is an `Niuware\WebFramework\File` object,
 
 <?php 
 
-namespace Niuware\WebFramework\Controllers;
+namespace App\Controllers;
     
 use Niuware\WebFramework\Controller;
 
@@ -2242,13 +2242,13 @@ First, set the data in your controller class:
 
 <?php 
 
-namespace Niuware\WebFramework\Controllers;
+namespace App\Controllers;
     
 use Niuware\WebFramework\Controller;
 use Niuware\WebFramework\HttpRequest;
 use Niuware\WebFramework\Paginate;
 
-use Niuware\WebFramework\Models\Item;
+use App\Models\Item;
 
 final class MyController extends Controller {
 
@@ -2336,7 +2336,7 @@ If there is a problem with the configuration of your Controller classes, view te
 
 <?php 
 
-namespace Niuware\WebFramework\Controllers;
+namespace App\Controllers;
     
 use Niuware\WebFramework\Controller;
 use Niuware\WebFramework\HttpRequest;
