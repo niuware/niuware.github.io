@@ -45,7 +45,7 @@ Now your web application can be accessed through the following URL:
 You have defined the path, now is time to define who will listen to it. For this to happen, it's as simple as defining a method with the same name in a Controller class named as you wrote in the previous step. For example:
 
 {% highlight php %}
-[app/controllers/Cart.controller.php]
+[app/controllers/Cart.php]
 
 <?php
 
@@ -67,7 +67,7 @@ final class Cart extends Controller {
 Your application has a path, the listener,... what is missing? Yep, the thing to display your stuff. The easiest way is just adding a file with the same name as your path and the framework will do the rest for you. For example:
 
 {% highlight twig %}
-[public/views/my-cart.view.twig]
+[public/views/my-cart.twig]
 
 <h1>{% raw %}{{ greetings }}{% endraw %}, this is my cart</h1>
 

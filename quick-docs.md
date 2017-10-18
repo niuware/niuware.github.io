@@ -325,10 +325,10 @@ Controller classes describe the functionality of your web application. Each cont
 <a name="controllers-define"></a>
 ### Controllers: Definition
 
-All controllers inherit from the Niuware WebFramework core class `Controller` and must be placed in the `app/controllers` directory. The name of the file and the class name **must match** as well. A controller class file must be defined with the extension `.controller.php` and exist inside the namespace `App\Controllers`. Here is an example of how it should look like:
+All controllers inherit from the Niuware WebFramework core class `Controller` and must be placed in the `app/controllers` directory. The name of the file and the class name **must match** as well. A controller class file must exist inside the namespace `App\Controllers`. Here is an example of how it should look like:
 
 {% highlight php %}
-[app/controllers/MyController.controller.php]
+[app/controllers/MyController.php]
 
 <?php 
 
@@ -346,7 +346,7 @@ final class MyController extends Controller {
 For the Admin application the controller class files should be in the `controllers/admin` subdirectory and use the `App\Controllers\Admin` namespace:
 
 {% highlight php %}
-[app/controllers/admin/MyAdminController.controller.php]
+[app/controllers/admin/MyAdminController.php]
 
 <?php 
 
@@ -384,7 +384,7 @@ And its route is defined like this:
 then the controller like this:
 
 {% highlight php %}
-[app/controllers/Cart.controller.php]
+[app/controllers/Cart.php]
 
 <?php 
 
@@ -398,12 +398,12 @@ final class Cart extends Controller {
 
 {% endhighlight %}
 
-Notice that **`Cart`** was defined in the `routes.php` file as the controller who will listen to the path **`my-cart`**. Also notice that the controller class has the name **`Cart.controller.php`**. 
+Notice that **`Cart`** was defined in the `routes.php` file as the controller who will listen to the path **`my-cart`**. Also notice that the controller class has the name **`Cart.php`**. 
 
 Now the `Cart` controller class will be called when a user access this path, but nothing will happen. We are still missing to define the method that will be executed. This is as simple as adding a public method with the same name as the path, in this case:
 
 {% highlight php %}
-[app/controllers/Cart.controller.php]
+[app/controllers/Cart.php]
 
 <?php 
 
@@ -430,7 +430,7 @@ For example for the path: `my-cart` or `my_cart` a method named `myCart()` or `M
 It is easy to restrict the HTTP protocol that a Controller class can accept. For the previous example our method myCart would allow GET and POST protocol to execute the call; but if we want to restrict this, is as easy as adding the *get* or *post* prefix to our method. For example:
 
 {% highlight php %}
-[app/controllers/Cart.controller.php]
+[app/controllers/Cart.php]
 
 <?php 
 
@@ -626,7 +626,7 @@ Sometimes the functionality of one method in a Controller class can be reused af
 For this is as easy as instance an object of the Controller class you want.
 
 {% highlight php %}
-[app/controllers/Cart.controller.php]
+[app/controllers/Cart.php]
 
 <?php 
 
@@ -644,7 +644,7 @@ final class Cart extends Controller {
 
         // Additionally set controller options like
         // the view file name. For example:
-        $otherController->view = "other.view.php";
+        $otherController->view = "other.twig";
 
         return $otherController->getOtherMethod($request);
     }
@@ -655,7 +655,7 @@ final class Cart extends Controller {
 If you want to redirect the browser, call the `render` method with the name of the path:
 
 {% highlight php %}
-[app/controllers/Cart.controller.php]
+[app/controllers/Cart.php]
 
 <?php 
 
@@ -679,7 +679,7 @@ final class Cart extends Controller {
 A Controller can also render a JSON response (like an API class) instead of a view. For this, just use the core `Response` class as the following example:
 
 {% highlight php %}
-[app/controllers/Cart.controller.php]
+[app/controllers/Cart.php]
 
 <?php 
 
@@ -723,10 +723,10 @@ Models are the way to connect a datasource with a Controller (and a View). Niuwa
 <a name="models-define"></a>
 ### Models: Definition
 
-All models inherit from the Illuminate\Database\Eloquent class `Model` and must be placed in the `app/models` directory. The model class file must be defined with the extension `.model.php` and exist inside the namespace `App\Models`. Here is an example of how it should look like:
+All models inherit from the Illuminate\Database\Eloquent class `Model` and must be placed in the `app/models` directory. The model class file must exist inside the namespace `App\Models`. Here is an example of how it should look like:
 
 {% highlight php %}
-[app/models/Product.model.php]
+[app/models/Product.php]
 
 <?php
 
@@ -753,7 +753,7 @@ The view holds the template where all the controller data will be displayed.
 <a name="views-define"></a>
 ### Views: Definition
 
-All views must be placed in the `public/views` directory and their file must be defined with the extension `.view.twig`. For the case of 'admin application side' views, the files should be inside the `views/admin` subdirectory. The content of the views use Twig syntax, for more information visit the [Twig documentation](https://twig.sensiolabs.org/doc/2.x/).
+All views must be placed in the `public/views` directory and their file must be defined with the extension `.twig`. For the case of 'admin application side' views, the files should be inside the `views/admin` subdirectory. The content of the views use Twig syntax, for more information visit the [Twig documentation](https://twig.sensiolabs.org/doc/2.x/).
 
 By default, the framework will load a view filename that matches the current loaded path. For example for the next URL:
 
@@ -761,13 +761,13 @@ By default, the framework will load a view filename that matches the current loa
 
 the framework will try to load the following view file:
 
-`public/views/my-cart.view.twig`
+`public/views/my-cart.twig`
 
 You can change the name of the view filename to load by setting the attribute `view` as shown in section Views: <a href="#views-attributes">Template Attributes</a>.
 
 For the Admin application, all views filenames should be in the `views/admin` subdirectory.
 
-`public/views/admin/my-account.view.twig`
+`public/views/admin/my-account.twig`
 
 <a name="views-render"></a>
 ### Views: Rendering
@@ -779,7 +779,7 @@ To render a view template file, you need to tell the controller to do it. This i
 we can simply call the `render` method as this:
 
 {% highlight php %}
-[app/controllers/Cart.controller.php]
+[app/controllers/Cart.php]
 
 <?php 
 
@@ -791,7 +791,7 @@ final class Cart extends Controller {
 
     public function getMyCart(HttpRequest $request) {
 
-        // By default it will render the public/views/my-cart.view.twig file
+        // By default it will render the public/views/my-cart.twig file
         return $this->render();
     }
 
@@ -808,7 +808,7 @@ final class Cart extends Controller {
 
 If you want to specify the filename of the view to load, simply set the template attribute as <a href="#views-attributes-view">described here</a>.
 
-> If you are using **PHP** as the template renderer change your view template file names from *xyz.view.twig* to *xyz.view.php*. Also be sure to set *'php'* as the `DEFAULT_RENDERER` value in your application <a href="#install-config">settings file</a>.
+> If you are using **PHP** as the template renderer change your view template file names from *xyz.twig* to *xyz.php*. Also be sure to set *'php'* as the `DEFAULT_RENDERER` value in your application <a href="#install-config">settings file</a>.
 
 <a name="views-main"></a>
 ### Views: Main Views
@@ -826,7 +826,7 @@ There are 2 main views included out of the box with the framework, which are rea
     <tbody>
         <tr>
             <td>main<br /> main-admin</td>
-            <td>main.view.twig<br /> main-admin.view.twig</td>
+            <td>main.twig<br /> main-admin.twig</td>
             <td>
                 Contains HTML used by all views. Defines CSS stylesheet, JS files and other HTML headers meta tags Twig blocks. The main and admin side have their own main vies files.<br/>
             </td>
@@ -948,7 +948,7 @@ All Controller classes can set template attributes before rendering the view fil
 Usage: 
 
 {% highlight php %}
-[MyController.controller.php]
+[MyController.php]
 
 <?php
 
@@ -956,7 +956,7 @@ final class MyController extends Controller {
 
     public function getMyPage(HttpRequest $request) {
 
-        $this->view = "view_filename.view.twig";
+        $this->view = "view_filename.twig";
 
         ...
 
@@ -969,11 +969,11 @@ Output:
 
 {% highlight html %}
 
-Loaded file: public/views/view_filename.view.twig
+Loaded file: public/views/view_filename.twig
 
 or when using PHP as renderer:
 
-Loaded file: public/views/view_filename.view.php
+Loaded file: public/views/view_filename.php
 
 {% endhighlight %}
 
@@ -983,7 +983,7 @@ Loaded file: public/views/view_filename.view.php
 You can bind variables from a controller to a view by assigning new properties to the `Controller` object. For example let's suppose you need to render some array:
 
 {% highlight php %}
-[app/controllers/MyController.controller.php]
+[app/controllers/MyController.php]
 
 <?php
 
@@ -1004,7 +1004,7 @@ final class MyController extends Controller {
 Then in your view, you just need to use it as you would expect:
 
 {% highlight twig %}
-[public/views/my-controller.view.twig]
+[public/views/my-controller.twig]
 
 ...
 
@@ -1023,7 +1023,7 @@ Then in your view, you just need to use it as you would expect:
 When using PHP:
 
 {% highlight php %}
-[public/views/my-controller.view.php]
+[public/views/my-controller.php]
 
 ...
 
@@ -1044,12 +1044,12 @@ When using PHP:
 <a name="views-functions"></a>
 ### Views: Functions and Filters
 
-You can use the `TwigFilters.helper.php` and `TwigFunctions.helper.php` classes to define custom functions and filters. For example:
+You can use the `TwigFilters.php` and `TwigFunctions.php` classes to define custom functions and filters. For example:
 
 {% highlight php %}
 
 <?php
-[app/helpers/TwigFunctions.helper.php]
+[app/helpers/TwigFunctions.php]
 
 namespace App\Helpers;
 
@@ -1073,7 +1073,7 @@ class TwigFunctions {
 And use it in the view as:
 
 {% highlight twig %}
-[public/views/my-controller.view.twig]
+[public/views/my-controller.twig]
 
 ...
 <div>
@@ -1110,7 +1110,7 @@ The following is a list of defined functions that are ready to use within your v
 You can use these functions as the following example:
 
 {% highlight twig %}
-[public/views/my-controller.view.twig]
+[public/views/my-controller.twig]
 
 ...
 <form>
@@ -1142,12 +1142,12 @@ Sessions are very useful for saving data for active users while they use your We
 <a name="sessions-auth"></a>
 ### Sessions: Authentication
 
-The `Auth` class can help you verify if a user has successfully logged in to either the Main or Admin application. For this you can use the `grantAuth` or `revokeAuth` methods. Usually this methods will be called in the `Login.controller.php`.
+The `Auth` class can help you verify if a user has successfully logged in to either the Main or Admin application. For this you can use the `grantAuth` or `revokeAuth` methods. Usually this methods will be called in the `Login` controller.
 
 The Niuware WebFramework comes with a default configuration for auto logging a user who navigates to login-protected views as you can see in the following `Login` controller:
 
 {% highlight php %}
-[controllers/Login.controller.php]
+[controllers/Login.php]
 
 <?php 
 
@@ -1322,7 +1322,7 @@ Sometimes you need to have access to share classes and methods all over the Cont
 For adding global access functions and constants, add them in the Custom trait with public static modifiers: 
 
 {% highlight php %}
-[helpers/Custom.helper.php]
+[helpers/Custom.php]
 
 <?php
 
@@ -1343,7 +1343,7 @@ trait Custom {
 Then you can access them in `Controller` classes as follows:
 
 {% highlight php %}
-[app/controllers/MyController.controller.php]
+[app/controllers/MyController.php]
 
 <?php 
 
@@ -1368,10 +1368,10 @@ final class MyController extends Controller {
 <a name="custom-define"></a>
 ### Customization: Definition of Custom Classes
 
-For adding custom helper classes add them in the path `helpers/` with the extension `.helper.php` and exist inside the namespace `App\Helpers`. Here is a simple example:
+For adding custom helper classes add them in the path `helpers/` within the namespace `App\Helpers`. Here is a simple example:
 
 {% highlight php %}
-[app/helpers/MyCustomClass.helper.php]
+[app/helpers/MyCustomClass.php]
 
 <?php 
 
@@ -1395,7 +1395,7 @@ final class MyCustomClass {
 When you want to access your custom class remember to use the namespace `App\Helpers`:
 
 {% highlight php %}
-[app/controllers/MyController.controller.php]
+[app/controllers/MyController.php]
 
 <?php 
 
@@ -1425,10 +1425,10 @@ Niuware WebFramework can be used to create a RESTful API to build asynchronous W
 <a name="api-define"></a>
 ### API Classes: Definition
 
-API classes should be add in the `app/api` directory with the extension `.api.php`. Also the classes should exist inside the namespace `App\Api` and extend from the core class `Niuware\WebFramework\ApiResponse`. The filename **should be in lowercase** so your API URL's remain in lowercase. Here is an example of how it should look like:
+API classes should be add in the `app/api` directory. Also the classes should exist inside the namespace `App\Api` and extend from the core class `Niuware\WebFramework\ApiResponse`. The filename **should be in lowercase** so your API URL's remain in lowercase. Here is an example of how it should look like:
 
 {% highlight php %}
-[app/api/MyApi.api.php]
+[app/api/MyApi.php]
 
 <?php 
 
@@ -1450,12 +1450,12 @@ As the application <a href="#routing">Routing</a> you can create your API URL pa
 
 > http://my_url/**api/cart/add_product**
 
-you should have a corresponding declaration in a file called cart.api.php with a class `Cart` and a case insensitive method name like `methodname` or `MethodName` or `methodName`, etc. (NOT `method_name`). As stated before, it is not necessary to include "-" or "_", in your method name definition even you use this characters in your API URL path.
+you should have a corresponding declaration in a file called cart.php with a class `Cart` and a case insensitive method name like `methodname` or `MethodName` or `methodName`, etc. (NOT `method_name`). As stated before, it is not necessary to include "-" or "_", in your method name definition even you use this characters in your API URL path.
 
 In this case the class can be defined like the following example:
 
 {% highlight php %}
-[app/api/Cart.api.php]
+[app/api/Cart.php]
 
 <?php 
 
@@ -1496,7 +1496,7 @@ GET Request:
 > http://my_url/api/cart/product/?**id=6**&**token=7458ABDG83**
 
 {% highlight php %}
-[app/api/Cart.api.php]
+[app/api/Cart.php]
 
 <?php 
 
@@ -1558,7 +1558,7 @@ Cache-Control: no-cache
 {% endhighlight %}
 
 {% highlight php %}
-[app/api/Cart.api.php]
+[app/api/Cart.php]
 
 <?php 
 
@@ -1620,7 +1620,7 @@ Cache-Control: no-cache
 {% endhighlight %}
 
 {% highlight php %}
-[app/api/Cart.api.php]
+[app/api/Cart.php]
 
 <?php 
 
@@ -1649,7 +1649,7 @@ final class Cart extends ApiResponse {
 An API endpoint will render a response in JSON format. For this you only need to set the data you want to render using the `response` attribute and finally call the `render` method as the following example:
 
 {% highlight php %}
-[app/api/Cart.api.php]
+[app/api/Cart.php]
 
 <?php 
 
@@ -1778,7 +1778,7 @@ The output will be:
 In your controller verify the token by using the `verifyCsrfToken` method of the `Security` core class:
 
 {% highlight php %}
-[app/controllers/MyController.controller.php]
+[app/controllers/MyController.php]
 
 <?php 
 
@@ -1858,7 +1858,7 @@ Content-Type:
 Controller:
 
 {% highlight php %}
-[app/controllers/MyController.controller.php]
+[app/controllers/MyController.php]
 
 <?php 
 
@@ -1921,7 +1921,7 @@ final class MyController extends Controller {
 The return value for the `save` method is an `Niuware\WebFramework\File` object, or `null` if there was an error uploading the file. You can retrieve the following attributes:
 
 {% highlight php %}
-[app/controllers/MyController.controller.php]
+[app/controllers/MyController.php]
 
 <?php 
 
@@ -1970,7 +1970,7 @@ The path will be automatically selected checking the MIME type (only image, vide
 
 You can use the framework console to execute commands such as migratinos. To access it just go to the terminal and type:
 
-> ~$ php core/nwf {command} [command_args]
+> ~$ php vendor/niuware/webframework/src/nwf {command} [command_args]
 
 or if you enabled the web mode, go to your browser and type:
 
@@ -1990,7 +1990,7 @@ You have to enable the console in your `settings.php` file [configuration](#inst
             <td>terminal</td>
             <td>
                 Enables the use of the console using the terminal command <em>nwf</em>. <br />
-                For example: ~$ php core/nwf migrations rollback -d XXXXXXXX
+                For example: ~$ php vendor/niuware/webframework/src/nwf migrations rollback -d XXXXXXXX
             </td>
         </tr>
         <tr>
@@ -2026,7 +2026,7 @@ Use the power of database migration definitions to have a robust way to enhance 
 To create a migration file use the command <strong>create</strong>:
 
 Terminal mode:
-> $ php core/nwf migrations create
+> $ php vendor/niuware/webframework/src/nwf migrations create
 
 Web mode:
 > http://my_url/console:nwf/migrations/create
@@ -2046,6 +2046,10 @@ class V1496644472 extends Migration
     /**
      * Illuminate\Database\Schema\Builder $schema
      * Use the $schema object to execute your migration queries
+     *
+     * Created on Y/m/d h:i:s
+     * Migration comments:
+     * 
      */
     
     public function up()
@@ -2076,6 +2080,10 @@ class V1496644472 extends Migration
     /**
      * Illuminate\Database\Schema\Builder $schema
      * Use the $schema object to execute your migration queries
+     *
+     * Created on Y/m/d h:i:s
+     * Migration comments:
+     * 
      */
     
     public function up()
@@ -2108,7 +2116,7 @@ class V1496644472 extends Migration
 Then run the migrations with the command <strong>migrate</strong>:
 
 Terminal mode:
-> $ php core/nwf migrations migrate -t [MigrationVersion]
+> $ php vendor/niuware/webframework/src/nwf migrations migrate -t [MigrationVersion]
 
 Web mode:
 > http//my_url/console:nwf/migrations/migrate/-t/MigrationVersion
@@ -2129,7 +2137,7 @@ For more information on Eloquent syntax for migrations visit the documentation f
 If you want to rollback use the command <strong>rollback</strong>:
 
 Terminal mode:
-> $ php core/nwf migrations rollback [-t MigrationVersion]
+> $ php vendor/niuware/webframework/src/nwf migrations rollback [-t MigrationVersion]
 
 Web mode:
 > http//my_url/console:nwf/migrations/rollback/-t/MigrationVersion
@@ -2142,7 +2150,7 @@ For more information on how to use the rollback -d command visit the Phinx [docu
 To create a seeding file use the command <strong>seedcreate</strong>:
 
 Terminal mode:
-> $ php core/nwf migrations seedcreate [NameOfSeedClass]
+> $ php vendor/niuware/webframework/src/nwf migrations seedcreate [NameOfSeedClass]
 
 Web mode:
 > http//my_url/console:nwf/migrations/seedcreate/NameOfSeedClass
@@ -2212,7 +2220,7 @@ For more information on the Phynx syntax for seed definitions visit the [documen
 Then run the seed with the command <strong>seedrun</strong>:
 
 Terminal mode:
-> $ php core/nwf migrations seedrun -s [NameOfSeedClass]
+> $ php vendor/niuware/webframework/src/nwf migrations seedrun -s [NameOfSeedClass]
 
 Web mode:
 > http//my_url/console:nwf/migrations/seedrun/-s/NameOfSeedClass
@@ -2225,7 +2233,7 @@ Notice that if you do not add the name of the seed class name, all seed files wi
 You can output the migrations status using the command <strong>status</strong>
 
 Terminal mode:
-> $ php core/nwf migrations status
+> $ php vendor/niuware/webframework/src/nwf migrations status
 
 Web mode:
 > http//my_url/console:nwf/migrations/status
@@ -2238,7 +2246,7 @@ When querying data from your database it is easy to paginate results using the `
 First, set the data in your controller class: 
 
 {% highlight php %}
-[app/controllers/MyController.controller.php]
+[app/controllers/MyController.php]
 
 <?php 
 
@@ -2272,7 +2280,7 @@ final class MyController extends Controller {
 In the view, use the method `data` in the paginate object to display the items por the current page.
 
 {% highlight twig %}
-[public/views/my-page.view.twig]
+[public/views/my-page.twig]
 
 ...
 
@@ -2290,7 +2298,7 @@ In the view, use the method `data` in the paginate object to display the items p
 For displaying the menu to navigate through pages, use the method `render` in the paginate object. This method receives 5 optional string parameters which define in order: the *Previous* button link label, the *Next* button link label, the class for the *&lt;li&gt;* tag, the class for the *&lt;a&gt;* tag and finally the class for the current page (active) *&lt;li&gt;* tag. The default values are: *'&lt;'*, *'&gt;'*, *'page-item'*, *'page-link'* and *'active'*.
 
 {% highlight twig %}
-[public/views/my-page.view.twig]
+[public/views/my-page.twig]
 
 ...
 
@@ -2332,7 +2340,7 @@ For the previous example the HTML output will be something like this:
 If there is a problem with the configuration of your Controller classes, view template files or other exceptions, the FrameworkException will be thrown and you will see the complete list of all thrown exceptions and errors on the screen. In general it is not needed to throw exceptions but you can throw a FrameworkException in your Controller class as follows:
 
 {% highlight php %}
-[app/controllers/MyController.controller.php]
+[app/controllers/MyController.php]
 
 <?php 
 
@@ -2363,14 +2371,14 @@ In the case of the API classes, you will see only the last error/exception direc
 <a name="compatibility"></a>
 ## 15. PHP < 7.0 compatibility
 
-The core of Niuware WebFramework is compatible with PHP 5.6+. In the other hand, the default versions for the dependencies Eloquent and Twig are set to use a minimum version of PHP 7.0. If you require to use a version lower than PHP 7.0 you can update the composer file for using illuminate/database < 5.5.0 and twig/twig < 2.0.0
+The core of Niuware WebFramework is compatible with PHP 5.6+. On the other hand, the default versions for the dependencies Eloquent and Twig are set to use a minimum version of PHP 7.0. If you require to use a version lower than PHP 7.0 you can update the composer file for using aliases on illuminate/database < 5.5.0 and twig/twig < 2.0.0
 
 {% highlight text %}
 {
     "require": {
-        "illuminate/database": "<5.5.0",
-        "twig/twig" : "<2.0.0",
-        "robmorgan/phinx" : "^0.8.0"
+        "niuware/webframework" : ">=3.0.0",
+        "illuminate/database": "<5.5.0 as 5.5.x-dev",
+        "twig/twig" : "<2.0.0 as 2.x-dev"
     }
 }
 {% endhighlight %}
