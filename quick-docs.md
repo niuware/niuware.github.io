@@ -2376,7 +2376,7 @@ The core of Niuware WebFramework is compatible with PHP 5.6+. On the other hand,
 {% highlight text %}
 {
     "require": {
-        "niuware/webframework" : ">=3.0.0",
+        "niuware/webframework" : "dev-master",
         "illuminate/database": "<5.5.0 as 5.5.x-dev",
         "twig/twig" : "<2.0.0 as 2.x-dev"
     }
