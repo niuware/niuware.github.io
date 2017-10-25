@@ -23,7 +23,7 @@ Suppose you have a web application to sell apples (why not?). You need to add a 
 
 ### 1. First, the Route
 
-You need to say to the framework the path for accessing your cart. For example:
+You need to say to the framework the path for accessing your apple catalogue. For example:
 
 {% highlight php %}
 [app/config/routes.php]
@@ -32,29 +32,30 @@ You need to say to the framework the path for accessing your cart. For example:
 
 ... 
 
-'my-cart' => ['Cart']
+'my-apples/{color}' => ['use' => 'Apple']
 
 {% endhighlight %}
 
 Now your web application can be accessed through the following URL:
 
-> http://myurl.com/**my-cart**
+> http://myurl.com/**my-apples**/green
 
 ### 2. Second, the Controller
 
 You have defined the path, now is time to define who will listen to it. For this to happen, it's as simple as defining a method with the same name in a Controller class named as you wrote in the previous step. For example:
 
 {% highlight php %}
-[app/controllers/Cart.php]
+[app/controllers/Apple.php]
 
 <?php
 
 ...
 
-final class Cart extends Controller {
+final class Apple extends Controller {
 
-    public function myCart(HttpRequest $request) {
+    public function myApples(HttpRequest $request) {
 
+        $this->appleColor = $request->color;
         $this->greetings = "Hello!";
 
         return $this->render();
@@ -67,9 +68,9 @@ final class Cart extends Controller {
 Your application has a path, the listener,... what is missing? Yep, the thing to display your stuff. The easiest way is just adding a file with the same name as your path and the framework will do the rest for you. For example:
 
 {% highlight twig %}
-[public/views/my-cart.twig]
+[public/views/my-apples.twig]
 
-<h1>{% raw %}{{ greetings }}{% endraw %}, this is my cart</h1>
+<h1>{% raw %}{{ greetings }}{% endraw %}, this are my apples with color: {% raw %}{{ appleColor }}{% endraw %}</h1>
 
 ...
 

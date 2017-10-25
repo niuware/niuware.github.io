@@ -8,9 +8,11 @@ This is a quick documentation on how to use all of the available features in Niu
 1. <a href="#install">Installation</a>  
   1.1 <a href="#install-config">Configuration File</a>  
 2. <a href="#routing">Routing</a>    
-  2.1 <a href="#routing-main">Main Application</a>    
-  2.2 <a href="#routing-admin">Admin Application</a>  
-  2.3 <a href="#routing-api">API-Only Mode</a>  
+  2.1 <a href="#routing-main">Application Main Space</a>    
+  2.2 <a href="#routing-admin">Application Admin Space</a>  
+  2.3 <a href="#routing-spaces">Application Spaces</a>  
+  2.4 <a href="#routing-map">Mapped Variables</a>  
+  2.5 <a href="#routing-api">API-Only Mode</a>  
 3. <a href="#controllers">Controllers</a>    
   3.1 <a href="#controllers-define">Definition</a>    
   3.2 <a href="#controllers-access">Calls</a>    
@@ -70,7 +72,7 @@ For using the Niuware WebFramework follow this steps:
 <a name="install-config"></a>
 ### Installation: Configuration File
 
-The framework uses a single configuration file to store private information such as database connection strings, third party API tokens etc. It also contains the default values for the Web application. You can find this file in `app/config/settings.php`
+The framework uses a single configuration file to store private information such as database connection strings, third party API tokens etc. It also contains the default values for the Web application. You can find this file in `App/Config/Settings.php`
 
 <a name="install-constant"></a>
 #### Global Constants
@@ -118,14 +120,6 @@ The following table shows the application constants that you need to configure:
             </td>
         </tr>
         <tr>
-            <td>BASE_URL_ADMIN</td>
-            <td>
-                Absolute URL for the Web Admin application. <br />
-                For example: <em>http://my_domain/admin/</em> <br/> 
-                <strong>Should include the trailing slash. Must end with .../admin/</strong>
-            </td>
-        </tr>
-        <tr>
             <td>DEBUG_MODE</td>
             <td>
                 Sets the debug mode for the application<br />
@@ -151,13 +145,6 @@ The following table shows the application constants that you need to configure:
             <td>
                 The default path for the Web Main application.<br />
                 For example: <em>home</em> then the path will be {BASE_URL}/<strong>home</strong> <br/> 
-            </td>
-        </tr>
-        <tr>
-            <td>HOMEPAGE_ADMIN</td>
-            <td>
-                The default path for the Web Admin application.<br />
-                For example: <em>home</em> then the path will be {BASE_URL_ADMIN}/home<br/> 
             </td>
         </tr>
         <tr>
@@ -213,23 +200,23 @@ The `Settings` class contains database connection parameters, third party API's 
 
 Defining easy to access routes for your application is one important task for your project and for users. With Niuware WebFramework its simple to create friendly URLs by just adding the string of the path you need. 
 
-Web applications created with Niuware WebFramework have two sides: the *main application* or User frontend side and the *admin application* or User admin side. For example suppose you create an online shop; you'll need the frontend side where all the products will be browsable by your customers, and an admin panel side where your staff will be able to add or edit products for the shop.
+Web applications created with Niuware WebFramework have *application spaces* and the *application admin space*. For example suppose you create an online shop; you'll need the frontend side where all the products will be browsable by your customers, and an admin panel side where your staff will be able to add or edit products for the shop.
 
 <a name="routing-main"></a>
-### Routing: Main Application
+### Routing: Application Main Space
 
-The main application path views can be public (by default) or require a user login. For adding routes for the main application side you only need to edit the `app/config/routes.php` file.
+The main application path views can be public (by default) or require a user login. For adding routes for the **main** space application you only need to edit the `App/Config/Routes.php` file.
 
 For example, let's suppose you want people to access this sections in your web application:
 
 > http://my_url/**home**<br />
 > http://my_url/**my-cart**<br />
-> http://my_url/**categories**
+> http://my_url/**category/category-name**
 
-Then your `routes.php` file should look like this:
+Then your `Routes.php` file should look like this:
 
 {% highlight php %}
-[app/config/routes.php]
+[App/Config/Routes.php]
 
 <?php 
 
@@ -242,9 +229,9 @@ final class Routes {
     
     public static $views = [
         'main' => [
-            'home' => ['Home'], 
-            'my-cart' => ['Cart', true],    // login required
-            'categories' => ['Category'],
+            'home' => ['use' => 'Home'], 
+            'my-cart' => ['use' => 'Cart', 'login' => true],    // login required
+            'category/{name}' => ['use' => 'Category'],
             ...
         ],
         ...
@@ -253,12 +240,12 @@ final class Routes {
 
 {% endhighlight %}
 
-In the previous example you can notice each path has an array value as well. This array has two values: the Controller class which will listen to the path and a boolean value which tells the framework if the path requires a login or not. This value is set to false by default so it can be omitted. The usage of Controllers is detailed in the Controllers section of this page.
+In the previous example you can notice each path has an array value as well. This array has two values: 'use' which points to the Controller class that will listen to the path and 'login', a boolean value that tells the framework if the path requires a login or not. This value is set to false by default so it can be omitted. The usage of Controllers is detailed in the Controllers section of this page.
 
 <a name="routing-admin"></a>
-### Routing: Admin Application
+### Routing: Application Admin Space
 
-All the admin application path views require a user login by default. The framework will add the prefix `admin/` to all routes set for the Admin application. As with the previous Main application routing section, you only need to edit the `app/config/routes.php` file.
+All the application admin space path views require a user login by default. The framework will add the prefix `admin/` to all routes set for the Admin application. As with the previous Main application routing section, you only need to edit the `App/Config/Routes.php` file.
 
 For example, let's suppose you want people to access this sections in your web application:
 
@@ -266,10 +253,10 @@ For example, let's suppose you want people to access this sections in your web a
 > http://my_url/admin/**products**<br />
 > http://my_url/admin/**accounts**
 
-Then your `routes.php` file should look like this:
+Then your `Routes.php` file should look like this:
 
 {% highlight php %}
-[app/config/routes.php]
+[App/Config/Routes.php]
 
 <?php 
 
@@ -283,9 +270,9 @@ final class Routes {
     public static $views = [
         ...
         'admin' => [
-            'home' => ['Home'], 
-            'products' => ['Products'],
-            'accounts' => ['Accounts'],
+            'home' => ['use' => 'Home'], 
+            'products' => ['use' => 'Products'],
+            'accounts' => ['use' => 'Accounts'],
             ...
         ]
     ];
@@ -295,13 +282,77 @@ final class Routes {
 
 As mentioned before, all paths for the admin side require a user login so the value for each path is just a one element array which contains the Controller class which will listen to the path.
 
+<a name="routing-spaces"></a>
+### Routing: Application Spaces
+
+Just as the application admin space, you can create custom spaces. Each of the spaces has its own session so a login in the 'main' space, won't grant access to the 'admin' or any other spaces. This is very useful not only for splitting access to your application but to have a better order in your project.
+
+Let's suppose you want an space called 'user', and you want to define the following routes:
+
+> http://my_url/staff/**home**<br />
+> http://my_url/staff/**settings**<br />
+
+Then your `Routes.php` file should look like this:
+
+{% highlight php %}
+[App/Config/Routes.php]
+
+<?php 
+
+namespace App\Config;
+
+/**
+ * Defines the routes for the web application
+ */
+final class Routes {
+    
+    public static $views = [
+        ...
+        'staff' => [
+            'home' => ['use' => 'Home', 'login' => false], 
+            'settings' => ['use' => 'Settings', 'login' => true],
+            ...
+        ]
+    ];
+}
+
+{% endhighlight %}
+
+<a name="routing-map"></a>
+### Routing: Mapped Variables
+
+It is easy to map variables in a route path by declaring them between `{curly braces}`. For example, for the following route:
+
+> http://my_url/product/edit/34/something-else
+
+You can map it in the `Routes.php` file as:
+
+{% highlight php %}
+[App/Config/Routes.php]
+
+<?php 
+
+...    
+    public static $views = [
+        ...
+        'main' => [
+            'product/edit/{id}/{other}' => ['use' => 'Product'], 
+            ...
+        ]
+    ];
+}
+
+{% endhighlight %}
+
+With this you will recieve the `id` and `other` parameters inside the `HttpRequest` object in a controller method. See <a href="#controllers">controllers</a> for learning more about it.
+
 <a name="routing-api"></a>
 ### Routing: API-Only Mode
 
 You can also leave the routes empty to get an `HTTP 403 response`. This is useful when you want to use the framework only as an API, without any public web access:
 
 {% highlight php %}
-[app/config/routes.php]
+[App/Config/Routes.php]
 
 <?php 
 
@@ -325,10 +376,10 @@ Controller classes describe the functionality of your web application. Each cont
 <a name="controllers-define"></a>
 ### Controllers: Definition
 
-All controllers inherit from the Niuware WebFramework core class `Controller` and must be placed in the `app/controllers` directory. The name of the file and the class name **must match** as well. A controller class file must exist inside the namespace `App\Controllers`. Here is an example of how it should look like:
+All controllers inherit from the Niuware WebFramework core class `Controller` and must be placed in the `App/Controllers` directory. The name of the file and the class name **must match** as well. A controller class file must exist inside the namespace `App\Controllers`. Here is an example of how it should look like:
 
 {% highlight php %}
-[app/controllers/MyController.php]
+[App/Controllers/MyController.php]
 
 <?php 
 
@@ -343,10 +394,10 @@ final class MyController extends Controller {
 
 {% endhighlight %}
 
-For the Admin application the controller class files should be in the `controllers/admin` subdirectory and use the `App\Controllers\Admin` namespace:
+For the application Admin space, the controller class files should be in the `Controllers/Admin` subdirectory and use the `App\Controllers\Admin` namespace:
 
 {% highlight php %}
-[app/controllers/admin/MyAdminController.php]
+[App/Controllers/Admin/MyAdminController.php]
 
 <?php 
 
@@ -355,6 +406,24 @@ namespace App\Controllers\Admin;
 use Niuware\WebFramework\Controller;
 
 final class MyAdminController extends Controller {
+
+    ...
+}
+
+{% endhighlight %}
+
+For other application spaces, the controllers class files should be located in the `Controllers/NameOfSpace` subdirectory and use the `App\Controllers\NameOfSpace` namespace. For example:
+
+{% highlight php %}
+[App/Controllers/NameOfSpace/MyController.php]
+
+<?php 
+
+namespace App\Controllers\NameOfSpace;
+    
+use Niuware\WebFramework\Controller;
+
+final class MyController extends Controller {
 
     ...
 }
@@ -371,12 +440,12 @@ Controllers are there for listening to the routes you defined. There is no need 
 And its route is defined like this:
 
 {% highlight php %}
-[app/config/routes.php]
+[App/Config/Routes.php]
 
 <?php
 ...
 
-'my-cart' => [Cart]
+'my-cart' => ['use' => Cart]
 
 ...
 {% endhighlight %}
@@ -384,7 +453,7 @@ And its route is defined like this:
 then the controller like this:
 
 {% highlight php %}
-[app/controllers/Cart.php]
+[App/Controllers/Cart.php]
 
 <?php 
 
@@ -398,12 +467,12 @@ final class Cart extends Controller {
 
 {% endhighlight %}
 
-Notice that **`Cart`** was defined in the `routes.php` file as the controller who will listen to the path **`my-cart`**. Also notice that the controller class has the name **`Cart.php`**. 
+Notice that **`Cart`** was defined in the `Routes.php` file as the controller who will listen to the path **`my-cart`**. Also notice that the controller class has the name **`Cart.php`**. 
 
 Now the `Cart` controller class will be called when a user access this path, but nothing will happen. We are still missing to define the method that will be executed. This is as simple as adding a public method with the same name as the path, in this case:
 
 {% highlight php %}
-[app/controllers/Cart.php]
+[App/Controllers/Cart.php]
 
 <?php 
 
@@ -430,7 +499,7 @@ For example for the path: `my-cart` or `my_cart` a method named `myCart()` or `M
 It is easy to restrict the HTTP protocol that a Controller class can accept. For the previous example our method myCart would allow GET and POST protocol to execute the call; but if we want to restrict this, is as easy as adding the *get* or *post* prefix to our method. For example:
 
 {% highlight php %}
-[app/controllers/Cart.php]
+[App/Controllers/Cart.php]
 
 <?php 
 
@@ -469,7 +538,20 @@ The request parameters for a GET protocol method can be placed as part of the ur
 
 > http://my_url/my-cart/**param_0_value**/**param_1_value**/ ...
 
-The GET protocol method will recieve the values in the `HttpRequest` object `$request` as:
+The GET protocol method will recieve the values in the `HttpRequest` object `$request` with the names you defined in the `Routes.php` file. For example if the route is:
+
+{% highlight php %}
+[App/Config/Routes.php]
+
+<?php
+...
+
+'my-cart/{cartName}/{user}' => ['use' => Cart]
+
+...
+{% endhighlight %}
+
+Then you can access those values as follows:
 
 {% highlight php %}
 <?php 
@@ -478,8 +560,8 @@ The GET protocol method will recieve the values in the `HttpRequest` object `$re
 
     public function getMyCart(HttpRequest $request) {
 
-        $request->{0} = param_0_value;
-        $request->{1} = param_1_value;
+        $request->cartName = param_0_value;
+        $request->user = param_1_value;
     }
 ...
 {% endhighlight %}
@@ -487,8 +569,6 @@ The GET protocol method will recieve the values in the `HttpRequest` object `$re
 You can also receive GET request parameters as a query string, for example:
 
 > http://my_url/my-cart**/?param0=value0&param1=value1**
-
-> Notice you need to add the **last slash** before the parameter list as is the name of the method to execute
 
 and your GET protocol method will recieve the parameters values in an `HttpRequest` object as follows:
 
@@ -509,7 +589,7 @@ If by some reason you want to combine both ways of receiving request parameters 
 
 > http://my_url/my-cart**/param0_value/param1_value/?param2=value2&param3=value3**
 
-then your GET protocol method will recieve the parameters as
+using the previous route example, then your GET protocol method will recieve the parameters as:
 
 {% highlight php %}
 <?php 
@@ -519,9 +599,8 @@ then your GET protocol method will recieve the parameters as
     public function getMyCart(HttpRequest $request) {
 
         // From the URL
-        $request->{0} = param0;
-        $request->{1} = param1;
-        $request->{2} = ?param2=value2&param3=value3;
+        $request->cartName = param0;
+        $request->user = param1;
 
         // From the query string
         $request->param2 = value2;
@@ -533,9 +612,20 @@ then your GET protocol method will recieve the parameters as
 <a name="controllers-protocol-post"></a>
 ### Controllers: POST Protocol Methods
 
-The request parameters for a POST protocol method can be placed as part of the url, split by slashes as the following example: 
+The request parameters for a POST protocol method can be placed as part of the url just as the GET Protocol methods: 
 
 > http://my_url/my-cart/**param_0_value**/**param_1_value**/ ...
+
+{% highlight php %}
+[App/Config/Routes.php]
+
+<?php
+...
+
+'my-cart/{cartName}/{user}' => ['use' => Cart]
+
+...
+{% endhighlight %}
 
 The POST protocol method will recieve the values in an `HttpRequest` object `$request` as:
 
@@ -546,8 +636,8 @@ The POST protocol method will recieve the values in an `HttpRequest` object `$re
 
     public function postMyCart(HttpRequest $request) {
 
-        $request->{0} = param_0_value;
-        $request->{1} = param_1_value;
+        $request->cartName = param_0_value;
+        $request->user = param_1_value;
     }
 ...
 {% endhighlight %}
@@ -576,7 +666,7 @@ You can also receive POST request parameters as a usual POST request, for exampl
 ...
 {% endhighlight %}
 
-> Although DELETE requests are accepted it is reserved for using in API classes. By default, a DELETE request method will only process request parameters in JSON format. If you want to use a DELETE request method, remember to send your data as a JSON.
+> Although DELETE requests are accepted it is reserved for being used by API classes. By default, a DELETE request method will only process request parameters in JSON format. If you want to use a DELETE request method, remember to send your data as a JSON.
 
 <a name="controllers-request"></a>
 ### Controllers: Request Attributes
@@ -626,7 +716,7 @@ Sometimes the functionality of one method in a Controller class can be reused af
 For this is as easy as instance an object of the Controller class you want.
 
 {% highlight php %}
-[app/controllers/Cart.php]
+[App/Controllers/Cart.php]
 
 <?php 
 
@@ -655,7 +745,7 @@ final class Cart extends Controller {
 If you want to redirect the browser, call the `render` method with the name of the path:
 
 {% highlight php %}
-[app/controllers/Cart.php]
+[App/Controllers/Cart.php]
 
 <?php 
 
@@ -679,7 +769,7 @@ final class Cart extends Controller {
 A Controller can also render a JSON response (like an API class) instead of a view. For this, just use the core `Response` class as the following example:
 
 {% highlight php %}
-[app/controllers/Cart.php]
+[App/Controllers/Cart.php]
 
 <?php 
 
@@ -723,10 +813,10 @@ Models are the way to connect a datasource with a Controller (and a View). Niuwa
 <a name="models-define"></a>
 ### Models: Definition
 
-All models inherit from the Illuminate\Database\Eloquent class `Model` and must be placed in the `app/models` directory. The model class file must exist inside the namespace `App\Models`. Here is an example of how it should look like:
+All models inherit from the Illuminate\Database\Eloquent class `Model` and must be placed in the `App/models` directory. The model class file must exist inside the namespace `App\Models`. Here is an example of how it should look like:
 
 {% highlight php %}
-[app/models/Product.php]
+[App/Models/Product.php]
 
 <?php
 
@@ -753,21 +843,31 @@ The view holds the template where all the controller data will be displayed.
 <a name="views-define"></a>
 ### Views: Definition
 
-All views must be placed in the `public/views` directory and their file must be defined with the extension `.twig`. For the case of 'admin application side' views, the files should be inside the `views/admin` subdirectory. The content of the views use Twig syntax, for more information visit the [Twig documentation](https://twig.sensiolabs.org/doc/2.x/).
+All views must be placed in the `public/views/route-path` directory and their file must be defined with the extension `.twig`. For the case of application spaces and application admin space views, the files should be inside the `public/views/spaceName/route-path` subdirectory. The content of the views use Twig syntax, for more information visit the [Twig documentation](https://twig.sensiolabs.org/doc/2.x/).
 
-By default, the framework will load a view filename that matches the current loaded path. For example for the next URL:
+By default, the framework will load a view filename that matches the current loaded path. For example for the next URLs:
 
-> http://my_url/my-cart
+> http://my_url/cart
+> http://my_url/cart/edit/{id}
 
-the framework will try to load the following view file:
+the framework will try to load the following view files:
 
-`public/views/my-cart.twig`
+`public/views/cart/index.twig`<br/>
+`public/views/cart/edit.twig`
 
 You can change the name of the view filename to load by setting the attribute `view` as shown in section Views: <a href="#views-attributes">Template Attributes</a>.
 
-For the Admin application, all views filenames should be in the `views/admin` subdirectory.
+For the application Admin space, all views filenames should be in the `views/admin/route-path` subdirectory. For example for the next URLs:
 
-`public/views/admin/my-account.twig`
+> http://my_url/admin/account <br />
+> http://my_url/admin/account/edit
+
+`public/views/admin/account/index.twig` <br/>
+`public/views/admin/account/edit.twig`
+
+And the same for other application spaces:
+
+`public/views/spaceName/my-path/my-view.twig`
 
 <a name="views-render"></a>
 ### Views: Rendering
@@ -779,7 +879,7 @@ To render a view template file, you need to tell the controller to do it. This i
 we can simply call the `render` method as this:
 
 {% highlight php %}
-[app/controllers/Cart.php]
+[App/Controllers/Cart.php]
 
 <?php 
 
@@ -789,16 +889,16 @@ use Niuware\WebFramework\Controller;
 
 final class Cart extends Controller {
 
-    public function getMyCart(HttpRequest $request) {
+    public function getIndex(HttpRequest $request) {
 
-        // By default it will render the public/views/my-cart.twig file
+        // By default it will render the public/views/cart/index.twig file
         return $this->render();
     }
 
     public function getMyOtherCart(HttpRequest $request) {
 
         // You can also redirect to another controller adding a valid path 
-        // set on the application routes.php file
+        // set on the application Routes.php file
         // For more details see the Controllers: Recycling section
         return $this->render('some-other-path');
     }
@@ -825,8 +925,8 @@ There are 2 main views included out of the box with the framework, which are rea
     </thead>
     <tbody>
         <tr>
-            <td>main<br /> main-admin</td>
-            <td>main.twig<br /> main-admin.twig</td>
+            <td>main</td>
+            <td>main.twig<br /> admin/main.twig</td>
             <td>
                 Contains HTML used by all views. Defines CSS stylesheet, JS files and other HTML headers meta tags Twig blocks. The main and admin side have their own main vies files.<br/>
             </td>
@@ -956,7 +1056,7 @@ final class MyController extends Controller {
 
     public function getMyPage(HttpRequest $request) {
 
-        $this->view = "view_filename.twig";
+        $this->view = "my-controller/view_filename.twig";
 
         ...
 
@@ -969,11 +1069,11 @@ Output:
 
 {% highlight html %}
 
-Loaded file: public/views/view_filename.twig
+Loaded file: public/views/my-controller/view_filename.twig
 
 or when using PHP as renderer:
 
-Loaded file: public/views/view_filename.php
+Loaded file: public/views/my-controller/view_filename.php
 
 {% endhighlight %}
 
@@ -983,7 +1083,7 @@ Loaded file: public/views/view_filename.php
 You can bind variables from a controller to a view by assigning new properties to the `Controller` object. For example let's suppose you need to render some array:
 
 {% highlight php %}
-[app/controllers/MyController.php]
+[App/Controllers/MyController.php]
 
 <?php
 
@@ -1049,7 +1149,7 @@ You can use the `TwigFilters.php` and `TwigFunctions.php` classes to define cust
 {% highlight php %}
 
 <?php
-[app/helpers/TwigFunctions.php]
+[App/Helpers/TwigFunctions.php]
 
 namespace App\Helpers;
 
@@ -1073,7 +1173,7 @@ class TwigFunctions {
 And use it in the view as:
 
 {% highlight twig %}
-[public/views/my-controller.twig]
+[public/views/my-controller/my-view.twig]
 
 ...
 <div>
@@ -1110,7 +1210,7 @@ The following is a list of defined functions that are ready to use within your v
 You can use these functions as the following example:
 
 {% highlight twig %}
-[public/views/my-controller.twig]
+[public/views/my-controller/my-view.twig]
 
 ...
 <form>
@@ -1147,7 +1247,7 @@ The `Auth` class can help you verify if a user has successfully logged in to eit
 The Niuware WebFramework comes with a default configuration for auto logging a user who navigates to login-protected views as you can see in the following `Login` controller:
 
 {% highlight php %}
-[controllers/Login.php]
+[Controllers/Login.php]
 
 <?php 
 
@@ -1270,10 +1370,16 @@ final class MyController extends Controller {
 
 {% endhighlight %}
 
-For handling custom session variables for the Admin application, add to each of the methods an extra parameter with the string `'admin'`, for example:
+For handling custom session variables for the application Admin space, add to each of the methods an extra parameter with the string `'admin'`, for example:
 
 {% highlight php %}
 Auth::has('myVar', 'admin');
+{% endhighlight %}
+
+And for other application spaces just use the extra parameter with the string name of the space, for example:
+
+{% highlight php %}
+Auth::has('myVar', 'staff');
 {% endhighlight %}
 
 <a name="sessions-terminate"></a>
@@ -1303,7 +1409,7 @@ final class MyController extends Controller {
 
 {% endhighlight %}
 
-For destroying session variables from the Admin application, add to each of the methods the parameter `'admin'`, for example:
+For destroying session variables from the application Admin space or other spaces, add to each of the methods the parameter `'admin'`, or the name of the space. For example:
 
 {% highlight php %}
 Auth::destroy('admin');
@@ -1322,7 +1428,7 @@ Sometimes you need to have access to share classes and methods all over the Cont
 For adding global access functions and constants, add them in the Custom trait with public static modifiers: 
 
 {% highlight php %}
-[helpers/Custom.php]
+[Helpers/Custom.php]
 
 <?php
 
@@ -1343,7 +1449,7 @@ trait Custom {
 Then you can access them in `Controller` classes as follows:
 
 {% highlight php %}
-[app/controllers/MyController.php]
+[App/Controllers/MyController.php]
 
 <?php 
 
@@ -1368,10 +1474,10 @@ final class MyController extends Controller {
 <a name="custom-define"></a>
 ### Customization: Definition of Custom Classes
 
-For adding custom helper classes add them in the path `helpers/` within the namespace `App\Helpers`. Here is a simple example:
+For adding custom helper classes add them in the path `Helpers/` within the namespace `App\Helpers`. Here is a simple example:
 
 {% highlight php %}
-[app/helpers/MyCustomClass.php]
+[App/Helpers/MyCustomClass.php]
 
 <?php 
 
@@ -1395,7 +1501,7 @@ final class MyCustomClass {
 When you want to access your custom class remember to use the namespace `App\Helpers`:
 
 {% highlight php %}
-[app/controllers/MyController.php]
+[App/Controllers/MyController.php]
 
 <?php 
 
@@ -1425,10 +1531,10 @@ Niuware WebFramework can be used to create a RESTful API to build asynchronous W
 <a name="api-define"></a>
 ### API Classes: Definition
 
-API classes should be add in the `app/api` directory. Also the classes should exist inside the namespace `App\Api` and extend from the core class `Niuware\WebFramework\ApiResponse`. The filename **should be in lowercase** so your API URL's remain in lowercase. Here is an example of how it should look like:
+API classes should be add in the `App/Api` directory. Also the classes should exist inside the namespace `App\Api` and extend from the core class `Niuware\WebFramework\ApiResponse`. The filename **should be in lowercase** so your API URL's remain in lowercase. Here is an example of how it should look like:
 
 {% highlight php %}
-[app/api/MyApi.php]
+[App/Api/MyApi.php]
 
 <?php 
 
@@ -1455,7 +1561,7 @@ you should have a corresponding declaration in a file called cart.php with a cla
 In this case the class can be defined like the following example:
 
 {% highlight php %}
-[app/api/Cart.php]
+[App/Api/Cart.php]
 
 <?php 
 
@@ -1496,7 +1602,7 @@ GET Request:
 > http://my_url/api/cart/product/?**id=6**&**token=7458ABDG83**
 
 {% highlight php %}
-[app/api/Cart.php]
+[App/Api/Cart.php]
 
 <?php 
 
@@ -1558,7 +1664,7 @@ Cache-Control: no-cache
 {% endhighlight %}
 
 {% highlight php %}
-[app/api/Cart.php]
+[App/Api/Cart.php]
 
 <?php 
 
@@ -1620,7 +1726,7 @@ Cache-Control: no-cache
 {% endhighlight %}
 
 {% highlight php %}
-[app/api/Cart.php]
+[App/Api/Cart.php]
 
 <?php 
 
@@ -1649,7 +1755,7 @@ final class Cart extends ApiResponse {
 An API endpoint will render a response in JSON format. For this you only need to set the data you want to render using the `response` attribute and finally call the `render` method as the following example:
 
 {% highlight php %}
-[app/api/Cart.php]
+[App/Api/Cart.php]
 
 <?php 
 
@@ -1778,7 +1884,7 @@ The output will be:
 In your controller verify the token by using the `verifyCsrfToken` method of the `Security` core class:
 
 {% highlight php %}
-[app/controllers/MyController.php]
+[App/Controllers/MyController.php]
 
 <?php 
 
@@ -1858,7 +1964,7 @@ Content-Type:
 Controller:
 
 {% highlight php %}
-[app/controllers/MyController.php]
+[App/Controllers/MyController.php]
 
 <?php 
 
@@ -1921,7 +2027,7 @@ final class MyController extends Controller {
 The return value for the `save` method is an `Niuware\WebFramework\File` object, or `null` if there was an error uploading the file. You can retrieve the following attributes:
 
 {% highlight php %}
-[app/controllers/MyController.php]
+[App/Controllers/MyController.php]
 
 <?php 
 
@@ -1974,9 +2080,9 @@ You can use the framework console to execute commands such as migratinos. To acc
 
 or if you enabled the web mode, go to your browser and type:
 
-> http://my_url/console:nwf/{command}/{command_args}
+> http://my_url/console/{command}/{command_args}
 
-You have to enable the console in your `settings.php` file [configuration](#install-constant). The following are the valid values for the console configuration:
+You have to enable the console in your `Settings.php` file [configuration](#install-constant). The following are the valid values for the console configuration:
 
 <table class="reduced">
     <thead>
@@ -1996,8 +2102,8 @@ You have to enable the console in your `settings.php` file [configuration](#inst
         <tr>
             <td>web</td>
             <td>
-                Enables the use of the console using a web browser through the <em>console:nwf</em> path. <br />
-                For example: http://my_url/console:nwf/migrations/rollback/-d/XXXXXXXX
+                Enables the use of the console using a web browser through the <em>console</em> path. <br />
+                For example: http://my_url/console/migrations/rollback/-d/XXXXXXXX
             </td>
         </tr>
         <tr>
@@ -2029,12 +2135,12 @@ Terminal mode:
 > $ php vendor/niuware/webframework/src/nwf migrations create
 
 Web mode:
-> http://my_url/console:nwf/migrations/create
+> http://my_url/console/migrations/create
 
-This will create a new migration class in the `app/migrations/migrations` folder as `MigrationVersion_vTimestamp.php`. Notice the MigrationVersion part of the file as you can use this number for targetting commands suchs as migrate and rollback. For example:
+This will create a new migration class in the `App/Migrations/Migrations` folder as `MigrationVersion_vTimestamp.php`. Notice the MigrationVersion part of the file as you can use this number for targetting commands suchs as migrate and rollback. For example:
 
 {% highlight php %}
-[app/migrations/20170605063432_v1496644472.php]
+[App/Migrations/20170605063432_v1496644472.php]
 
 <?php
 
@@ -2068,7 +2174,7 @@ class V1496644472 extends Migration
 Then use Eloquent (Blueprint class) to create your definition, for example:
 
 {% highlight php %}
-[app/migrations/20170605063432_v1496644472.php]
+[App/Migrations/20170605063432_v1496644472.php]
 
 <?php
 
@@ -2119,7 +2225,7 @@ Terminal mode:
 > $ php vendor/niuware/webframework/src/nwf migrations migrate -t [MigrationVersion]
 
 Web mode:
-> http//my_url/console:nwf/migrations/migrate/-t/MigrationVersion
+> http//my_url/console/migrations/migrate/-t/MigrationVersion
 
 Notice that if you do not add the target for the migration (Migration class name), all migrations that haven't been run will be executed.
 
@@ -2140,7 +2246,7 @@ Terminal mode:
 > $ php vendor/niuware/webframework/src/nwf migrations rollback [-t MigrationVersion]
 
 Web mode:
-> http//my_url/console:nwf/migrations/rollback/-t/MigrationVersion
+> http//my_url/console/migrations/rollback/-t/MigrationVersion
 
 For more information on how to use the rollback -d command visit the Phinx [documentation](http://docs.phinx.org/en/latest/commands.html#the-rollback-command).
 
@@ -2153,9 +2259,9 @@ Terminal mode:
 > $ php vendor/niuware/webframework/src/nwf migrations seedcreate [NameOfSeedClass]
 
 Web mode:
-> http//my_url/console:nwf/migrations/seedcreate/NameOfSeedClass
+> http//my_url/console/migrations/seedcreate/NameOfSeedClass
 
-This will create a new seeding class in the `app/migrations/seeds` folder. For example:
+This will create a new seeding class in the `App/Migrations/Seeds` folder. For example:
 
 {% highlight php %}
 
@@ -2223,7 +2329,7 @@ Terminal mode:
 > $ php vendor/niuware/webframework/src/nwf migrations seedrun -s [NameOfSeedClass]
 
 Web mode:
-> http//my_url/console:nwf/migrations/seedrun/-s/NameOfSeedClass
+> http//my_url/console/migrations/seedrun/-s/NameOfSeedClass
 
 Notice that if you do not add the name of the seed class name, all seed files will be run. Be careful as seeds do not look up for repeated data, so if you run all seeds twice, data will be duplicated.
 
@@ -2236,7 +2342,7 @@ Terminal mode:
 > $ php vendor/niuware/webframework/src/nwf migrations status
 
 Web mode:
-> http//my_url/console:nwf/migrations/status
+> http//my_url/console/migrations/status
 
 <a name="pagination"></a>
 ## 13. Pagination
@@ -2246,7 +2352,7 @@ When querying data from your database it is easy to paginate results using the `
 First, set the data in your controller class: 
 
 {% highlight php %}
-[app/controllers/MyController.php]
+[App/Controllers/MyController.php]
 
 <?php 
 
@@ -2340,7 +2446,7 @@ For the previous example the HTML output will be something like this:
 If there is a problem with the configuration of your Controller classes, view template files or other exceptions, the FrameworkException will be thrown and you will see the complete list of all thrown exceptions and errors on the screen. In general it is not needed to throw exceptions but you can throw a FrameworkException in your Controller class as follows:
 
 {% highlight php %}
-[app/controllers/MyController.php]
+[App/Controllers/MyController.php]
 
 <?php 
 
