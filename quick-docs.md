@@ -1902,7 +1902,7 @@ You can set the route to auto check for a valid CSRF Token by defining the `csrf
 
 {% endhighlight %}
 
-If you send a request with an invalid CSRF Token to a CSRF protected route, then the framework will throw an exception.
+If you send a request with an invalid CSRF Token to a CSRF protected route, then the framework will render an `HTTP 403 response`.
 
 If you want to implement the check manually in your controller you can either use the `hasValidCsrf` method of the `HttpRequest` core class which checks the application CSRF token with the recieved `csrf_token` parameter (for example when using the previos `csrfToken` function in your Twig template):
 
