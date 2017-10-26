@@ -229,8 +229,16 @@ final class Routes {
     
     public static $views = [
         'main' => [
+            // Simple route
             'home' => ['use' => 'Home'], 
-            'my-cart' => ['use' => 'Cart', 'login' => true],    // login required
+
+            // Login required
+            'my-cart' => ['use' => 'Cart', 'require' => ['login']],  
+
+            // Login and CSRF check required
+            'my-form' => ['use' => 'Cart', 'require' => ['login', 'csrf']],
+
+            // Mapped variables
             'category/{name}' => ['use' => 'Category'],
             ...
         ],
@@ -240,7 +248,7 @@ final class Routes {
 
 {% endhighlight %}
 
-In the previous example you can notice each path has an array value as well. This array has two values: 'use' which points to the Controller class that will listen to the path and 'login', a boolean value that tells the framework if the path requires a login or not. This value is set to false by default so it can be omitted. The usage of Controllers is detailed in the Controllers section of this page.
+In the previous example you can notice each path has an array value as well. This array has two keys: **use** which points to the Controller class that will listen to the path and **require**, that has values such as 'login' or 'csrf' and tells the framework if the path requires an active logged in session and/or a CSRF check when sending data to the server (see <a href="#security-csrf">CSRF Token Form Validation</a> for more details). This values are set to false by default so you can omit the whole 'require' key. The usage of Controllers is detailed in the Controllers section of this page.
 
 <a name="routing-admin"></a>
 ### Routing: Application Admin Space
@@ -280,7 +288,7 @@ final class Routes {
 
 {% endhighlight %}
 
-As mentioned before, all paths for the admin side require a user login so the value for each path is just a one element array which contains the Controller class which will listen to the path.
+As mentioned before, all paths for the admin side require a logged in session, but you can activate or deactivate the CSRF check for the request of each route as prefered.
 
 <a name="routing-spaces"></a>
 ### Routing: Application Spaces
@@ -309,8 +317,8 @@ final class Routes {
     public static $views = [
         ...
         'staff' => [
-            'home' => ['use' => 'Home', 'login' => false], 
-            'settings' => ['use' => 'Settings', 'login' => true],
+            'home' => ['use' => 'Home', 'require' => ['login']], 
+            'settings' => ['use' => 'Settings', 'require' => ['login']],
             ...
         ]
     ];
@@ -1881,7 +1889,46 @@ The output will be:
 
 {% endhighlight %}
 
-In your controller verify the token by using the `verifyCsrfToken` method of the `Security` core class:
+You can set the route to auto check for a valid CSRF Token by defining the `csrf` value in the require array for your routes:
+
+{% highlight php %}
+[App/Config/Routes.php]
+
+...
+
+            // Login and CSRF check required
+            'my-form' => ['use' => 'Cart', 'require' => ['csrf']],
+}
+
+{% endhighlight %}
+
+If you send a request with an invalid CSRF Token to a CSRF protected route, then the framework will throw an exception.
+
+If you want to implement the check manually in your controller you can either use the `hasValidCsrf` method of the `HttpRequest` core class which checks the application CSRF token with the recieved `csrf_token` parameter (for example when using the previos `csrfToken` function in your Twig template):
+
+{% highlight php %}
+[App/Controllers/MyController.php]
+
+<?php 
+
+namespace App\Controllers;
+    
+use Niuware\WebFramework\Controller;
+use Niuware\WebFramework\Security;
+
+final class MyController extends Controller {
+
+    public function getMyPage(HttpRequest $request) {
+
+        if ($request->hasValidCsrf()) {
+
+            // do something
+        }
+    }
+
+{% endhighlight %}
+
+or use the `verifyCsrfToken` method of the `Security` core class where you can pass any parameter to check with the application CSRF token:
 
 {% highlight php %}
 [App/Controllers/MyController.php]
