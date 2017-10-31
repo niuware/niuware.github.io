@@ -12,7 +12,8 @@ This is a quick documentation on how to use all of the available features in Niu
   2.2 <a href="#routing-admin">Application Admin Space</a>  
   2.3 <a href="#routing-spaces">Application Spaces</a>  
   2.4 <a href="#routing-map">Mapped Variables</a>  
-  2.5 <a href="#routing-api">API-Only Mode</a>  
+  2.5 <a href="#routing-override">Overriding Methods</a>  
+  2.6 <a href="#routing-api">API-Only Mode</a>  
 3. <a href="#controllers">Controllers</a>    
   3.1 <a href="#controllers-define">Definition</a>    
   3.2 <a href="#controllers-access">Calls</a>    
@@ -240,6 +241,9 @@ final class Routes {
 
             // Mapped variables
             'category/{name}' => ['use' => 'Category'],
+
+            // Overriding methods
+            'login' => ['use' => 'Login@logout']
             ...
         ],
         ...
@@ -353,6 +357,30 @@ You can map it in the `Routes.php` file as:
 {% endhighlight %}
 
 With this you will recieve the `id` and `other` parameters inside the `HttpRequest` object in a controller method. See <a href="#controllers">controllers</a> for learning more about it.
+
+<a name="routing-override"></a>
+### Routing: Overriding Methods
+
+By default the framework will try to execute a method which matches the path in the route. You can override this feature by defining your controller as follows:
+
+{% highlight php %}
+[App/Config/Routes.php]
+
+<?php 
+
+...    
+    public static $views = [
+        ...
+        'main' => [
+            'special' => ['use' => 'Product@index'], 
+            ...
+        ]
+    ];
+}
+
+{% endhighlight %}
+
+In the previous example the url: http://my_url/special will load the `Product` controller and execute the `index` method, either `getIndex` or `postIndex` depending on the request method to your server. See <a href="#controllers-protocol">Protocol Restriction</a> for more details.
 
 <a name="routing-api"></a>
 ### Routing: API-Only Mode
