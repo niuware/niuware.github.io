@@ -46,6 +46,7 @@ This is a quick documentation on how to use all of the available features in Niu
   8.2 <a href="#api-protocol">Protocol Restriction</a>  
   8.3 <a href="#api-params">Request Parameters</a>  
   8.4 <a href="#api-response">Response Rendering</a>  
+  8.5 <a href="#api-multiple">Multiple Version Support</a> 
 9. <a href="#security">Security</a>  
   9.1 <a href="#security-pass">Passwords</a>  
   9.2 <a href="#security-token">Tokens</a>  
@@ -1837,6 +1838,23 @@ The output will be something like this:
 }
 
 {% endhighlight %}
+
+<a name="api-multiple"></a>
+### API Classes: Multiple Version Support
+
+The framework supports multiple versions for your API. You just need to add the version pattern as `v#.#.#` to the URL and add the API classes inside a folder corresponding to the version. 
+
+For example if you access:
+
+> http://my_url/api/cart/product
+
+the framework will load the default class version which should be found in `App/Api/Product`. On the contrary, if you access:
+
+> http://my_url/api/**v2.1.0**/product
+
+then the framework will try to load the class version found in `App/Api/V210/Product`.
+
+Notice that there is no fallback for the default version if the class version is not found, so an *API Not found class* error code will be rendered instead.
 
 <a name="security"></a>
 ## 9. Security
