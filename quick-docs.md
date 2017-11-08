@@ -51,17 +51,20 @@ This is a quick documentation on how to use all of the available features in Niu
   9.1 <a href="#security-pass">Passwords</a>  
   9.2 <a href="#security-token">Tokens</a>  
   9.3 <a href="#security-csrf">CSRF Token Form Validation</a>  
-10. <a href="#file">Files</a>  
-  10.1 <a href="#file-attrib">Attributes</a>  
-11. <a href="#console">Console</a>  
-12. <a href="#migration">Database Migrations</a>  
-  12.1 <a href="#migration-migrate">Migration files</a>  
-  12.2 <a href="#migration-seed">Seeding</a>  
-  12.3 <a href="#migration-rollback">Rollback</a>  
-  12.4 <a href="#migration-status">Status</a>  
-13. <a href="#pagination">Pagination</a>  
-14. <a href="#exception">Exceptions</a>
-15. <a href="#compatibility">PHP < 7.0 compatibility</a>  
+10. <a href="#request">Requests</a>  
+  10.1 <a href="#request-define">Definition</a>  
+  10.2 <a href="#request-validate">Validation</a>  
+11. <a href="#file">Files</a>  
+  11.1 <a href="#file-attrib">Attributes</a>  
+12. <a href="#console">Console</a>  
+13. <a href="#migration">Database Migrations</a>  
+  13.1 <a href="#migration-migrate">Migration files</a>  
+  13.2 <a href="#migration-seed">Seeding</a>  
+  13.3 <a href="#migration-rollback">Rollback</a>  
+  13.4 <a href="#migration-status">Status</a>  
+14. <a href="#pagination">Pagination</a>  
+15. <a href="#exception">Exceptions</a>
+16. <a href="#compatibility">PHP < 7.0 compatibility</a>  
 
 <a name="install"></a>
 ## 1. Installation
@@ -2013,8 +2016,175 @@ final class MyController extends Controller {
 
 {% endhighlight %}
 
+<a name="request"></a>
+## 10. Requests
+
+By default each controller method recieves the request in an `Niuware\WebFramework\Http\HttpRequest` object, but you can define your own Request classes and its independent validation rules. 
+
+<a name="request-define"></a>
+## Requests: Definition
+
+All requests inherit from the Niuwre WebFramework core class `Request` and implement the `RequestInterface`. A request class file must exist inside the namespace `App\Requests`. If you are inside a subspace then you will need to append the correct namespace path. For example for the application Admin space the request class files shoudl be in the `Requests/Admin` subdirectory and use the `App\Requests\Admin namespace:
+
+{% highlight php %}
+[App/Requests/MyRequest.php]
+
+<?php 
+
+namespace App\Requests;
+    
+use Niuware\WebFramework\Http\Request;
+use Niuware\WebFramework\Http\RequestInterface;
+
+final class MyRequest extends Request implements RequestInterface {
+
+    function __construct(array $params, $method = "") {
+        parent::__construct($params, $method);
+    }
+    
+    public function rules() {
+        
+        return [];
+    }
+    
+    public function validate() {
+        parent::validateWith($this->rules());
+    }
+
+{% endhighlight %}
+
+<a name="request-validate"></a>
+## Requests: Validation
+
+You can add validation rules for your custom request as follows:
+
+{% highlight php %}
+[App/Requests/MyRequest.php]
+
+<?php 
+
+namespace App\Requests;
+    
+use Niuware\WebFramework\Http\Request;
+use Niuware\WebFramework\Http\RequestInterface;
+
+final class MyRequest extends Request implements RequestInterface {
+
+    ...
+    
+    public function rules() {
+        
+        return [
+            // Rules for GET request method
+            'get' => [
+                'fieldName' => [
+                    'rule|parameter' => 'Error message string'
+                ],
+                'otherFieldName' => [
+                    ...
+                ]
+            ],
+            // Rules for POST request method
+            'post' => [
+                'fieldName' => [
+                    'rule|parameter' => 'Error message string'
+                ],
+                ...
+            ],
+            // Rules for DELETE request method
+            'delete' => [
+                'fieldName' => [
+                    'rule|parameter' => 'Error message string'
+                ],
+                ...
+            ]
+        ];
+    }
+    
+    ...
+
+{% endhighlight %}
+
+As you may notice, the rules can be set independently for each Request Method (GET, POST or DELETE). The current valid rules are: 
+
+<table class="variant">
+    <thead>
+        <tr>
+            <th>Rule</th>
+            <th>Parameters</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>required</td>
+            <td>boolean (optional)</td>
+            <td>
+                Sets the field as required in the request. If the parameter is true, the field will be considered as valid if the request contains it even its value is empty.
+            </td>
+        </tr>
+        <tr>
+            <td>pattern</td>
+            <td>string</td>
+            <td>
+                Sets a pattern to take for validating the field. The pattern string is defined in the parameter.
+            </td>
+        </tr>
+        <tr>
+            <td>numeric</td>
+            <td>-</td>
+            <td>
+                Validates if the field is numeric.
+            </td>
+        </tr>
+        <tr>
+            <td>minlength</td>
+            <td>number</td>
+            <td>
+                Sets a minimum string length for the field.
+            </td>
+        </tr>
+        <tr>
+            <td>maxlength</td>
+            <td>number</td>
+            <td>
+                Sets a maximum string length for the field.
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+When you use a custom Request class in your controller the validation will be executed during the request and you can verify its result using the `isValid` or `getErrors` methods as in the following example:
+
+{% highlight php %}
+[App/Controllers/MyController.php]
+
+<?php 
+
+namespace App\Controllers;
+    
+use Niuware\WebFramework\Application\Controller;
+
+use App\Requests\MyRequest
+
+final class MyController extends Controller {
+
+    public function getMyPage(MyRequest $request) {
+
+        $valid = $request->validation()->isValid();
+        $errors = $request->validation()->getErrors();
+
+        $firstError = $request->validation()->getFirstError();
+        $lastError = $request->validation()->getLastError();
+        ... 
+
+        return $this->render();
+    }
+
+{% endhighlight %}
+
 <a name="file"></a>
-## 10. Files
+## 11. Files
 
 It's very easy to get files from a POST request using the `HttpRequest` parameter. To get an uploaded file and move it to a directory use the following example:
 
@@ -2182,7 +2352,7 @@ In the previous example the name for the file will be the same as the uploaded o
 The path will be automatically selected checking the MIME type (only image, video, audio; other MIME types will be uploaded to the  'public/assets/other' directory). For example an image file will be uploaded to `public/assets/image` by default. You can change the name and path using the parameters for the `move` method as `move(filename, path)`.
 
 <a name="console"></a>
-## 11. Console
+## 12. Console
 
 You can use the framework console to execute commands such as migratinos. To access it just go to the terminal and type:
 
@@ -2232,7 +2402,7 @@ You have to enable the console in your `Settings.php` file [configuration](#inst
 </table>
 
 <a name="migration"></a>
-## 12. Database Migrations
+## 13. Database Migrations
 
 Use the power of database migration definitions to have a robust way to enhance your web application. Migrations are integrated into Niuware WebFramework using [Phinx](https://phinx.org/). Notice not all Phinx functionality is available through the Niuware WebFramework console.
 
@@ -2455,7 +2625,7 @@ Web mode:
 > http//my_url/console/migrations/status
 
 <a name="pagination"></a>
-## 13. Pagination
+## 14. Pagination
 
 When querying data from your database it is easy to paginate results using the `Paginate` core class. Here is a basic example of how to use this feature:
 
@@ -2551,7 +2721,7 @@ For the previous example the HTML output will be something like this:
 > Note that if your current URL has query parameters, they will be included safely into the pagination result links.
 
 <a name="exception"></a>
-## 14. Exceptions
+## 15. Exceptions
 
 If there is a problem with the configuration of your Controller classes, view template files or other exceptions, the FrameworkException will be thrown and you will see the complete list of all thrown exceptions and errors on the screen. In general it is not needed to throw exceptions but you can throw a FrameworkException in your Controller class as follows:
 
@@ -2585,7 +2755,7 @@ final class MyController extends Controller {
 In the case of the API classes, you will see only the last error/exception directly in the JSON rendered response. 
 
 <a name="compatibility"></a>
-## 15. PHP < 7.0 compatibility
+## 16. PHP < 7.0 compatibility
 
 The core of Niuware WebFramework is compatible with PHP 5.6+. On the other hand, the default versions for the dependencies Eloquent and Twig are set to use a minimum version of PHP 7.0. If you require to use a version lower than PHP 7.0 you can update the composer file for using aliases on illuminate/database < 5.5.0 and twig/twig < 2.0.0
 
