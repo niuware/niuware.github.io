@@ -99,7 +99,7 @@ The following table shows the application constants that you need to configure:
         <tr>
             <td>BASE_PATH</td>
             <td>
-                If your BASE_URL has a sub path (subfolder), write it here.<br /> 
+                If your BASE_URL has a sub path (subdirectory), write it here.<br /> 
                 For example: If BASE_URL is http://my_url.com/ then BASE_PATH should be '/'.<br />
                 If BASE_URL is http://my_url.com/<strong>sub_domain/</strong> then BASE_PATH should be <strong>sub_domain/</strong> <br />
                 <strong>Should include the trailing slash.</strong>
@@ -422,7 +422,7 @@ All controllers inherit from the Niuware WebFramework core class `Controller` an
 
 namespace App\Controllers;
     
-use Niuware\WebFramework\Controller;
+use Niuware\WebFramework\Application\Controller;
 
 final class MyController extends Controller {
 
@@ -440,7 +440,7 @@ For the application Admin space, the controller class files should be in the `Co
 
 namespace App\Controllers\Admin;
     
-use Niuware\WebFramework\Controller;
+use Niuware\WebFramework\Application\Controller;
 
 final class MyAdminController extends Controller {
 
@@ -458,7 +458,7 @@ For other application spaces, the controllers class files should be located in t
 
 namespace App\Controllers\NameOfSpace;
     
-use Niuware\WebFramework\Controller;
+use Niuware\WebFramework\Application\Controller;
 
 final class MyController extends Controller {
 
@@ -496,7 +496,7 @@ then the controller like this:
 
 namespace App\Controllers;
     
-use Niuware\WebFramework\Controller;
+use Niuware\WebFramework\Application\Controller;
 
 final class Cart extends Controller {
 
@@ -515,7 +515,8 @@ Now the `Cart` controller class will be called when a user access this path, but
 
 namespace App\Controllers;
     
-use Niuware\WebFramework\Controller;
+use Niuware\WebFramework\Application\Controller;
+use Niuware\WebFramework\Http\HttpRequest;
 
 final class Cart extends Controller {
 
@@ -542,7 +543,8 @@ It is easy to restrict the HTTP protocol that a Controller class can accept. For
 
 namespace App\Controllers;
     
-use Niuware\WebFramework\Controller;
+use Niuware\WebFramework\Application\Controller;
+use Niuware\WebFramework\Http\HttpRequest;
 
 final class Cart extends Controller {
 
@@ -759,7 +761,8 @@ For this is as easy as instance an object of the Controller class you want.
 
 namespace App\Controllers;
     
-use Niuware\WebFramework\Controller;
+use Niuware\WebFramework\Application\Controller;
+use Niuware\WebFramework\Http\HttpRequest;
 
 final class Cart extends Controller {
 
@@ -788,7 +791,8 @@ If you want to redirect the browser, call the `render` method with the name of t
 
 namespace App\Controllers;
     
-use Niuware\WebFramework\Controller;
+use Niuware\WebFramework\Application\Controller;
+use Niuware\WebFramework\Http\HttpRequest;
 
 final class Cart extends Controller {
 
@@ -812,8 +816,9 @@ A Controller can also render a JSON response (like an API class) instead of a vi
 
 namespace App\Controllers;
     
-use Niuware\WebFramework\Controller;
-use Niuware\WebFramework\Response;
+use Niuware\WebFramework\Application\Controller;
+use Niuware\WebFramework\Http\HttpRequest;
+use Niuware\WebFramework\Http\Response;
 
 final class Cart extends Controller {
 
@@ -922,7 +927,8 @@ we can simply call the `render` method as this:
 
 namespace App\Controllers;
     
-use Niuware\WebFramework\Controller;
+use Niuware\WebFramework\Application\Controller;
+use Niuware\WebFramework\Http\HttpRequest;
 
 final class Cart extends Controller {
 
@@ -1190,7 +1196,7 @@ You can use the `TwigFilters.php` and `TwigFunctions.php` classes to define cust
 
 namespace App\Helpers;
 
-use Niuware\WebFramework\Helper;
+use Niuware\WebFramework\Application\Helper;
 
 class TwigFunctions {
     
@@ -1290,8 +1296,9 @@ The Niuware WebFramework comes with a default configuration for auto logging a u
 
 namespace App\Controllers;
     
-use Niuware\WebFramework\Controller;
-use Niuware\WebFramework\Auth;
+use Niuware\WebFramework\Application\Controller;
+use Niuware\WebFramework\Http\HttpRequest;
+use Niuware\WebFramework\Auth\Auth;
 
 final class Login extends Controller {
 
@@ -1316,8 +1323,9 @@ You can implement the authentication in any controller you want by using the `Au
 
 namespace App\Controllers;
     
-use Niuware\WebFramework\Controller;
-use Niuware\WebFramework\Auth;
+use Niuware\WebFramework\Application\Controller;
+use Niuware\WebFramework\Http\HttpRequest;
+use Niuware\WebFramework\Auth\Auth;
 
 final class MyController extends Controller {
 
@@ -1344,8 +1352,9 @@ To verify if a user has logged in to your Web application use the following meth
 
 namespace App\Controllers;
     
-use Niuware\WebFramework\Controller;
-use Niuware\WebFramework\Auth;
+use Niuware\WebFramework\Application\Controller;
+use Niuware\WebFramework\Http\HttpRequest;
+use Niuware\WebFramework\Auth\Auth;
 
 final class MyController extends Controller {
 
@@ -1381,8 +1390,9 @@ For adding and removing values to the current session, the `Auth` class contains
 
 namespace App\Controllers;
     
-use Niuware\WebFramework\Controller;
-use Niuware\WebFramework\Auth;
+use Niuware\WebFramework\Application\Controller;
+use Niuware\WebFramework\Http\HttpRequest;
+use Niuware\WebFramework\Auth\Auth;
 
 final class MyController extends Controller {
 
@@ -1430,8 +1440,9 @@ You can easily destroy all custom values using the Auth class method `destroy`. 
 
 namespace App\Controllers;
     
-use Niuware\WebFramework\Controller;
-use Niuware\WebFramework\Auth;
+use Niuware\WebFramework\Application\Controller;
+use Niuware\WebFramework\Http\HttpRequest;
+use Niuware\WebFramework\Auth\Auth;
 
 final class MyController extends Controller {
 
@@ -1492,8 +1503,9 @@ Then you can access them in `Controller` classes as follows:
 
 namespace App\Controllers;
     
-use Niuware\WebFramework\Controller;
-use Niuware\WebFramework\Helper;
+use Niuware\WebFramework\Application\Controller;
+use Niuware\WebFramework\Http\HttpRequest;
+use Niuware\WebFramework\Application\Helper;
 
 final class MyController extends Controller {
 
@@ -1544,7 +1556,8 @@ When you want to access your custom class remember to use the namespace `App\Hel
 
 namespace App\Controllers;
     
-use Niuware\WebFramework\Controller;
+use Niuware\WebFramework\Application\Controller;
+use Niuware\WebFramework\Http\HttpRequest;
 use App\Helpers;
 
 final class MyController extends Controller {
@@ -1568,7 +1581,7 @@ Niuware WebFramework can be used to create a RESTful API to build asynchronous W
 <a name="api-define"></a>
 ### API Classes: Definition
 
-API classes should be add in the `App/Api` directory. Also the classes should exist inside the namespace `App\Api` and extend from the core class `Niuware\WebFramework\ApiResponse`. The filename **should be in lowercase** so your API URL's remain in lowercase. Here is an example of how it should look like:
+API classes should be add in the `App/Api` directory. Also the classes should exist inside the namespace `App\Api` and extend from the core class `Niuware\WebFramework\Http\ApiResponse`. The filename **should be in lowercase** so your API URL's remain in lowercase. Here is an example of how it should look like:
 
 {% highlight php %}
 [App/Api/MyApi.php]
@@ -1577,7 +1590,7 @@ API classes should be add in the `App/Api` directory. Also the classes should ex
 
 namespace App\Api;
 
-use Niuware\WebFramework\ApiResponse;
+use Niuware\WebFramework\Http\ApiResponse;
 
 final class MyApi extends ApiResponse {
 
@@ -1604,7 +1617,7 @@ In this case the class can be defined like the following example:
 
 namespace App\Api;
 
-use Niuware\WebFramework\ApiResponse;
+use Niuware\WebFramework\Http\ApiResponse;
 
 final class Cart extends ApiResponse {
 
@@ -1645,7 +1658,7 @@ GET Request:
 
 namespace App\Api;
 
-use Niuware\WebFramework\ApiResponse;
+use Niuware\WebFramework\Http\ApiResponse;
 
 final class Cart extends ApiResponse {
 
@@ -1707,7 +1720,7 @@ Cache-Control: no-cache
 
 namespace App\Api;
 
-use Niuware\WebFramework\ApiResponse;
+use Niuware\WebFramework\Http\ApiResponse;
 
 final class Cart extends ApiResponse {
 
@@ -1769,7 +1782,7 @@ Cache-Control: no-cache
 
 namespace App\Api;
 
-use Niuware\WebFramework\ApiResponse;
+use Niuware\WebFramework\Http\ApiResponse;
 
 final class Cart extends ApiResponse {
 
@@ -1798,7 +1811,7 @@ An API endpoint will render a response in JSON format. For this you only need to
 
 namespace App\Api;
 
-use Niuware\WebFramework\ApiResponse;
+use Niuware\WebFramework\Http\ApiResponse;
 
 final class Cart extends ApiResponse {
 
@@ -1842,7 +1855,7 @@ The output will be something like this:
 <a name="api-multiple"></a>
 ### API Classes: Multiple Version Support
 
-The framework supports multiple versions for your API. You just need to add the version pattern as `v#.#.#` to the URL and add the API classes inside a folder corresponding to the version. 
+The framework supports multiple versions for your API. You just need to add the version pattern as `v#.#.#` to the URL and add the API classes inside a directory corresponding to the version. 
 
 For example if you access:
 
@@ -1850,11 +1863,11 @@ For example if you access:
 
 the framework will load the default class version which should be found in `App/Api/Product`. On the contrary, if you access:
 
-> http://my_url/api/**v2.1.0**/product
+> http://my_url/api/**v2.1.0**/cart/product
 
-then the framework will try to load the class version found in `App/Api/V210/Product`.
+then the framework will try to load the class version found in the subdirectory v2.1.0 -> **V210**: `App/Api/V210/Product`.
 
-Notice that there is no fallback for the default version if the class version is not found, so an *API Not found class* error code will be rendered instead.
+Notice that there is no fallback for the default version if the class version, so if the version is not found an *API Not found class* error code will be rendered instead.
 
 <a name="security"></a>
 ## 9. Security
@@ -1869,7 +1882,7 @@ Use the methods `hash` and `verifyHash` from the `Security` core class to create
 {% highlight php %}
 <?php 
 
-namespace Niuware\WebFramework\Security;
+use Niuware\WebFramework\Auth\Security;
 
 final class MyClass {
 
@@ -1900,7 +1913,7 @@ Use the method `generateToken` from the `Security` core class to generate securi
 {% highlight php %}
 <?php 
 
-namespace Niuware\WebFramework\Security;
+use Niuware\WebFramework\Auth\Security;
 
 final class MyClass {
 
@@ -1959,8 +1972,9 @@ If you want to implement the check manually in your controller you can either us
 
 namespace App\Controllers;
     
-use Niuware\WebFramework\Controller;
-use Niuware\WebFramework\Security;
+use Niuware\WebFramework\Application\Controller;
+use Niuware\WebFramework\Http\HttpRequest;
+use Niuware\WebFramework\Auth\Security;
 
 final class MyController extends Controller {
 
@@ -1983,8 +1997,9 @@ or use the `verifyCsrfToken` method of the `Security` core class where you can p
 
 namespace App\Controllers;
     
-use Niuware\WebFramework\Controller;
-use Niuware\WebFramework\Security;
+use Niuware\WebFramework\Application\Controller;
+use Niuware\WebFramework\Http\HttpRequest;
+use Niuware\WebFramework\Auth\Security;
 
 final class MyController extends Controller {
 
@@ -2063,8 +2078,9 @@ Controller:
 
 namespace App\Controllers;
     
-use Niuware\WebFramework\Controller;
-use Niuware\WebFramework\Security;
+use Niuware\WebFramework\Application\Controller;
+use Niuware\WebFramework\Http\HttpRequest;
+use Niuware\WebFramework\Auth\Security;
 
 final class MyController extends Controller {
 
@@ -2117,7 +2133,7 @@ final class MyController extends Controller {
 <a name="file-attrib"></a>
 ### Files: Attributes
 
-The return value for the `save` method is an `Niuware\WebFramework\File` object, or `null` if there was an error uploading the file. You can retrieve the following attributes:
+The return value for the `save` method is an `Niuware\WebFramework\Http\File` object, or `null` if there was an error uploading the file. You can retrieve the following attributes:
 
 {% highlight php %}
 [App/Controllers/MyController.php]
@@ -2126,7 +2142,8 @@ The return value for the `save` method is an `Niuware\WebFramework\File` object,
 
 namespace App\Controllers;
     
-use Niuware\WebFramework\Controller;
+use Niuware\WebFramework\Application\Controller;
+use Niuware\WebFramework\Http\HttpRequest;
 
 final class MyController extends Controller {
 
@@ -2230,14 +2247,14 @@ Terminal mode:
 Web mode:
 > http://my_url/console/migrations/create
 
-This will create a new migration class in the `App/Migrations/Migrations` folder as `MigrationVersion_vTimestamp.php`. Notice the MigrationVersion part of the file as you can use this number for targetting commands suchs as migrate and rollback. For example:
+This will create a new migration class in the `App/Migrations/Migrations` directory as `MigrationVersion_vTimestamp.php`. Notice the MigrationVersion part of the file as you can use this number for targetting commands suchs as migrate and rollback. For example:
 
 {% highlight php %}
 [App/Migrations/20170605063432_v1496644472.php]
 
 <?php
 
-use Niuware\WebFramework\Migration;
+use Niuware\WebFramework\Database\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
 class V1496644472 extends Migration
@@ -2271,7 +2288,7 @@ Then use Eloquent (Blueprint class) to create your definition, for example:
 
 <?php
 
-use Niuware\WebFramework\Migration;
+use Niuware\WebFramework\Database\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
 class V1496644472 extends Migration
@@ -2354,7 +2371,7 @@ Terminal mode:
 Web mode:
 > http//my_url/console/migrations/seedcreate/NameOfSeedClass
 
-This will create a new seeding class in the `App/Migrations/Seeds` folder. For example:
+This will create a new seeding class in the `App/Migrations/Seeds` directory. For example:
 
 {% highlight php %}
 
@@ -2451,9 +2468,9 @@ First, set the data in your controller class:
 
 namespace App\Controllers;
     
-use Niuware\WebFramework\Controller;
-use Niuware\WebFramework\HttpRequest;
-use Niuware\WebFramework\Paginate;
+use Niuware\WebFramework\Application\Controller;
+use Niuware\WebFramework\Http\HttpRequest;
+use Niuware\WebFramework\Pagination\Paginate;
 
 use App\Models\Item;
 
@@ -2545,8 +2562,8 @@ If there is a problem with the configuration of your Controller classes, view te
 
 namespace App\Controllers;
     
-use Niuware\WebFramework\Controller;
-use Niuware\WebFramework\HttpRequest;
+use Niuware\WebFramework\Application\Controller;
+use Niuware\WebFramework\Http\HttpRequest;
 use Niuware\WebFramework\FrameworkException;
 
 final class MyController extends Controller {
