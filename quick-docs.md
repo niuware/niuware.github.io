@@ -248,6 +248,9 @@ final class Routes {
 
             // Overriding methods
             'login' => ['use' => 'Login@logout']
+
+            // Overriding custom request
+            'search' => ['use' => 'Search', 'request' => 'CustomSearchRequest']
             ...
         ],
         ...
