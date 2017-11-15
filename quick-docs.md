@@ -12,8 +12,9 @@ This is a quick documentation on how to use all of the available features in Niu
   2.2 <a href="#routing-admin">Application Admin Space</a>  
   2.3 <a href="#routing-spaces">Application Spaces</a>  
   2.4 <a href="#routing-map">Mapped Variables</a>  
-  2.5 <a href="#routing-override">Overriding Methods</a>  
-  2.6 <a href="#routing-api">API-Only Mode</a>  
+  2.5 <a href="#routing-options">Options</a>  
+  2.6 <a href="#routing-override">Overriding Methods</a>  
+  2.7 <a href="#routing-api">API-Only Mode</a>  
 3. <a href="#controllers">Controllers</a>    
   3.1 <a href="#controllers-define">Definition</a>    
   3.2 <a href="#controllers-access">Calls</a>    
@@ -243,6 +244,9 @@ final class Routes {
             // Login and CSRF check required
             'my-form' => ['use' => 'Cart', 'require' => ['login', 'csrf']],
 
+            // Login and CSRF custom check
+            'my-form' => ['use' => 'Cart', 'require' => ['login' => false, 'csrf' => ['get', 'post', 'delete']]],
+
             // Mapped variables
             'category/{name}' => ['use' => 'Category'],
 
@@ -364,6 +368,47 @@ You can map it in the `Routes.php` file as:
 {% endhighlight %}
 
 With this you will recieve the `id` and `other` parameters inside the `HttpRequest` object in a controller method. See <a href="#controllers">controllers</a> for learning more about it.
+
+<a name="routing-admin"></a>
+### Routing: Options
+
+You can define some extra options for a route. For this you only need to add the `require` array with the options you need. At the moment the following options are supported:
+
+<table class="reduced">
+    <tbody>
+        <tr>
+            <td>login</td>
+            <td>Defines if the route requires a valid session to be accessed. You can define either true/false to verify the session.</td>
+        </tr>
+        <tr>
+            <td>csrf</td>
+            <td>Defines if the route requires a valid CSRF token to be accessed. You can define either of the request methods to verify (get, post, and/or delete).</td>
+        </tr>
+    </tbody>
+</table>
+
+Here is an example using routing options. The first route will ignore a valid session even if it's contained in the <a href="#routing-admin">Application Admin Space</a> (which defines a login required by default). The second route will check a valid CSRF token only if it is accessed through a POST or DELETE request method. The third route will verify the CSRF token for all requests and a valid session:
+
+{% highlight php %}
+[App/Config/Routes.php]
+
+<?php 
+
+...    
+    public static $views = [
+        ...
+        'admin' => [
+            'product' => ['use' => 'Product', 'require' => ['login' => false]], 
+            'cart' => ['use' => 'Cart', 'require' => ['csrf' => ['post', 'delete']]], 
+            ...
+        ],
+        'main' => [
+            'special-contact' => ['use' => 'Contact', 'require' => ['login', 'csrf']]
+        ]
+    ];
+}
+
+{% endhighlight %}
 
 <a name="routing-override"></a>
 ### Routing: Overriding Methods
