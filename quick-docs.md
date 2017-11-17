@@ -13,8 +13,9 @@ This is a quick documentation on how to use all of the available features in Niu
   2.3 <a href="#routing-spaces">Application Spaces</a>  
   2.4 <a href="#routing-map">Mapped Variables</a>  
   2.5 <a href="#routing-options">Options</a>  
-  2.6 <a href="#routing-override">Overriding Methods</a>  
-  2.7 <a href="#routing-api">API-Only Mode</a>  
+  2.6 <a href="#routing-request">Custom Requests</a>  
+  2.7 <a href="#routing-override">Overriding Methods</a>  
+  2.8 <a href="#routing-api">API-Only Mode</a>  
 3. <a href="#controllers">Controllers</a>    
   3.1 <a href="#controllers-define">Definition</a>    
   3.2 <a href="#controllers-access">Calls</a>    
@@ -55,6 +56,7 @@ This is a quick documentation on how to use all of the available features in Niu
 10. <a href="#request">Requests</a>  
   10.1 <a href="#request-define">Definition</a>  
   10.2 <a href="#request-validate">Validation</a>  
+  10.3 <a href="#request-mutate">Mutation</a>  
 11. <a href="#file">Files</a>  
   11.1 <a href="#file-attrib">Attributes</a>  
 12. <a href="#console">Console</a>  
@@ -404,6 +406,28 @@ Here is an example using routing options. The first route will ignore a valid se
         ],
         'main' => [
             'special-contact' => ['use' => 'Contact', 'require' => ['login', 'csrf']]
+        ]
+    ];
+}
+
+{% endhighlight %}
+
+<a name="routing-request"></a>
+### Routing: Custom Requests
+
+Sometimes you will want to reuse custom <a href="#request">Request</a> classes. In this case, you need to add the `request` parameter with the name of the `Request` class you require. Here is an example:
+
+{% highlight php %}
+[App/Config/Routes.php]
+
+<?php 
+
+...    
+    public static $views = [
+        ...
+        'main' => [
+            'special' => ['use' => 'Product', 'request' => 'SearchRequest'], 
+            ...
         ]
     ];
 }
@@ -2225,6 +2249,111 @@ final class MyController extends Controller {
         $firstError = $request->validation()->getFirstError();
         $lastError = $request->validation()->getLastError();
         ... 
+
+        return $this->render();
+    }
+
+{% endhighlight %}
+
+<a name="request-mutate"></a>
+## Requests: Mutation
+
+A request validation ensures the user has sent valid data to your application, but the ability to automtically mutate this data helps you optmize your controller code. For example let's suppose you want to cast a variable to a certain type, or execute a function over the value, in this case you can add mutable rules to your `Request` class. The current available mutable rules are:
+
+<table class="variant">
+    <thead>
+        <tr>
+            <th>Rule</th>
+            <th>Parameters</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>default</td>
+            <td>string (optional)</td>
+            <td>
+                Adds the field with the default value if it does not exist or mutate the value if it is different from the parameter value.
+            </td>
+        </tr>
+        <tr>
+            <td>cast</td>
+            <td>-</td>
+            <td>
+                Casts the field as a given valid type: bool, int, double, object, string, or array.
+            </td>
+        </tr>
+        <tr>
+            <td>callback</td>
+            <td>boolean (optional)</td>
+            <td>
+                Executes a PHP or global valid function over the field. If the parameters is true, the function mutates the value by reference.
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+In the following example the field `search` will be trimmed, and then cast to an integer type. The `order` field will be added to the request if does not exist with a value of `ASC`. It also will be assigned de `ASC` value if it has a different value from `DESC`:
+
+{% highlight php %}
+[App/Requests/MyRequest.php]
+
+<?php 
+
+namespace App\Requests;
+    
+use Niuware\WebFramework\Http\Request;
+use Niuware\WebFramework\Http\RequestInterface;
+
+final class SearchRequest extends Request implements RequestInterface {
+
+    ...
+    
+    public function rules() {
+        
+        return [
+            // Rules for GET request method
+            'get' => [
+                'search' => [
+                    'callback' => 'trim',
+                    'cast' => 'int'
+                ],
+                'order' => [
+                    'default|DESC' => 'ASC'
+                ]
+            ]
+        ];
+    }
+    
+    ...
+
+{% endhighlight %}
+
+Finally you can use your request in any controller method as:
+
+{% highlight php %}
+[App/Controllers/MyController.php]
+
+<?php 
+
+namespace App\Controllers;
+    
+use Niuware\WebFramework\Application\Controller;
+
+use App\Requests\MyRequest
+
+final class MyController extends Controller {
+
+    public function getMyPage(SearchRequest $request) {
+
+        if ($request->validation()->isValid()) {
+
+            // $search is a trimmed string cast to an integer type
+            $search = $request->search;
+
+            // $order is either 'ASC' or 'DESC'. By default will be 'ASC'
+            $order = $request->order;
+        }
 
         return $this->render();
     }
