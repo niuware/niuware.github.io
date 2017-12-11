@@ -2702,12 +2702,14 @@ For more information on Eloquent syntax for migrations visit the documentation f
 If you want to rollback use the command <strong>rollback</strong>:
 
 Terminal mode:
-> $ php vendor/niuware/webframework/src/nwf migrations rollback [-t MigrationVersion]
+> $ php vendor/niuware/webframework/src/nwf migrations rollback [-t TargetMigrationVersion]
+> $ php vendor/niuware/webframework/src/nwf migrations rollback [-d RollbackToDate]
 
 Web mode:
-> http//my_url/console/migrations/rollback/-t/MigrationVersion
+> http//my_url/console/migrations/rollback/-t/TargetMigrationVersion
+> http//my_url/console/migrations/rollback/-d/RollbackToDate
 
-For more information on how to use the rollback -d command visit the Phinx [documentation](http://docs.phinx.org/en/latest/commands.html#the-rollback-command).
+For more information on how to use the rollback -t and -d commands, visit the Phinx [documentation](http://docs.phinx.org/en/latest/commands.html#the-rollback-command).
 
 <a name="migration-seed"></a>
 ### Database Migrations: Seeding
