@@ -16,6 +16,7 @@ This is a quick documentation on how to use all of the available features in Niu
   2.6 <a href="#routing-request">Custom Requests</a>  
   2.7 <a href="#routing-override">Overriding Methods</a>  
   2.8 <a href="#routing-api">API-Only Mode</a>  
+  2.9 <a href="#routing-format">YAML/JSON Definition</a>
 3. <a href="#controllers">Controllers</a>    
   3.1 <a href="#controllers-define">Definition</a>    
   3.2 <a href="#controllers-access">Calls</a>    
@@ -476,6 +477,105 @@ final class Routes {
         'main' => [],
         'admin' => []
     ];
+}
+
+{% endhighlight %}
+
+<a name="routing-format"></a>
+### Routing: YAML/JSON Definition
+
+Besides defining your application routes with the native PHP arrays, you can use a YAML or JSON file for an easier and simplier way to define your routes.
+
+Once you finish the definition of your routes file (`App/Config/routes.yml` or `App/Config/routes.json`), use the `routes` command to update your `Routes.php` file automatically. This command receives an optional argument `{format}` with the file format you want to use, either `yml` or `json`. For more information on how to use commands check the <a href="#console">Console</a> section.
+
+Terminal mode:
+
+> $ php vendor/niuware/webframework/src/nwf routes update [format]
+
+Web mode:
+
+> http://my_url/console/routes/update/{format}
+
+For the following example:
+
+{% highlight php %}
+[App/Config/Routes.php]
+
+<?php 
+
+...    
+    public static $views = [
+        ...
+        'admin' => [
+            'product' => ['use' => 'Product', 'require' => ['login' => false]], 
+            'cart' => ['use' => 'Cart', 'require' => ['csrf' => ['post', 'delete']]], 
+            ...
+        ],
+        'main' => [
+            'special-contact' => ['use' => 'Contact', 'require' => ['login', 'csrf']]
+        ]
+    ];
+}
+{% endhighlight %}
+
+the YAML version definition is:
+
+{% highlight yaml %}
+[App/Config/routes.yml]
+
+admin:
+    product: 
+        use: Product
+        require:
+            login: false
+    cart:
+        use: Cart
+        require:
+            csrf:
+                post: true
+                delete: true
+
+main:
+    special-contact:
+        use: Contact
+        require:
+            login: true
+            csrf: true
+
+{% endhighlight %}
+
+and the JSON version definition is as follows:
+
+{% highlight json %}
+[App/Config/routes.json]
+
+{
+    "admin": {
+        "product": {
+            "use": "Product",
+            "require": {
+                "login": false
+            }
+        },
+        "cart": {
+            "use": "Cart",
+            "require": {
+                "csrf": {
+                    "post": true,
+                    "delete": true
+                }
+            }
+        }
+    },
+    "main": {
+        "special-contact": {
+            "use": "Contact",
+            "require": {
+                "login": true,
+                "csrf": true
+            }
+        }
+    }
 }
 
 {% endhighlight %}
