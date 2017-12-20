@@ -490,7 +490,7 @@ Once you finish the definition of your routes file (`App/Config/routes.yml` or `
 
 Terminal mode:
 
-> $ php vendor/niuware/webframework/src/nwf routes update [format]
+> $ php vendor/bin/nwf routes update [format]
 
 Web mode:
 
@@ -2635,7 +2635,7 @@ The path will be automatically selected checking the MIME type (only image, vide
 
 You can use the framework console to execute commands such as migratinos. To access it just go to the terminal and type:
 
-> ~$ php vendor/niuware/webframework/src/nwf {command} [command_args]
+> ~$ php vendor/bin/nwf {command} [command_args]
 
 or if you enabled the web mode, go to your browser and type:
 
@@ -2655,7 +2655,7 @@ You have to enable the console in your `Settings.php` file [configuration](#inst
             <td>terminal</td>
             <td>
                 Enables the use of the console using the terminal command <em>nwf</em>. <br />
-                For example: ~$ php vendor/niuware/webframework/src/nwf migrations rollback -d XXXXXXXX
+                For example: ~$ php vendor/bin/nwf migrations rollback -d XXXXXXXX
             </td>
         </tr>
         <tr>
@@ -2691,7 +2691,7 @@ Use the power of database migration definitions to have a robust way to enhance 
 To create a migration file use the command <strong>create</strong>:
 
 Terminal mode:
-> $ php vendor/niuware/webframework/src/nwf migrations create
+> $ php vendor/bin/nwf migrations create
 
 Web mode:
 > http://my_url/console/migrations/create
@@ -2781,7 +2781,7 @@ class V1496644472 extends Migration
 Then run the migrations with the command <strong>migrate</strong>:
 
 Terminal mode:
-> $ php vendor/niuware/webframework/src/nwf migrations migrate -t [MigrationVersion]
+> $ php vendor/bin/nwf migrations migrate -t [MigrationVersion]
 
 Web mode:
 > http//my_url/console/migrations/migrate/-t/MigrationVersion
@@ -2802,8 +2802,8 @@ For more information on Eloquent syntax for migrations visit the documentation f
 If you want to rollback use the command <strong>rollback</strong>:
 
 Terminal mode:
-> $ php vendor/niuware/webframework/src/nwf migrations rollback [-t TargetMigrationVersion]
-> $ php vendor/niuware/webframework/src/nwf migrations rollback [-d RollbackToDate]
+> $ php vendor/bin/nwf migrations rollback [-t TargetMigrationVersion]
+> $ php vendor/bin/nwf migrations rollback [-d RollbackToDate]
 
 Web mode:
 > http//my_url/console/migrations/rollback/-t/TargetMigrationVersion
@@ -2817,7 +2817,7 @@ For more information on how to use the rollback -t and -d commands, visit the Ph
 To create a seeding file use the command <strong>seedcreate</strong>:
 
 Terminal mode:
-> $ php vendor/niuware/webframework/src/nwf migrations seedcreate [NameOfSeedClass]
+> $ php vendor/bin/nwf migrations seedcreate [NameOfSeedClass]
 
 Web mode:
 > http//my_url/console/migrations/seedcreate/NameOfSeedClass
@@ -2887,7 +2887,7 @@ For more information on the Phynx syntax for seed definitions visit the [documen
 Then run the seed with the command <strong>seedrun</strong>:
 
 Terminal mode:
-> $ php vendor/niuware/webframework/src/nwf migrations seedrun -s [NameOfSeedClass]
+> $ php vendor/bin/nwf migrations seedrun -s [NameOfSeedClass]
 
 Web mode:
 > http//my_url/console/migrations/seedrun/-s/NameOfSeedClass
@@ -2900,7 +2900,7 @@ Notice that if you do not add the name of the seed class name, all seed files wi
 You can output the migrations status using the command <strong>status</strong>
 
 Terminal mode:
-> $ php vendor/niuware/webframework/src/nwf migrations status
+> $ php vendor/bin/nwf migrations status
 
 Web mode:
 > http//my_url/console/migrations/status
