@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html SYSTEM "about:legacy-compat">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+  <head>
+    <title>API documentation · Niuware WebFramework: Niuware\WebFramework\Application\Controller</title>
+    <link rel="stylesheet" type="text/css" href="../public/css/poole.css" media="screen"/>
+    <link rel="stylesheet" type="text/css" href="../public/css/syntax.css" media="screen"/>
+    <link rel="stylesheet" type="text/css" href="../public/css/hyde.css" media="screen"/>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+  </head>
+  <body>
+    <div class="sidebar">
+      <div class="container sidebar-sticky">
+        <div class="sidebar-about">
+          <h1>
+            <a href="/">
+          Niuware WebFramework
+        </a>
+          </h1>
+          <p class="lead">Lightweight and ready-to-go Web and API framework for PHP.</p>
+        </div>
+        <nav class="sidebar-nav">
+          <a class="sidebar-nav-item" href="/">Home</a>
+          <a class="sidebar-nav-item active" href="/api-docs/">API documentation</a>
+          <a class="sidebar-nav-item" href="/quick-docs/">Quick documentation</a>
+          <a class="sidebar-nav-item" href="/usage-restful/">Creating a RESTful API</a>
+          <a class="sidebar-nav-item" href="/usage-web/">Creating a full web app</a>
+          <a class="sidebar-nav-item" href="https://github.com/niuware/web-framework">GitHub project</a>
+        </nav>
+        <p>Niuware 2017</p>
+      </div>
+    </div>
+    <div class="content container">
+      <div class="page">
+        <h1 id="introduction" class="page-title"><small>Niuware\WebFramework\Application\</small>Controller</h1>
+        <h4>Base class for an application Controller class</h4>
+        <p/>
+        <h2 id="synopsis">Synopsis</h2>
+        <div class="synopsis">class Controller
+            {<br/><ul class="none"><li>// members</li><li>private  <a href="#members">$authenticate</a>;
+                    </li><li>private  <a href="#members">$isAdmin</a>;
+                    </li><li>private  <a href="#members">$renderer</a>;
+                    </li><li>private array <a href="#members">$attributes</a> =
+                        ;
+                    </li></ul><ul class="none"><li>// methods</li><li>public void <a title="Niuware\WebFramework\Application\Controller" href="../classes/Niuware_WebFramework_Application_Controller/__construct.html">__construct</a>()
+                    </li><li>public mixed|null <a title="Niuware\WebFramework\Application\Controller" href="../classes/Niuware_WebFramework_Application_Controller/__get.html">__get</a>()
+                    </li><li>public void <a title="Niuware\WebFramework\Application\Controller" href="../classes/Niuware_WebFramework_Application_Controller/__set.html">__set</a>()
+                    </li><li>public void <a title="Niuware\WebFramework\Application\Controller" href="../classes/Niuware_WebFramework_Application_Controller/setRenderer.html">setRenderer</a>()
+                    </li><li>public string <a title="Niuware\WebFramework\Application\Controller" href="../classes/Niuware_WebFramework_Application_Controller/getRenderer.html">getRenderer</a>()
+                    </li><li>public string|null <a title="Niuware\WebFramework\Application\Controller" href="../classes/Niuware_WebFramework_Application_Controller/render.html">render</a>()
+                    </li><li>private void <a title="Niuware\WebFramework\Application\Controller" href="../classes/Niuware_WebFramework_Application_Controller/renderWithTwig.html">renderWithTwig</a>()
+                    </li></ul>
+
+            }<br/></div>
+        <h2 id="members">Members</h2>
+        <div class="styled members">
+          <h4>private</h4>
+          <ul class="members">
+            <li id="attributes"><strong>$attributes</strong>
+                —
+                array<br/><span class="indent">The controller attributes</span></li>
+            <li id="authenticate"><strong>$authenticate</strong>
+                —
+                bool<br/><span class="indent">A flag to set if the controller requires an authentication</span></li>
+            <li id="isAdmin"><strong>$isAdmin</strong>
+                —
+                bool<br/><span class="indent">A flag to set if the controller is in the Admin Application Space</span></li>
+            <li id="renderer"><strong>$renderer</strong>
+                —
+                string<br/><span class="indent">The controller renderer ('php' or 'twig')</span></li>
+          </ul>
+        </div>
+        <h2 id="methods">Methods</h2>
+        <div class="styled">
+          <h4>private</h4>
+          <ul>
+            <li id="renderWithTwig"><a title="Niuware\WebFramework\Application\Controller" href="../classes/Niuware_WebFramework_Application_Controller/renderWithTwig.html">renderWithTwig()</a>
+                — Renders the controller view</li>
+          </ul>
+          <h4>public</h4>
+          <ul>
+            <li id="__construct"><a title="Niuware\WebFramework\Application\Controller" href="../classes/Niuware_WebFramework_Application_Controller/__construct.html">__construct()</a>
+                — Sets the default values for the controller</li>
+            <li id="__get"><a title="Niuware\WebFramework\Application\Controller" href="../classes/Niuware_WebFramework_Application_Controller/__get.html">__get()</a>
+                — Gets a controller attribute</li>
+            <li id="__set"><a title="Niuware\WebFramework\Application\Controller" href="../classes/Niuware_WebFramework_Application_Controller/__set.html">__set()</a>
+                — Sets a controller attribute</li>
+            <li id="getRenderer"><a title="Niuware\WebFramework\Application\Controller" href="../classes/Niuware_WebFramework_Application_Controller/getRenderer.html">getRenderer()</a>
+                — Gets the renderer for the controller</li>
+            <li id="render"><a title="Niuware\WebFramework\Application\Controller" href="../classes/Niuware_WebFramework_Application_Controller/render.html">render()</a>
+                — Renders the view for the controller</li>
+            <li id="setRenderer"><a title="Niuware\WebFramework\Application\Controller" href="../classes/Niuware_WebFramework_Application_Controller/setRenderer.html">setRenderer()</a>
+                — Sets the renderer for the controller</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

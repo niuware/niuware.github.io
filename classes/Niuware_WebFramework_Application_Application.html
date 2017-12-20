@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html SYSTEM "about:legacy-compat">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+  <head>
+    <title>API documentation · Niuware WebFramework: Niuware\WebFramework\Application\Application</title>
+    <link rel="stylesheet" type="text/css" href="../public/css/poole.css" media="screen"/>
+    <link rel="stylesheet" type="text/css" href="../public/css/syntax.css" media="screen"/>
+    <link rel="stylesheet" type="text/css" href="../public/css/hyde.css" media="screen"/>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+  </head>
+  <body>
+    <div class="sidebar">
+      <div class="container sidebar-sticky">
+        <div class="sidebar-about">
+          <h1>
+            <a href="/">
+          Niuware WebFramework
+        </a>
+          </h1>
+          <p class="lead">Lightweight and ready-to-go Web and API framework for PHP.</p>
+        </div>
+        <nav class="sidebar-nav">
+          <a class="sidebar-nav-item" href="/">Home</a>
+          <a class="sidebar-nav-item active" href="/api-docs/">API documentation</a>
+          <a class="sidebar-nav-item" href="/quick-docs/">Quick documentation</a>
+          <a class="sidebar-nav-item" href="/usage-restful/">Creating a RESTful API</a>
+          <a class="sidebar-nav-item" href="/usage-web/">Creating a full web app</a>
+          <a class="sidebar-nav-item" href="https://github.com/niuware/web-framework">GitHub project</a>
+        </nav>
+        <p>Niuware 2017</p>
+      </div>
+    </div>
+    <div class="content container">
+      <div class="page">
+        <h1 id="introduction" class="page-title"><small>Niuware\WebFramework\Application\</small>Application</h1>
+        <h4>Executes the application and renders the output for the current router instance</h4>
+        <p/>
+        <h2 id="synopsis">Synopsis</h2>
+        <div class="synopsis">class Application
+            {<br/><ul class="none"><li>// members</li><li>private <span title="\Niuware\WebFramework\Http\Router">Router</span> <a href="#members">$router</a>;
+                    </li><li>private <span title="\Niuware\WebFramework\Application\Controller">Controller</span> <a href="#members">$controller</a>;
+                    </li><li>private array <a href="#members">$language</a> =
+                        ;
+                    </li><li>private bool <a href="#members">$hasRendered</a> =
+                        false;
+                    </li></ul><ul class="none"><li>// methods</li><li>public static $this <a title="Niuware\WebFramework\Application\Application" href="../classes/Niuware_WebFramework_Application_Application/getInstance.html">getInstance</a>()
+                    </li><li>private void <a title="Niuware\WebFramework\Application\Application" href="../classes/Niuware_WebFramework_Application_Application/__construct.html">__construct</a>()
+                    </li><li>public void <a title="Niuware\WebFramework\Application\Application" href="../classes/Niuware_WebFramework_Application_Application/run.html">run</a>()
+                    </li><li>public void <a title="Niuware\WebFramework\Application\Application" href="../classes/Niuware_WebFramework_Application_Application/console.html">console</a>()
+                    </li><li>private void <a title="Niuware\WebFramework\Application\Application" href="../classes/Niuware_WebFramework_Application_Application/setLanguage.html">setLanguage</a>()
+                    </li><li>private void <a title="Niuware\WebFramework\Application\Application" href="../classes/Niuware_WebFramework_Application_Application/loadController.html">loadController</a>()
+                    </li><li>private void <a title="Niuware\WebFramework\Application\Application" href="../classes/Niuware_WebFramework_Application_Application/methodNotFound.html">methodNotFound</a>()
+                    </li><li>private void <a title="Niuware\WebFramework\Application\Application" href="../classes/Niuware_WebFramework_Application_Application/executeController.html">executeController</a>()
+                    </li><li>private void <a title="Niuware\WebFramework\Application\Application" href="../classes/Niuware_WebFramework_Application_Application/start.html">start</a>()
+                    </li><li>private void <a title="Niuware\WebFramework\Application\Application" href="../classes/Niuware_WebFramework_Application_Application/shutdown.html">shutdown</a>()
+                    </li></ul>
+
+            }<br/></div>
+        <h2 id="members">Members</h2>
+        <div class="styled members">
+          <h4>private</h4>
+          <ul class="members">
+            <li id="controller"><strong>$controller</strong>
+                —
+                <a title="\Niuware\WebFramework\Application\Controller" href="../classes/Niuware_WebFramework_Application_Controller.html">\Niuware\WebFramework\Application\Controller</a><br/><span class="indent">The Controller instance</span></li>
+            <li id="hasRendered"><strong>$hasRendered</strong>
+                —
+                bool<br/><span class="indent">A flag to set if the route has rendered an output</span></li>
+            <li id="language"><strong>$language</strong>
+                —
+                array<br/><span class="indent">The language definition</span></li>
+            <li id="router"><strong>$router</strong>
+                —
+                <a title="\Niuware\WebFramework\Http\Router" href="../classes/Niuware_WebFramework_Http_Router.html">\Niuware\WebFramework\Http\Router</a><br/><span class="indent">The Router instance</span></li>
+          </ul>
+        </div>
+        <h2 id="methods">Methods</h2>
+        <div class="styled">
+          <h4>private</h4>
+          <ul>
+            <li id="__construct"><a title="Niuware\WebFramework\Application\Application" href="../classes/Niuware_WebFramework_Application_Application/__construct.html">__construct()</a>
+                — Initializes the framework autoloader</li>
+            <li id="executeController"><a title="Niuware\WebFramework\Application\Application" href="../classes/Niuware_WebFramework_Application_Application/executeController.html">executeController()</a>
+                — Executes a method found in the loaded controller</li>
+            <li id="loadController"><a title="Niuware\WebFramework\Application\Application" href="../classes/Niuware_WebFramework_Application_Application/loadController.html">loadController()</a>
+                — Calls the method associated with the URL query string if exists, if not, the default method is called</li>
+            <li id="methodNotFound"><a title="Niuware\WebFramework\Application\Application" href="../classes/Niuware_WebFramework_Application_Application/methodNotFound.html">methodNotFound()</a>
+                — Sets the correct description for a "Method not found" FrameworkException</li>
+            <li id="setLanguage"><a title="Niuware\WebFramework\Application\Application" href="../classes/Niuware_WebFramework_Application_Application/setLanguage.html">setLanguage()</a>
+                — Sets the language definition found in the \App\Config\Settings class</li>
+            <li id="shutdown"><a title="Niuware\WebFramework\Application\Application" href="../classes/Niuware_WebFramework_Application_Application/shutdown.html">shutdown()</a>
+                — Renders the shutdown exception</li>
+            <li id="start"><a title="Niuware\WebFramework\Application\Application" href="../classes/Niuware_WebFramework_Application_Application/start.html">start()</a>
+                — Prepares the application for loading a controller</li>
+          </ul>
+          <h4>public</h4>
+          <ul>
+            <li id="console"><a title="Niuware\WebFramework\Application\Application" href="../classes/Niuware_WebFramework_Application_Application/console.html">console()</a>
+                — Initializes the application console mode</li>
+            <li id="getInstance"><a title="Niuware\WebFramework\Application\Application" href="../classes/Niuware_WebFramework_Application_Application/getInstance.html">getInstance()</a>
+                — Returns the singleton instance for this class</li>
+            <li id="run"><a title="Niuware\WebFramework\Application\Application" href="../classes/Niuware_WebFramework_Application_Application/run.html">run()</a>
+                — Executes the application</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

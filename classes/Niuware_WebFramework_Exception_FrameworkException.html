@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html SYSTEM "about:legacy-compat">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+  <head>
+    <title>API documentation · Niuware WebFramework: Niuware\WebFramework\Exception\FrameworkException</title>
+    <link rel="stylesheet" type="text/css" href="../public/css/poole.css" media="screen"/>
+    <link rel="stylesheet" type="text/css" href="../public/css/syntax.css" media="screen"/>
+    <link rel="stylesheet" type="text/css" href="../public/css/hyde.css" media="screen"/>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+  </head>
+  <body>
+    <div class="sidebar">
+      <div class="container sidebar-sticky">
+        <div class="sidebar-about">
+          <h1>
+            <a href="/">
+          Niuware WebFramework
+        </a>
+          </h1>
+          <p class="lead">Lightweight and ready-to-go Web and API framework for PHP.</p>
+        </div>
+        <nav class="sidebar-nav">
+          <a class="sidebar-nav-item" href="/">Home</a>
+          <a class="sidebar-nav-item active" href="/api-docs/">API documentation</a>
+          <a class="sidebar-nav-item" href="/quick-docs/">Quick documentation</a>
+          <a class="sidebar-nav-item" href="/usage-restful/">Creating a RESTful API</a>
+          <a class="sidebar-nav-item" href="/usage-web/">Creating a full web app</a>
+          <a class="sidebar-nav-item" href="https://github.com/niuware/web-framework">GitHub project</a>
+        </nav>
+        <p>Niuware 2017</p>
+      </div>
+    </div>
+    <div class="content container">
+      <div class="page">
+        <h1 id="introduction" class="page-title"><small>Niuware\WebFramework\Exception\</small>FrameworkException</h1>
+        <h4>Default framework exception class</h4>
+        <p/>
+        <h2 id="synopsis">Synopsis</h2>
+        <div class="synopsis">class FrameworkException
+                extends <a title="Exception" href="../classes/Exception.html">Exception</a>
+            {<br/><ul class="none"><li>// members</li><li>private  <a href="#members">$customTrace</a>;
+                    </li></ul><ul class="none"><li>// methods</li><li>public void <a title="Niuware\WebFramework\Exception\FrameworkException" href="../classes/Niuware_WebFramework_Exception_FrameworkException/__construct.html">__construct</a>()
+                    </li><li>public string <a title="Niuware\WebFramework\Exception\FrameworkException" href="../classes/Niuware_WebFramework_Exception_FrameworkException/__toString.html">__toString</a>()
+                    </li><li>public void <a title="Niuware\WebFramework\Exception\FrameworkException" href="../classes/Niuware_WebFramework_Exception_FrameworkException/setLine.html">setLine</a>()
+                    </li><li>public void <a title="Niuware\WebFramework\Exception\FrameworkException" href="../classes/Niuware_WebFramework_Exception_FrameworkException/setFile.html">setFile</a>()
+                    </li><li>public void <a title="Niuware\WebFramework\Exception\FrameworkException" href="../classes/Niuware_WebFramework_Exception_FrameworkException/setTrace.html">setTrace</a>()
+                    </li><li>public void <a title="Niuware\WebFramework\Exception\FrameworkException" href="../classes/Niuware_WebFramework_Exception_FrameworkException/renderAll.html">renderAll</a>()
+                    </li><li>private string <a title="Niuware\WebFramework\Exception\FrameworkException" href="../classes/Niuware_WebFramework_Exception_FrameworkException/getAll.html">getAll</a>()
+                    </li><li>private string <a title="Niuware\WebFramework\Exception\FrameworkException" href="../classes/Niuware_WebFramework_Exception_FrameworkException/getHeader.html">getHeader</a>()
+                    </li><li>private string <a title="Niuware\WebFramework\Exception\FrameworkException" href="../classes/Niuware_WebFramework_Exception_FrameworkException/getFooter.html">getFooter</a>()
+                    </li><li>private string <a title="Niuware\WebFramework\Exception\FrameworkException" href="../classes/Niuware_WebFramework_Exception_FrameworkException/getBody.html">getBody</a>()
+                    </li></ul>
+
+            }<br/></div>
+        <h2 id="hierarchy">Hierarchy</h2>
+        <div class="styled">
+          <h4>Extends</h4>
+          <ul>
+            <li>
+              <a title="Exception" href="../classes/Exception.html">Exception</a>
+            </li>
+          </ul>
+        </div>
+        <h2 id="members">Members</h2>
+        <div class="styled members">
+          <h4>private</h4>
+          <ul class="members">
+            <li id="customTrace"><strong>$customTrace</strong>
+                —
+                string<br/><span class="indent">A custom trace for the exception</span></li>
+          </ul>
+        </div>
+        <h2 id="methods">Methods</h2>
+        <div class="styled">
+          <h4>private</h4>
+          <ul>
+            <li id="getAll"><a title="Niuware\WebFramework\Exception\FrameworkException" href="../classes/Niuware_WebFramework_Exception_FrameworkException/getAll.html">getAll()</a>
+                — Gets the exception HTML body</li>
+            <li id="getBody"><a title="Niuware\WebFramework\Exception\FrameworkException" href="../classes/Niuware_WebFramework_Exception_FrameworkException/getBody.html">getBody()</a>
+                — Gets the body for an exception</li>
+            <li id="getFooter"><a title="Niuware\WebFramework\Exception\FrameworkException" href="../classes/Niuware_WebFramework_Exception_FrameworkException/getFooter.html">getFooter()</a>
+                — Gets the exception HTML footer</li>
+            <li id="getHeader"><a title="Niuware\WebFramework\Exception\FrameworkException" href="../classes/Niuware_WebFramework_Exception_FrameworkException/getHeader.html">getHeader()</a>
+                — Gets the exception HTML header</li>
+          </ul>
+          <h4>public</h4>
+          <ul>
+            <li id="__construct"><a title="Niuware\WebFramework\Exception\FrameworkException" href="../classes/Niuware_WebFramework_Exception_FrameworkException/__construct.html">__construct()</a>
+                — Initializes an exception</li>
+            <li id="__toString"><a title="Niuware\WebFramework\Exception\FrameworkException" href="../classes/Niuware_WebFramework_Exception_FrameworkException/__toString.html">__toString()</a>
+                — Gets the string representation of the exception</li>
+            <li id="renderAll"><a title="Niuware\WebFramework\Exception\FrameworkException" href="../classes/Niuware_WebFramework_Exception_FrameworkException/renderAll.html">renderAll()</a>
+                — Renders the exception</li>
+            <li id="setFile"><a title="Niuware\WebFramework\Exception\FrameworkException" href="../classes/Niuware_WebFramework_Exception_FrameworkException/setFile.html">setFile()</a>
+                — Sets the file name where the exception was thrown</li>
+            <li id="setLine"><a title="Niuware\WebFramework\Exception\FrameworkException" href="../classes/Niuware_WebFramework_Exception_FrameworkException/setLine.html">setLine()</a>
+                — Sets the line number in which the exception was thrown</li>
+            <li id="setTrace"><a title="Niuware\WebFramework\Exception\FrameworkException" href="../classes/Niuware_WebFramework_Exception_FrameworkException/setTrace.html">setTrace()</a>
+                — Sets the custom trace</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

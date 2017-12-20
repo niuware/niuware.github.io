@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html SYSTEM "about:legacy-compat">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+  <head>
+    <title>API documentation · Niuware WebFramework: Niuware\WebFramework\Auth\Auth</title>
+    <link rel="stylesheet" type="text/css" href="../public/css/poole.css" media="screen"/>
+    <link rel="stylesheet" type="text/css" href="../public/css/syntax.css" media="screen"/>
+    <link rel="stylesheet" type="text/css" href="../public/css/hyde.css" media="screen"/>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+  </head>
+  <body>
+    <div class="sidebar">
+      <div class="container sidebar-sticky">
+        <div class="sidebar-about">
+          <h1>
+            <a href="/">
+          Niuware WebFramework
+        </a>
+          </h1>
+          <p class="lead">Lightweight and ready-to-go Web and API framework for PHP.</p>
+        </div>
+        <nav class="sidebar-nav">
+          <a class="sidebar-nav-item" href="/">Home</a>
+          <a class="sidebar-nav-item active" href="/api-docs/">API documentation</a>
+          <a class="sidebar-nav-item" href="/quick-docs/">Quick documentation</a>
+          <a class="sidebar-nav-item" href="/usage-restful/">Creating a RESTful API</a>
+          <a class="sidebar-nav-item" href="/usage-web/">Creating a full web app</a>
+          <a class="sidebar-nav-item" href="https://github.com/niuware/web-framework">GitHub project</a>
+        </nav>
+        <p>Niuware 2017</p>
+      </div>
+    </div>
+    <div class="content container">
+      <div class="page">
+        <h1 id="introduction" class="page-title"><small>Niuware\WebFramework\Auth\</small>Auth</h1>
+        <h4>Handles the Application Space authentication sessions</h4>
+        <p/>
+        <h2 id="synopsis">Synopsis</h2>
+        <div class="synopsis">class Auth
+            {<br/><ul class="none"><li>// methods</li><li>public static void <a title="Niuware\WebFramework\Auth\Auth" href="../classes/Niuware_WebFramework_Auth_Auth/start.html">start</a>()
+                    </li><li>public static void <a title="Niuware\WebFramework\Auth\Auth" href="../classes/Niuware_WebFramework_Auth_Auth/requireAuth.html">requireAuth</a>()
+                    </li><li>public static bool <a title="Niuware\WebFramework\Auth\Auth" href="../classes/Niuware_WebFramework_Auth_Auth/useAuth.html">useAuth</a>()
+                    </li><li>public static bool <a title="Niuware\WebFramework\Auth\Auth" href="../classes/Niuware_WebFramework_Auth_Auth/verifiedAuth.html">verifiedAuth</a>()
+                    </li><li>public static void <a title="Niuware\WebFramework\Auth\Auth" href="../classes/Niuware_WebFramework_Auth_Auth/grantAuth.html">grantAuth</a>()
+                    </li><li>public static void <a title="Niuware\WebFramework\Auth\Auth" href="../classes/Niuware_WebFramework_Auth_Auth/revokeAuth.html">revokeAuth</a>()
+                    </li><li>public static void <a title="Niuware\WebFramework\Auth\Auth" href="../classes/Niuware_WebFramework_Auth_Auth/add.html">add</a>()
+                    </li><li>public static bool <a title="Niuware\WebFramework\Auth\Auth" href="../classes/Niuware_WebFramework_Auth_Auth/has.html">has</a>()
+                    </li><li>public static void <a title="Niuware\WebFramework\Auth\Auth" href="../classes/Niuware_WebFramework_Auth_Auth/remove.html">remove</a>()
+                    </li><li>public static mixed|null <a title="Niuware\WebFramework\Auth\Auth" href="../classes/Niuware_WebFramework_Auth_Auth/get.html">get</a>()
+                    </li><li>private static void <a title="Niuware\WebFramework\Auth\Auth" href="../classes/Niuware_WebFramework_Auth_Auth/destroyWithFilter.html">destroyWithFilter</a>()
+                    </li><li>public static void <a title="Niuware\WebFramework\Auth\Auth" href="../classes/Niuware_WebFramework_Auth_Auth/destroy.html">destroy</a>()
+                    </li><li>public static void <a title="Niuware\WebFramework\Auth\Auth" href="../classes/Niuware_WebFramework_Auth_Auth/end.html">end</a>()
+                    </li></ul>
+
+            }<br/></div>
+        <h2 id="methods">Methods</h2>
+        <div class="styled">
+          <h4>private</h4>
+          <ul>
+            <li id="destroyWithFilter"><a title="Niuware\WebFramework\Auth\Auth" href="../classes/Niuware_WebFramework_Auth_Auth/destroyWithFilter.html">destroyWithFilter()</a>
+                — Unset session variables by name</li>
+          </ul>
+          <h4>public</h4>
+          <ul>
+            <li id="add"><a title="Niuware\WebFramework\Auth\Auth" href="../classes/Niuware_WebFramework_Auth_Auth/add.html">add()</a>
+                — Adds a value to the current session</li>
+            <li id="destroy"><a title="Niuware\WebFramework\Auth\Auth" href="../classes/Niuware_WebFramework_Auth_Auth/destroy.html">destroy()</a>
+                — Destroys all session variables</li>
+            <li id="end"><a title="Niuware\WebFramework\Auth\Auth" href="../classes/Niuware_WebFramework_Auth_Auth/end.html">end()</a>
+                — Destroys all authentication and session variables</li>
+            <li id="get"><a title="Niuware\WebFramework\Auth\Auth" href="../classes/Niuware_WebFramework_Auth_Auth/get.html">get()</a>
+                — Gets a value from the session</li>
+            <li id="grantAuth"><a title="Niuware\WebFramework\Auth\Auth" href="../classes/Niuware_WebFramework_Auth_Auth/grantAuth.html">grantAuth()</a>
+                — Sets a valid authentication</li>
+            <li id="has"><a title="Niuware\WebFramework\Auth\Auth" href="../classes/Niuware_WebFramework_Auth_Auth/has.html">has()</a>
+                — Verifies a value within the session</li>
+            <li id="remove"><a title="Niuware\WebFramework\Auth\Auth" href="../classes/Niuware_WebFramework_Auth_Auth/remove.html">remove()</a>
+                — Removes a value from the session</li>
+            <li id="requireAuth"><a title="Niuware\WebFramework\Auth\Auth" href="../classes/Niuware_WebFramework_Auth_Auth/requireAuth.html">requireAuth()</a>
+                — Requires an authentication</li>
+            <li id="revokeAuth"><a title="Niuware\WebFramework\Auth\Auth" href="../classes/Niuware_WebFramework_Auth_Auth/revokeAuth.html">revokeAuth()</a>
+                — Revokes an authentication</li>
+            <li id="start"><a title="Niuware\WebFramework\Auth\Auth" href="../classes/Niuware_WebFramework_Auth_Auth/start.html">start()</a>
+                — Starts a new session</li>
+            <li id="useAuth"><a title="Niuware\WebFramework\Auth\Auth" href="../classes/Niuware_WebFramework_Auth_Auth/useAuth.html">useAuth()</a>
+                — Verifies an authentication requirement</li>
+            <li id="verifiedAuth"><a title="Niuware\WebFramework\Auth\Auth" href="../classes/Niuware_WebFramework_Auth_Auth/verifiedAuth.html">verifiedAuth()</a>
+                — Verifies an authentication</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

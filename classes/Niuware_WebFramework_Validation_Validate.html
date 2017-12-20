@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html SYSTEM "about:legacy-compat">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+  <head>
+    <title>API documentation · Niuware WebFramework: Niuware\WebFramework\Validation\Validate</title>
+    <link rel="stylesheet" type="text/css" href="../public/css/poole.css" media="screen"/>
+    <link rel="stylesheet" type="text/css" href="../public/css/syntax.css" media="screen"/>
+    <link rel="stylesheet" type="text/css" href="../public/css/hyde.css" media="screen"/>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+  </head>
+  <body>
+    <div class="sidebar">
+      <div class="container sidebar-sticky">
+        <div class="sidebar-about">
+          <h1>
+            <a href="/">
+          Niuware WebFramework
+        </a>
+          </h1>
+          <p class="lead">Lightweight and ready-to-go Web and API framework for PHP.</p>
+        </div>
+        <nav class="sidebar-nav">
+          <a class="sidebar-nav-item" href="/">Home</a>
+          <a class="sidebar-nav-item active" href="/api-docs/">API documentation</a>
+          <a class="sidebar-nav-item" href="/quick-docs/">Quick documentation</a>
+          <a class="sidebar-nav-item" href="/usage-restful/">Creating a RESTful API</a>
+          <a class="sidebar-nav-item" href="/usage-web/">Creating a full web app</a>
+          <a class="sidebar-nav-item" href="https://github.com/niuware/web-framework">GitHub project</a>
+        </nav>
+        <p>Niuware 2017</p>
+      </div>
+    </div>
+    <div class="content container">
+      <div class="page">
+        <h1 id="introduction" class="page-title"><small>Niuware\WebFramework\Validation\</small>Validate</h1>
+        <h4>Validates a Request</h4>
+        <p/>
+        <h2 id="synopsis">Synopsis</h2>
+        <div class="synopsis">class Validate
+            {<br/><ul class="none"><li>// members</li><li>private  <a href="#members">$rules</a>;
+                    </li><li>private <span title="Niuware\WebFramework\Validation\Niuware\WebFramework\Http\Request">Request</span> <a href="#members">$request</a>;
+                    </li><li>private array <a href="#members">$errors</a> =
+                        ;
+                    </li></ul><ul class="none"><li>// methods</li><li>public void <a title="Niuware\WebFramework\Validation\Validate" href="../classes/Niuware_WebFramework_Validation_Validate/__construct.html">__construct</a>()
+                    </li><li>public void <a title="Niuware\WebFramework\Validation\Validate" href="../classes/Niuware_WebFramework_Validation_Validate/setRules.html">setRules</a>()
+                    </li><li>public void <a title="Niuware\WebFramework\Validation\Validate" href="../classes/Niuware_WebFramework_Validation_Validate/setRequest.html">setRequest</a>()
+                    </li><li>public void <a title="Niuware\WebFramework\Validation\Validate" href="../classes/Niuware_WebFramework_Validation_Validate/run.html">run</a>()
+                    </li><li>public bool <a title="Niuware\WebFramework\Validation\Validate" href="../classes/Niuware_WebFramework_Validation_Validate/isValid.html">isValid</a>()
+                    </li><li>public array <a title="Niuware\WebFramework\Validation\Validate" href="../classes/Niuware_WebFramework_Validation_Validate/getErrors.html">getErrors</a>()
+                    </li><li>public array <a title="Niuware\WebFramework\Validation\Validate" href="../classes/Niuware_WebFramework_Validation_Validate/getFirstError.html">getFirstError</a>()
+                    </li><li>public array <a title="Niuware\WebFramework\Validation\Validate" href="../classes/Niuware_WebFramework_Validation_Validate/getLastError.html">getLastError</a>()
+                    </li><li>private void <a title="Niuware\WebFramework\Validation\Validate" href="../classes/Niuware_WebFramework_Validation_Validate/validateField.html">validateField</a>()
+                    </li><li>private array <a title="Niuware\WebFramework\Validation\Validate" href="../classes/Niuware_WebFramework_Validation_Validate/parseRule.html">parseRule</a>()
+                    </li><li>private bool <a title="Niuware\WebFramework\Validation\Validate" href="../classes/Niuware_WebFramework_Validation_Validate/numericRules.html">numericRules</a>()
+                    </li><li>private bool <a title="Niuware\WebFramework\Validation\Validate" href="../classes/Niuware_WebFramework_Validation_Validate/mutableRules.html">mutableRules</a>()
+                    </li><li>private bool <a title="Niuware\WebFramework\Validation\Validate" href="../classes/Niuware_WebFramework_Validation_Validate/required.html">required</a>()
+                    </li><li>private bool <a title="Niuware\WebFramework\Validation\Validate" href="../classes/Niuware_WebFramework_Validation_Validate/minlength.html">minlength</a>()
+                    </li><li>private bool <a title="Niuware\WebFramework\Validation\Validate" href="../classes/Niuware_WebFramework_Validation_Validate/maxlength.html">maxlength</a>()
+                    </li><li>private bool <a title="Niuware\WebFramework\Validation\Validate" href="../classes/Niuware_WebFramework_Validation_Validate/pattern.html">pattern</a>()
+                    </li><li>private bool <a title="Niuware\WebFramework\Validation\Validate" href="../classes/Niuware_WebFramework_Validation_Validate/numeric.html">numeric</a>()
+                    </li><li>private bool <a title="Niuware\WebFramework\Validation\Validate" href="../classes/Niuware_WebFramework_Validation_Validate/defaultIfNull.html">defaultIfNull</a>()
+                    </li><li>private bool <a title="Niuware\WebFramework\Validation\Validate" href="../classes/Niuware_WebFramework_Validation_Validate/cast.html">cast</a>()
+                    </li><li>private bool <a title="Niuware\WebFramework\Validation\Validate" href="../classes/Niuware_WebFramework_Validation_Validate/callback.html">callback</a>()
+                    </li><li>private void <a title="Niuware\WebFramework\Validation\Validate" href="../classes/Niuware_WebFramework_Validation_Validate/appendError.html">appendError</a>()
+                    </li></ul>
+
+            }<br/></div>
+        <h2 id="members">Members</h2>
+        <div class="styled members">
+          <h4>private</h4>
+          <ul class="members">
+            <li id="errors"><strong>$errors</strong>
+                —
+                array<br/><span class="indent">The validation errors</span></li>
+            <li id="request"><strong>$request</strong>
+                —
+                <a title="Niuware\WebFramework\Validation\Niuware\WebFramework\Http\Request" href="../classes/Niuware_WebFramework_Validation_Niuware_WebFramework_Http_Request.html">Niuware\WebFramework\Validation\Niuware\WebFramework\Http\Request</a><br/><span class="indent">The Request to validate</span></li>
+            <li id="rules"><strong>$rules</strong>
+                —
+                array<br/><span class="indent">The validation rules</span></li>
+          </ul>
+        </div>
+        <h2 id="methods">Methods</h2>
+        <div class="styled">
+          <h4>private</h4>
+          <ul>
+            <li id="appendError"><a title="Niuware\WebFramework\Validation\Validate" href="../classes/Niuware_WebFramework_Validation_Validate/appendError.html">appendError()</a>
+                — Appends a validation error on the errors array</li>
+            <li id="callback"><a title="Niuware\WebFramework\Validation\Validate" href="../classes/Niuware_WebFramework_Validation_Validate/callback.html">callback()</a>
+                — Executes a callback function in the field</li>
+            <li id="cast"><a title="Niuware\WebFramework\Validation\Validate" href="../classes/Niuware_WebFramework_Validation_Validate/cast.html">cast()</a>
+                — Cast the field value to the given type</li>
+            <li id="defaultIfNull"><a title="Niuware\WebFramework\Validation\Validate" href="../classes/Niuware_WebFramework_Validation_Validate/defaultIfNull.html">defaultIfNull()</a>
+                — Sets a value for the field if it is null or different from the default value</li>
+            <li id="maxlength"><a title="Niuware\WebFramework\Validation\Validate" href="../classes/Niuware_WebFramework_Validation_Validate/maxlength.html">maxlength()</a>
+                — Requires a maximum length for the value of a field</li>
+            <li id="minlength"><a title="Niuware\WebFramework\Validation\Validate" href="../classes/Niuware_WebFramework_Validation_Validate/minlength.html">minlength()</a>
+                — Requires a minimum length for the value of a field</li>
+            <li id="mutableRules"><a title="Niuware\WebFramework\Validation\Validate" href="../classes/Niuware_WebFramework_Validation_Validate/mutableRules.html">mutableRules()</a>
+                — Run field mutable rules</li>
+            <li id="numeric"><a title="Niuware\WebFramework\Validation\Validate" href="../classes/Niuware_WebFramework_Validation_Validate/numeric.html">numeric()</a>
+                — Requires a numeric string for the value of a field</li>
+            <li id="numericRules"><a title="Niuware\WebFramework\Validation\Validate" href="../classes/Niuware_WebFramework_Validation_Validate/numericRules.html">numericRules()</a>
+                — Run numeric rules</li>
+            <li id="parseRule"><a title="Niuware\WebFramework\Validation\Validate" href="../classes/Niuware_WebFramework_Validation_Validate/parseRule.html">parseRule()</a>
+                — Parses the rule name and its arguments</li>
+            <li id="pattern"><a title="Niuware\WebFramework\Validation\Validate" href="../classes/Niuware_WebFramework_Validation_Validate/pattern.html">pattern()</a>
+                — Requires a matching pattern for the value of a field</li>
+            <li id="required"><a title="Niuware\WebFramework\Validation\Validate" href="../classes/Niuware_WebFramework_Validation_Validate/required.html">required()</a>
+                — Requires the existence of a field</li>
+            <li id="validateField"><a title="Niuware\WebFramework\Validation\Validate" href="../classes/Niuware_WebFramework_Validation_Validate/validateField.html">validateField()</a>
+                — Validate a field in the request</li>
+          </ul>
+          <h4>public</h4>
+          <ul>
+            <li id="__construct"><a title="Niuware\WebFramework\Validation\Validate" href="../classes/Niuware_WebFramework_Validation_Validate/__construct.html">__construct()</a>
+                — Initializes the validation</li>
+            <li id="getErrors"><a title="Niuware\WebFramework\Validation\Validate" href="../classes/Niuware_WebFramework_Validation_Validate/getErrors.html">getErrors()</a>
+                — Gets all validation errors</li>
+            <li id="getFirstError"><a title="Niuware\WebFramework\Validation\Validate" href="../classes/Niuware_WebFramework_Validation_Validate/getFirstError.html">getFirstError()</a>
+                — Gets the first detected error</li>
+            <li id="getLastError"><a title="Niuware\WebFramework\Validation\Validate" href="../classes/Niuware_WebFramework_Validation_Validate/getLastError.html">getLastError()</a>
+                — Gets the last detected error</li>
+            <li id="isValid"><a title="Niuware\WebFramework\Validation\Validate" href="../classes/Niuware_WebFramework_Validation_Validate/isValid.html">isValid()</a>
+                — Verifies the validation</li>
+            <li id="run"><a title="Niuware\WebFramework\Validation\Validate" href="../classes/Niuware_WebFramework_Validation_Validate/run.html">run()</a>
+                — Runs the validation rules against the request</li>
+            <li id="setRequest"><a title="Niuware\WebFramework\Validation\Validate" href="../classes/Niuware_WebFramework_Validation_Validate/setRequest.html">setRequest()</a>
+                — Sets the Request object to validate</li>
+            <li id="setRules"><a title="Niuware\WebFramework\Validation\Validate" href="../classes/Niuware_WebFramework_Validation_Validate/setRules.html">setRules()</a>
+                — Sets the rules to validate</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

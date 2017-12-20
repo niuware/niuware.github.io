@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html SYSTEM "about:legacy-compat">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+  <head>
+    <title>API documentation · Niuware WebFramework: Niuware\WebFramework\Http\HttpInput</title>
+    <link rel="stylesheet" type="text/css" href="../public/css/poole.css" media="screen"/>
+    <link rel="stylesheet" type="text/css" href="../public/css/syntax.css" media="screen"/>
+    <link rel="stylesheet" type="text/css" href="../public/css/hyde.css" media="screen"/>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+  </head>
+  <body>
+    <div class="sidebar">
+      <div class="container sidebar-sticky">
+        <div class="sidebar-about">
+          <h1>
+            <a href="/">
+          Niuware WebFramework
+        </a>
+          </h1>
+          <p class="lead">Lightweight and ready-to-go Web and API framework for PHP.</p>
+        </div>
+        <nav class="sidebar-nav">
+          <a class="sidebar-nav-item" href="/">Home</a>
+          <a class="sidebar-nav-item active" href="/api-docs/">API documentation</a>
+          <a class="sidebar-nav-item" href="/quick-docs/">Quick documentation</a>
+          <a class="sidebar-nav-item" href="/usage-restful/">Creating a RESTful API</a>
+          <a class="sidebar-nav-item" href="/usage-web/">Creating a full web app</a>
+          <a class="sidebar-nav-item" href="https://github.com/niuware/web-framework">GitHub project</a>
+        </nav>
+        <p>Niuware 2017</p>
+      </div>
+    </div>
+    <div class="content container">
+      <div class="page">
+        <h1 id="introduction" class="page-title"><small>Niuware\WebFramework\Http\</small>HttpInput</h1>
+        <h4>Process an HTTP request</h4>
+        <p/>
+        <h2 id="synopsis">Synopsis</h2>
+        <div class="synopsis">class HttpInput
+            {<br/><ul class="none"><li>// members</li><li>private  <a href="#members">$requestMethod</a>;
+                    </li></ul><ul class="none"><li>// methods</li><li>public void <a title="Niuware\WebFramework\Http\HttpInput" href="../classes/Niuware_WebFramework_Http_HttpInput/__construct.html">__construct</a>()
+                    </li><li>private array <a title="Niuware\WebFramework\Http\HttpInput" href="../classes/Niuware_WebFramework_Http_HttpInput/methodParse.html">methodParse</a>()
+                    </li><li>public void <a title="Niuware\WebFramework\Http\HttpInput" href="../classes/Niuware_WebFramework_Http_HttpInput/parse.html">parse</a>()
+                    </li><li>public void <a title="Niuware\WebFramework\Http\HttpInput" href="../classes/Niuware_WebFramework_Http_HttpInput/withApi.html">withApi</a>()
+                    </li><li>public Request <a title="Niuware\WebFramework\Http\HttpInput" href="../classes/Niuware_WebFramework_Http_HttpInput/getRequestInstance.html">getRequestInstance</a>()
+                    </li><li>private string <a title="Niuware\WebFramework\Http\HttpInput" href="../classes/Niuware_WebFramework_Http_HttpInput/getRequestClassName.html">getRequestClassName</a>()
+                    </li></ul>
+
+            }<br/></div>
+        <h2 id="members">Members</h2>
+        <div class="styled members">
+          <h4>private</h4>
+          <ul class="members">
+            <li id="requestMethod"><strong>$requestMethod</strong>
+                —
+                string<br/><span class="indent">The HTTP request method</span></li>
+          </ul>
+        </div>
+        <h2 id="methods">Methods</h2>
+        <div class="styled">
+          <h4>private</h4>
+          <ul>
+            <li id="getRequestClassName"><a title="Niuware\WebFramework\Http\HttpInput" href="../classes/Niuware_WebFramework_Http_HttpInput/getRequestClassName.html">getRequestClassName()</a>
+                — Gets the Request class name</li>
+            <li id="methodParse"><a title="Niuware\WebFramework\Http\HttpInput" href="../classes/Niuware_WebFramework_Http_HttpInput/methodParse.html">methodParse()</a>
+                — Parse POST or DELETE input data</li>
+          </ul>
+          <h4>public</h4>
+          <ul>
+            <li id="__construct"><a title="Niuware\WebFramework\Http\HttpInput" href="../classes/Niuware_WebFramework_Http_HttpInput/__construct.html">__construct()</a>
+                — Sets the request method</li>
+            <li id="getRequestInstance"><a title="Niuware\WebFramework\Http\HttpInput" href="../classes/Niuware_WebFramework_Http_HttpInput/getRequestInstance.html">getRequestInstance()</a>
+                — Gets the Request instance for the current HTTP request</li>
+            <li id="parse"><a title="Niuware\WebFramework\Http\HttpInput" href="../classes/Niuware_WebFramework_Http_HttpInput/parse.html">parse()</a>
+                — Parses a POST or DELETE input</li>
+            <li id="withApi"><a title="Niuware\WebFramework\Http\HttpInput" href="../classes/Niuware_WebFramework_Http_HttpInput/withApi.html">withApi()</a>
+                — Instantiates a \Niuware\WebFramework\Http\Api object depending on the type of HTTP requested method</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

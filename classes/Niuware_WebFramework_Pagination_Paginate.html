@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html SYSTEM "about:legacy-compat">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+  <head>
+    <title>API documentation · Niuware WebFramework: Niuware\WebFramework\Pagination\Paginate</title>
+    <link rel="stylesheet" type="text/css" href="../public/css/poole.css" media="screen"/>
+    <link rel="stylesheet" type="text/css" href="../public/css/syntax.css" media="screen"/>
+    <link rel="stylesheet" type="text/css" href="../public/css/hyde.css" media="screen"/>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+  </head>
+  <body>
+    <div class="sidebar">
+      <div class="container sidebar-sticky">
+        <div class="sidebar-about">
+          <h1>
+            <a href="/">
+          Niuware WebFramework
+        </a>
+          </h1>
+          <p class="lead">Lightweight and ready-to-go Web and API framework for PHP.</p>
+        </div>
+        <nav class="sidebar-nav">
+          <a class="sidebar-nav-item" href="/">Home</a>
+          <a class="sidebar-nav-item active" href="/api-docs/">API documentation</a>
+          <a class="sidebar-nav-item" href="/quick-docs/">Quick documentation</a>
+          <a class="sidebar-nav-item" href="/usage-restful/">Creating a RESTful API</a>
+          <a class="sidebar-nav-item" href="/usage-web/">Creating a full web app</a>
+          <a class="sidebar-nav-item" href="https://github.com/niuware/web-framework">GitHub project</a>
+        </nav>
+        <p>Niuware 2017</p>
+      </div>
+    </div>
+    <div class="content container">
+      <div class="page">
+        <h1 id="introduction" class="page-title"><small>Niuware\WebFramework\Pagination\</small>Paginate</h1>
+        <h4>Paginates data collections into chunks</h4>
+        <p/>
+        <h2 id="synopsis">Synopsis</h2>
+        <div class="synopsis">class Paginate
+            {<br/><ul class="none"><li>// members</li><li>private array <a href="#members">$attributes</a> =
+                        ;
+                    </li><li>private <span title="\Illuminate\Database\Eloquent\Collection">Collection</span> <a href="#members">$data</a>;
+                    </li></ul><ul class="none"><li>// methods</li><li>public void <a title="Niuware\WebFramework\Pagination\Paginate" href="../classes/Niuware_WebFramework_Pagination_Paginate/__construct.html">__construct</a>()
+                    </li><li>public mixed <a title="Niuware\WebFramework\Pagination\Paginate" href="../classes/Niuware_WebFramework_Pagination_Paginate/__get.html">__get</a>()
+                    </li><li>public void <a title="Niuware\WebFramework\Pagination\Paginate" href="../classes/Niuware_WebFramework_Pagination_Paginate/__set.html">__set</a>()
+                    </li><li>private void <a title="Niuware\WebFramework\Pagination\Paginate" href="../classes/Niuware_WebFramework_Pagination_Paginate/setUrl.html">setUrl</a>()
+                    </li><li>private void <a title="Niuware\WebFramework\Pagination\Paginate" href="../classes/Niuware_WebFramework_Pagination_Paginate/init.html">init</a>()
+                    </li><li>private string <a title="Niuware\WebFramework\Pagination\Paginate" href="../classes/Niuware_WebFramework_Pagination_Paginate/renderItem.html">renderItem</a>()
+                    </li><li>private string <a title="Niuware\WebFramework\Pagination\Paginate" href="../classes/Niuware_WebFramework_Pagination_Paginate/renderEllipsisItem.html">renderEllipsisItem</a>()
+                    </li><li>private string <a title="Niuware\WebFramework\Pagination\Paginate" href="../classes/Niuware_WebFramework_Pagination_Paginate/renderWithClipping.html">renderWithClipping</a>()
+                    </li><li>private void <a title="Niuware\WebFramework\Pagination\Paginate" href="../classes/Niuware_WebFramework_Pagination_Paginate/calculateClippingIndexes.html">calculateClippingIndexes</a>()
+                    </li><li>public void <a title="Niuware\WebFramework\Pagination\Paginate" href="../classes/Niuware_WebFramework_Pagination_Paginate/paginate.html">paginate</a>()
+                    </li><li>public Collection <a title="Niuware\WebFramework\Pagination\Paginate" href="../classes/Niuware_WebFramework_Pagination_Paginate/data.html">data</a>()
+                    </li><li>public string <a title="Niuware\WebFramework\Pagination\Paginate" href="../classes/Niuware_WebFramework_Pagination_Paginate/previousLink.html">previousLink</a>()
+                    </li><li>public string <a title="Niuware\WebFramework\Pagination\Paginate" href="../classes/Niuware_WebFramework_Pagination_Paginate/nextLink.html">nextLink</a>()
+                    </li><li>public void <a title="Niuware\WebFramework\Pagination\Paginate" href="../classes/Niuware_WebFramework_Pagination_Paginate/render.html">render</a>()
+                    </li><li>public boolean <a title="Niuware\WebFramework\Pagination\Paginate" href="../classes/Niuware_WebFramework_Pagination_Paginate/shouldRender.html">shouldRender</a>()
+                    </li></ul>
+
+            }<br/></div>
+        <h2 id="members">Members</h2>
+        <div class="styled members">
+          <h4>private</h4>
+          <ul class="members">
+            <li id="attributes"><strong>$attributes</strong>
+                —
+                array<br/><span class="indent">The pagination attributes</span></li>
+            <li id="data"><strong>$data</strong>
+                —
+                <a title="\Illuminate\Database\Eloquent\Collection" href="#">\Illuminate\Database\Eloquent\Collection</a><br/><span class="indent">The pagination data</span></li>
+          </ul>
+        </div>
+        <h2 id="methods">Methods</h2>
+        <div class="styled">
+          <h4>private</h4>
+          <ul>
+            <li id="calculateClippingIndexes"><a title="Niuware\WebFramework\Pagination\Paginate" href="../classes/Niuware_WebFramework_Pagination_Paginate/calculateClippingIndexes.html">calculateClippingIndexes()</a>
+                — Calculate the indexes for rendering the pagination HTML code</li>
+            <li id="init"><a title="Niuware\WebFramework\Pagination\Paginate" href="../classes/Niuware_WebFramework_Pagination_Paginate/init.html">init()</a>
+                — Generates the pagination</li>
+            <li id="renderEllipsisItem"><a title="Niuware\WebFramework\Pagination\Paginate" href="../classes/Niuware_WebFramework_Pagination_Paginate/renderEllipsisItem.html">renderEllipsisItem()</a>
+                — Renders the HTML code for a pagination ellipsis item</li>
+            <li id="renderItem"><a title="Niuware\WebFramework\Pagination\Paginate" href="../classes/Niuware_WebFramework_Pagination_Paginate/renderItem.html">renderItem()</a>
+                — Renders the HTML code for a pagination item</li>
+            <li id="renderWithClipping"><a title="Niuware\WebFramework\Pagination\Paginate" href="../classes/Niuware_WebFramework_Pagination_Paginate/renderWithClipping.html">renderWithClipping()</a>
+                — Renders the HTML code for a pagination with clipping mode</li>
+            <li id="setUrl"><a title="Niuware\WebFramework\Pagination\Paginate" href="../classes/Niuware_WebFramework_Pagination_Paginate/setUrl.html">setUrl()</a>
+                — Sets the pagination base URL</li>
+          </ul>
+          <h4>public</h4>
+          <ul>
+            <li id="__construct"><a title="Niuware\WebFramework\Pagination\Paginate" href="../classes/Niuware_WebFramework_Pagination_Paginate/__construct.html">__construct()</a>
+                — Initializes the default pagination attributes</li>
+            <li id="__get"><a title="Niuware\WebFramework\Pagination\Paginate" href="../classes/Niuware_WebFramework_Pagination_Paginate/__get.html">__get()</a>
+                — Gets a pagination attribute</li>
+            <li id="__set"><a title="Niuware\WebFramework\Pagination\Paginate" href="../classes/Niuware_WebFramework_Pagination_Paginate/__set.html">__set()</a>
+                — Sets a pagination attribute</li>
+            <li id="data"><a title="Niuware\WebFramework\Pagination\Paginate" href="../classes/Niuware_WebFramework_Pagination_Paginate/data.html">data()</a>
+                — Returns the chunk of data for the current Request</li>
+            <li id="nextLink"><a title="Niuware\WebFramework\Pagination\Paginate" href="../classes/Niuware_WebFramework_Pagination_Paginate/nextLink.html">nextLink()</a>
+                — Returns the string for the 'next link'</li>
+            <li id="paginate"><a title="Niuware\WebFramework\Pagination\Paginate" href="../classes/Niuware_WebFramework_Pagination_Paginate/paginate.html">paginate()</a>
+                — Paginates the data</li>
+            <li id="previousLink"><a title="Niuware\WebFramework\Pagination\Paginate" href="../classes/Niuware_WebFramework_Pagination_Paginate/previousLink.html">previousLink()</a>
+                — Returns the string for the 'previous link'</li>
+            <li id="render"><a title="Niuware\WebFramework\Pagination\Paginate" href="../classes/Niuware_WebFramework_Pagination_Paginate/render.html">render()</a>
+                — Renders the HTML code for the pagination</li>
+            <li id="shouldRender"><a title="Niuware\WebFramework\Pagination\Paginate" href="../classes/Niuware_WebFramework_Pagination_Paginate/shouldRender.html">shouldRender()</a>
+                — Verifies the necessity to render the pagination HTML</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html SYSTEM "about:legacy-compat">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+  <head>
+    <title>API documentation · Niuware WebFramework: Niuware\WebFramework\Http\Request</title>
+    <link rel="stylesheet" type="text/css" href="../public/css/poole.css" media="screen"/>
+    <link rel="stylesheet" type="text/css" href="../public/css/syntax.css" media="screen"/>
+    <link rel="stylesheet" type="text/css" href="../public/css/hyde.css" media="screen"/>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+  </head>
+  <body>
+    <div class="sidebar">
+      <div class="container sidebar-sticky">
+        <div class="sidebar-about">
+          <h1>
+            <a href="/">
+          Niuware WebFramework
+        </a>
+          </h1>
+          <p class="lead">Lightweight and ready-to-go Web and API framework for PHP.</p>
+        </div>
+        <nav class="sidebar-nav">
+          <a class="sidebar-nav-item" href="/">Home</a>
+          <a class="sidebar-nav-item active" href="/api-docs/">API documentation</a>
+          <a class="sidebar-nav-item" href="/quick-docs/">Quick documentation</a>
+          <a class="sidebar-nav-item" href="/usage-restful/">Creating a RESTful API</a>
+          <a class="sidebar-nav-item" href="/usage-web/">Creating a full web app</a>
+          <a class="sidebar-nav-item" href="https://github.com/niuware/web-framework">GitHub project</a>
+        </nav>
+        <p>Niuware 2017</p>
+      </div>
+    </div>
+    <div class="content container">
+      <div class="page">
+        <h1 id="introduction" class="page-title"><small>Niuware\WebFramework\Http\</small>Request</h1>
+        <h4>Base class for a request</h4>
+        <p/>
+        <h2 id="synopsis">Synopsis</h2>
+        <div class="synopsis">class Request
+            {<br/><ul class="none"><li>// members</li><li>private array <a href="#members">$headers</a> =
+                        ;
+                    </li><li>private array <a href="#members">$attributes</a> =
+                        ;
+                    </li><li>private array <a href="#members">$files</a> =
+                        ;
+                    </li><li>private array <a href="#members">$app</a> =
+                        ;
+                    </li><li>private <span title="Niuware\WebFramework\Http\Niuware\WebFramework\Validation\Validate">Validate</span> <a href="#members">$validate</a>;
+                    </li><li>private string <a href="#members">$method</a> =
+                        "";
+                    </li><li>private bool <a href="#members">$csrfValid</a> =
+                        false;
+                    </li></ul><ul class="none"><li>// methods</li><li>public mixed <a title="Niuware\WebFramework\Http\Request" href="../classes/Niuware_WebFramework_Http_Request/__get.html">__get</a>()
+                    </li><li>public void <a title="Niuware\WebFramework\Http\Request" href="../classes/Niuware_WebFramework_Http_Request/__set.html">__set</a>()
+                    </li><li>public void <a title="Niuware\WebFramework\Http\Request" href="../classes/Niuware_WebFramework_Http_Request/__construct.html">__construct</a>()
+                    </li><li>private void <a title="Niuware\WebFramework\Http\Request" href="../classes/Niuware_WebFramework_Http_Request/verifyCsrfToken.html">verifyCsrfToken</a>()
+                    </li><li>private void <a title="Niuware\WebFramework\Http\Request" href="../classes/Niuware_WebFramework_Http_Request/setHeaders.html">setHeaders</a>()
+                    </li><li>public array <a title="Niuware\WebFramework\Http\Request" href="../classes/Niuware_WebFramework_Http_Request/headers.html">headers</a>()
+                    </li><li>public string <a title="Niuware\WebFramework\Http\Request" href="../classes/Niuware_WebFramework_Http_Request/header.html">header</a>()
+                    </li><li>public  <a title="Niuware\WebFramework\Http\Request" href="../classes/Niuware_WebFramework_Http_Request/app.html">app</a>()
+                    </li><li>private bool <a title="Niuware\WebFramework\Http\Request" href="../classes/Niuware_WebFramework_Http_Request/hasParameter.html">hasParameter</a>()
+                    </li><li>private bool <a title="Niuware\WebFramework\Http\Request" href="../classes/Niuware_WebFramework_Http_Request/hasParameters.html">hasParameters</a>()
+                    </li><li>public bool <a title="Niuware\WebFramework\Http\Request" href="../classes/Niuware_WebFramework_Http_Request/has.html">has</a>()
+                    </li><li>public bool <a title="Niuware\WebFramework\Http\Request" href="../classes/Niuware_WebFramework_Http_Request/hasFile.html">hasFile</a>()
+                    </li><li>public File <a title="Niuware\WebFramework\Http\Request" href="../classes/Niuware_WebFramework_Http_Request/getFile.html">getFile</a>()
+                    </li><li>public bool <a title="Niuware\WebFramework\Http\Request" href="../classes/Niuware_WebFramework_Http_Request/hasValidCsrf.html">hasValidCsrf</a>()
+                    </li><li>public Validate <a title="Niuware\WebFramework\Http\Request" href="../classes/Niuware_WebFramework_Http_Request/validation.html">validation</a>()
+                    </li><li>protected void <a title="Niuware\WebFramework\Http\Request" href="../classes/Niuware_WebFramework_Http_Request/validateWith.html">validateWith</a>()
+                    </li></ul>
+
+            }<br/></div>
+        <h2 id="members">Members</h2>
+        <div class="styled members">
+          <h4>private</h4>
+          <ul class="members">
+            <li id="app"><strong>$app</strong>
+                —
+                array<br/><span class="indent">The request application attributes</span></li>
+            <li id="attributes"><strong>$attributes</strong>
+                —
+                array<br/><span class="indent">The request attributes</span></li>
+            <li id="csrfValid"><strong>$csrfValid</strong>
+                —
+                bool<br/><span class="indent">A flag that determines if the request has a valid CSRF token</span></li>
+            <li id="files"><strong>$files</strong>
+                —
+                array<br/><span class="indent">The request files</span></li>
+            <li id="headers"><strong>$headers</strong>
+                —
+                array<br/><span class="indent">The request headers</span></li>
+            <li id="method"><strong>$method</strong>
+                —
+                string<br/><span class="indent">The request method</span></li>
+            <li id="validate"><strong>$validate</strong>
+                —
+                <a title="Niuware\WebFramework\Http\Niuware\WebFramework\Validation\Validate" href="../classes/Niuware_WebFramework_Http_Niuware_WebFramework_Validation_Validate.html">Niuware\WebFramework\Http\Niuware\WebFramework\Validation\Validate</a><br/><span class="indent">The validation instance</span></li>
+          </ul>
+        </div>
+        <h2 id="methods">Methods</h2>
+        <div class="styled">
+          <h4>private</h4>
+          <ul>
+            <li id="hasParameter"><a title="Niuware\WebFramework\Http\Request" href="../classes/Niuware_WebFramework_Http_Request/hasParameter.html">hasParameter()</a>
+                — Verifies a request parameter</li>
+            <li id="hasParameters"><a title="Niuware\WebFramework\Http\Request" href="../classes/Niuware_WebFramework_Http_Request/hasParameters.html">hasParameters()</a>
+                — Verifies all request parameters are set</li>
+            <li id="setHeaders"><a title="Niuware\WebFramework\Http\Request" href="../classes/Niuware_WebFramework_Http_Request/setHeaders.html">setHeaders()</a>
+                — Sets all HTTP request headers</li>
+            <li id="verifyCsrfToken"><a title="Niuware\WebFramework\Http\Request" href="../classes/Niuware_WebFramework_Http_Request/verifyCsrfToken.html">verifyCsrfToken()</a>
+                — Validates a CSRF token</li>
+          </ul>
+          <h4>protected</h4>
+          <ul>
+            <li id="validateWith"><a title="Niuware\WebFramework\Http\Request" href="../classes/Niuware_WebFramework_Http_Request/validateWith.html">validateWith()</a>
+                — Validates the request against the provided rules</li>
+          </ul>
+          <h4>public</h4>
+          <ul>
+            <li id="__construct"><a title="Niuware\WebFramework\Http\Request" href="../classes/Niuware_WebFramework_Http_Request/__construct.html">__construct()</a>
+                — Initializes the request</li>
+            <li id="__get"><a title="Niuware\WebFramework\Http\Request" href="../classes/Niuware_WebFramework_Http_Request/__get.html">__get()</a>
+                — Gets a request property</li>
+            <li id="__set"><a title="Niuware\WebFramework\Http\Request" href="../classes/Niuware_WebFramework_Http_Request/__set.html">__set()</a>
+                — Sets a request property</li>
+            <li id="app"><a title="Niuware\WebFramework\Http\Request" href="../classes/Niuware_WebFramework_Http_Request/app.html">app()</a>
+                — Gets the application details</li>
+            <li id="getFile"><a title="Niuware\WebFramework\Http\Request" href="../classes/Niuware_WebFramework_Http_Request/getFile.html">getFile()</a>
+                — Gets a file</li>
+            <li id="has"><a title="Niuware\WebFramework\Http\Request" href="../classes/Niuware_WebFramework_Http_Request/has.html">has()</a>
+                — Verifies multiple request parameters</li>
+            <li id="hasFile"><a title="Niuware\WebFramework\Http\Request" href="../classes/Niuware_WebFramework_Http_Request/hasFile.html">hasFile()</a>
+                — Verifies the existence of a file within the request</li>
+            <li id="hasValidCsrf"><a title="Niuware\WebFramework\Http\Request" href="../classes/Niuware_WebFramework_Http_Request/hasValidCsrf.html">hasValidCsrf()</a>
+                — Verifies a valid CSRF token in the request</li>
+            <li id="header"><a title="Niuware\WebFramework\Http\Request" href="../classes/Niuware_WebFramework_Http_Request/header.html">header()</a>
+                — Gets an HTTP header value</li>
+            <li id="headers"><a title="Niuware\WebFramework\Http\Request" href="../classes/Niuware_WebFramework_Http_Request/headers.html">headers()</a>
+                — Gets all HTTP request headers</li>
+            <li id="validation"><a title="Niuware\WebFramework\Http\Request" href="../classes/Niuware_WebFramework_Http_Request/validation.html">validation()</a>
+                — Returns the validation instance</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

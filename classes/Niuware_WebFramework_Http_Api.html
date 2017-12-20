@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html SYSTEM "about:legacy-compat">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+  <head>
+    <title>API documentation · Niuware WebFramework: Niuware\WebFramework\Http\Api</title>
+    <link rel="stylesheet" type="text/css" href="../public/css/poole.css" media="screen"/>
+    <link rel="stylesheet" type="text/css" href="../public/css/syntax.css" media="screen"/>
+    <link rel="stylesheet" type="text/css" href="../public/css/hyde.css" media="screen"/>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+  </head>
+  <body>
+    <div class="sidebar">
+      <div class="container sidebar-sticky">
+        <div class="sidebar-about">
+          <h1>
+            <a href="/">
+          Niuware WebFramework
+        </a>
+          </h1>
+          <p class="lead">Lightweight and ready-to-go Web and API framework for PHP.</p>
+        </div>
+        <nav class="sidebar-nav">
+          <a class="sidebar-nav-item" href="/">Home</a>
+          <a class="sidebar-nav-item active" href="/api-docs/">API documentation</a>
+          <a class="sidebar-nav-item" href="/quick-docs/">Quick documentation</a>
+          <a class="sidebar-nav-item" href="/usage-restful/">Creating a RESTful API</a>
+          <a class="sidebar-nav-item" href="/usage-web/">Creating a full web app</a>
+          <a class="sidebar-nav-item" href="https://github.com/niuware/web-framework">GitHub project</a>
+        </nav>
+        <p>Niuware 2017</p>
+      </div>
+    </div>
+    <div class="content container">
+      <div class="page">
+        <h1 id="introduction" class="page-title"><small>Niuware\WebFramework\Http\</small>Api</h1>
+        <h4>Executes an API call</h4>
+        <p/>
+        <h2 id="synopsis">Synopsis</h2>
+        <div class="synopsis">class Api
+            {<br/><ul class="none"><li>// members</li><li>private  <a href="#members">$error</a>;
+                    </li><li>private  <a href="#members">$errCode</a>;
+                    </li><li>private  <a href="#members">$className</a>;
+                    </li><li>private  <a href="#members">$baseClassName</a>;
+                    </li><li>private  <a href="#members">$methodName</a>;
+                    </li><li>private  <a href="#members">$currentUri</a>;
+                    </li><li>private  <a href="#members">$requestMethod</a>;
+                    </li><li>private <span title="\Niuware\WebFramework\Http\Request">Request</span> <a href="#members">$params</a>;
+                    </li><li>private  <a href="#members">$methodResponse</a>;
+                    </li><li>private  <a href="#members">$outputOpts</a>;
+                    </li><li>private  <a href="#members">$outputDepth</a>;
+                    </li><li>private  <a href="#members">$versionNamespace</a>;
+                    </li></ul><ul class="none"><li>// methods</li><li>public void <a title="Niuware\WebFramework\Http\Api" href="../classes/Niuware_WebFramework_Http_Api/__construct.html">__construct</a>()
+                    </li><li>private array <a title="Niuware\WebFramework\Http\Api" href="../classes/Niuware_WebFramework_Http_Api/getDetailedError.html">getDetailedError</a>()
+                    </li><li>private void <a title="Niuware\WebFramework\Http\Api" href="../classes/Niuware_WebFramework_Http_Api/shutdown.html">shutdown</a>()
+                    </li><li>private bool <a title="Niuware\WebFramework\Http\Api" href="../classes/Niuware_WebFramework_Http_Api/initialize.html">initialize</a>()
+                    </li><li>private int <a title="Niuware\WebFramework\Http\Api" href="../classes/Niuware_WebFramework_Http_Api/setVersionNamespace.html">setVersionNamespace</a>()
+                    </li><li>private void <a title="Niuware\WebFramework\Http\Api" href="../classes/Niuware_WebFramework_Http_Api/start.html">start</a>()
+                    </li><li>private void <a title="Niuware\WebFramework\Http\Api" href="../classes/Niuware_WebFramework_Http_Api/load.html">load</a>()
+                    </li><li>private void <a title="Niuware\WebFramework\Http\Api" href="../classes/Niuware_WebFramework_Http_Api/response.html">response</a>()
+                    </li><li>private void <a title="Niuware\WebFramework\Http\Api" href="../classes/Niuware_WebFramework_Http_Api/execute.html">execute</a>()
+                    </li><li>private bool <a title="Niuware\WebFramework\Http\Api" href="../classes/Niuware_WebFramework_Http_Api/verifyMethod.html">verifyMethod</a>()
+                    </li><li>private array <a title="Niuware\WebFramework\Http\Api" href="../classes/Niuware_WebFramework_Http_Api/actionPath.html">actionPath</a>()
+                    </li><li>private void <a title="Niuware\WebFramework\Http\Api" href="../classes/Niuware_WebFramework_Http_Api/setGetMethod.html">setGetMethod</a>()
+                    </li><li>public void <a title="Niuware\WebFramework\Http\Api" href="../classes/Niuware_WebFramework_Http_Api/postApi.html">postApi</a>()
+                    </li><li>public void <a title="Niuware\WebFramework\Http\Api" href="../classes/Niuware_WebFramework_Http_Api/getApi.html">getApi</a>()
+                    </li><li>public void <a title="Niuware\WebFramework\Http\Api" href="../classes/Niuware_WebFramework_Http_Api/setOutputOptions.html">setOutputOptions</a>()
+                    </li><li>public void <a title="Niuware\WebFramework\Http\Api" href="../classes/Niuware_WebFramework_Http_Api/unsupportedRequestMethod.html">unsupportedRequestMethod</a>()
+                    </li></ul>
+
+            }<br/></div>
+        <h2 id="members">Members</h2>
+        <div class="styled members">
+          <h4>private</h4>
+          <ul class="members">
+            <li id="baseClassName"><strong>$baseClassName</strong>
+                —
+                string<br/><span class="indent">The API base class name</span></li>
+            <li id="className"><strong>$className</strong>
+                —
+                string<br/><span class="indent">The API class name</span></li>
+            <li id="currentUri"><strong>$currentUri</strong>
+                —
+                string<br/><span class="indent">The request URI</span></li>
+            <li id="errCode"><strong>$errCode</strong>
+                —
+                string<br/><span class="indent">The code error</span></li>
+            <li id="error"><strong>$error</strong>
+                —
+                bool<br/><span class="indent">A flag to set the occurrence of an error</span></li>
+            <li id="methodName"><strong>$methodName</strong>
+                —
+                string<br/><span class="indent">The API class method</span></li>
+            <li id="methodResponse"><strong>$methodResponse</strong>
+                —
+                array<br/><span class="indent">The API method result</span></li>
+            <li id="outputDepth"><strong>$outputDepth</strong>
+                —
+                int<br/><span class="indent">The JSON encoding maximum depth</span></li>
+            <li id="outputOpts"><strong>$outputOpts</strong>
+                —
+                int<br/><span class="indent">The JSON encoding (JSON_CONSTANTS) options</span></li>
+            <li id="params"><strong>$params</strong>
+                —
+                <a title="\Niuware\WebFramework\Http\Request" href="../classes/Niuware_WebFramework_Http_Request.html">\Niuware\WebFramework\Http\Request</a><br/><span class="indent">The request instance</span></li>
+            <li id="requestMethod"><strong>$requestMethod</strong>
+                —
+                string<br/><span class="indent">The HTTP request method</span></li>
+            <li id="versionNamespace"><strong>$versionNamespace</strong>
+                —
+                string<br/><span class="indent">The API version to load</span></li>
+          </ul>
+        </div>
+        <h2 id="methods">Methods</h2>
+        <div class="styled">
+          <h4>private</h4>
+          <ul>
+            <li id="actionPath"><a title="Niuware\WebFramework\Http\Api" href="../classes/Niuware_WebFramework_Http_Api/actionPath.html">actionPath()</a>
+                — Parses the requested URL</li>
+            <li id="execute"><a title="Niuware\WebFramework\Http\Api" href="../classes/Niuware_WebFramework_Http_Api/execute.html">execute()</a>
+                — Instantiate an object of an API class and executes the requested method</li>
+            <li id="getDetailedError"><a title="Niuware\WebFramework\Http\Api" href="../classes/Niuware_WebFramework_Http_Api/getDetailedError.html">getDetailedError()</a>
+                — Gets an API execution error</li>
+            <li id="initialize"><a title="Niuware\WebFramework\Http\Api" href="../classes/Niuware_WebFramework_Http_Api/initialize.html">initialize()</a>
+                — Sets the requested configuration for the API call</li>
+            <li id="load"><a title="Niuware\WebFramework\Http\Api" href="../classes/Niuware_WebFramework_Http_Api/load.html">load()</a>
+                — Loads the database</li>
+            <li id="response"><a title="Niuware\WebFramework\Http\Api" href="../classes/Niuware_WebFramework_Http_Api/response.html">response()</a>
+                — Renders the API endpoint response</li>
+            <li id="setGetMethod"><a title="Niuware\WebFramework\Http\Api" href="../classes/Niuware_WebFramework_Http_Api/setGetMethod.html">setGetMethod()</a>
+                — Sets the default values for an unset requested method</li>
+            <li id="setVersionNamespace"><a title="Niuware\WebFramework\Http\Api" href="../classes/Niuware_WebFramework_Http_Api/setVersionNamespace.html">setVersionNamespace()</a>
+                — Sets the API version to load</li>
+            <li id="shutdown"><a title="Niuware\WebFramework\Http\Api" href="../classes/Niuware_WebFramework_Http_Api/shutdown.html">shutdown()</a>
+                — Renders the endpoint JSON output</li>
+            <li id="start"><a title="Niuware\WebFramework\Http\Api" href="../classes/Niuware_WebFramework_Http_Api/start.html">start()</a>
+                — Executes an API endpoint</li>
+            <li id="verifyMethod"><a title="Niuware\WebFramework\Http\Api" href="../classes/Niuware_WebFramework_Http_Api/verifyMethod.html">verifyMethod()</a>
+                — Verifies if the called API class method exists</li>
+          </ul>
+          <h4>public</h4>
+          <ul>
+            <li id="__construct"><a title="Niuware\WebFramework\Http\Api" href="../classes/Niuware_WebFramework_Http_Api/__construct.html">__construct()</a>
+                — Initializes the class</li>
+            <li id="getApi"><a title="Niuware\WebFramework\Http\Api" href="../classes/Niuware_WebFramework_Http_Api/getApi.html">getApi()</a>
+                — Executes an HTTP GET requested endpoint</li>
+            <li id="postApi"><a title="Niuware\WebFramework\Http\Api" href="../classes/Niuware_WebFramework_Http_Api/postApi.html">postApi()</a>
+                — Executes an HTTP POST requested endpoint</li>
+            <li id="setOutputOptions"><a title="Niuware\WebFramework\Http\Api" href="../classes/Niuware_WebFramework_Http_Api/setOutputOptions.html">setOutputOptions()</a>
+                — Sets the 'json_encode' output options</li>
+            <li id="unsupportedRequestMethod"><a title="Niuware\WebFramework\Http\Api" href="../classes/Niuware_WebFramework_Http_Api/unsupportedRequestMethod.html">unsupportedRequestMethod()</a>
+                — Sets the 'Unsupported Request Method' code error</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
