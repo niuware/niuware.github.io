@@ -8,12 +8,14 @@ title: API documentation
 
 <a name="classes">
 <h2>Classes</h2>
+
 <h3 id="Niuware_WebFramework_Application">\Niuware\WebFramework\Application</h3>
 <table class="styled">
     <thead>
     <tr>
         <th>Name</th>
         <th>Description</th>
+        <th/>
     </tr>
     </thead>
     <tbody>
@@ -53,12 +55,6 @@ title: API documentation
         </td>
         <td>Enables the application Helper trait for user custom functions</td>
     </tr>
-    <tr>
-        <td>
-        <a href="../classes/Niuware_WebFramework_Application_RouteManager.html">RouteManager</a>
-        </td>
-        <td>Generates a routing map file</td>
-    </tr>
     </tbody>
 </table>
 
@@ -68,6 +64,7 @@ title: API documentation
     <tr>
         <th>Name</th>
         <th>Description</th>
+        <th/>
     </tr>
     </thead>
     <tbody>
@@ -92,6 +89,7 @@ title: API documentation
     <tr>
         <th>Name</th>
         <th>Description</th>
+        <th/>
     </tr>
     </thead>
     <tbody>
@@ -128,6 +126,7 @@ title: API documentation
     <tr>
         <th>Name</th>
         <th>Description</th>
+        <th/>
     </tr>
     </thead>
     <tbody>
@@ -146,6 +145,7 @@ title: API documentation
     <tr>
         <th>Name</th>
         <th>Description</th>
+        <th/>
     </tr>
     </thead>
     <tbody>
@@ -191,18 +191,6 @@ title: API documentation
         </td>
         <td>Base class for a controller response</td>
     </tr>
-    <tr>
-        <td>
-        <a href="../classes/Niuware_WebFramework_Http_RouteParser.html">RouteParser</a>
-        </td>
-        <td>Parses a route</td>
-    </tr>
-    <tr>
-        <td>
-        <a href="../classes/Niuware_WebFramework_Http_Router.html">Router</a>
-        </td>
-        <td>Process a route</td>
-    </tr>
     </tbody>
 </table>
 
@@ -212,6 +200,7 @@ title: API documentation
     <tr>
         <th>Name</th>
         <th>Description</th>
+        <th/>
     </tr>
     </thead>
     <tbody>
@@ -224,12 +213,44 @@ title: API documentation
     </tbody>
 </table>
 
+<h3 id="Niuware_WebFramework_Router">\Niuware\WebFramework\Router</h3>
+<table class="styled">
+    <thead>
+    <tr>
+        <th>Name</th>
+        <th>Description</th>
+        <th/>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>
+        <a href="../classes/Niuware_WebFramework_Router_RouteManager.html">RouteManager</a>
+        </td>
+        <td>Generates a routing map file</td>
+    </tr>
+    <tr>
+        <td>
+        <a href="../classes/Niuware_WebFramework_Router_RouteParser.html">RouteParser</a>
+        </td>
+        <td>Parses a route</td>
+    </tr>
+    <tr>
+        <td>
+        <a href="../classes/Niuware_WebFramework_Router_Router.html">Router</a>
+        </td>
+        <td>Process a route</td>
+    </tr>
+    </tbody>
+</table>
+
 <h3 id="Niuware_WebFramework_Validation">\Niuware\WebFramework\Validation</h3>
 <table class="styled">
     <thead>
     <tr>
         <th>Name</th>
         <th>Description</th>
+        <th/>
     </tr>
     </thead>
     <tbody>
@@ -246,7 +267,7 @@ title: API documentation
 <br/>
 
 <a name="interfaces">
-<h2>Interfaces</h2>
+<h3>Interfaces</h3>
 
 <h3 id="Niuware_WebFramework_Http">\Niuware\WebFramework\Http</h3>
 <table class="styled">

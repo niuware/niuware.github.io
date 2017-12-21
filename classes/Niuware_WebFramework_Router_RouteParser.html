@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html SYSTEM "about:legacy-compat">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+  <head>
+    <title>API documentation · Niuware WebFramework: Niuware\WebFramework\Router\RouteParser</title>
+    <link rel="stylesheet" type="text/css" href="../public/css/poole.css" media="screen"/>
+    <link rel="stylesheet" type="text/css" href="../public/css/syntax.css" media="screen"/>
+    <link rel="stylesheet" type="text/css" href="../public/css/hyde.css" media="screen"/>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+  </head>
+  <body>
+    <div class="sidebar">
+      <div class="container sidebar-sticky">
+        <div class="sidebar-about">
+          <h1>
+            <a href="/">
+          Niuware WebFramework
+        </a>
+          </h1>
+          <p class="lead">Lightweight and ready-to-go Web and API framework for PHP.</p>
+        </div>
+        <nav class="sidebar-nav">
+          <a class="sidebar-nav-item" href="/">Home</a>
+          <a class="sidebar-nav-item active" href="/api-docs/">API documentation</a>
+          <a class="sidebar-nav-item" href="/quick-docs/">Quick documentation</a>
+          <a class="sidebar-nav-item" href="/usage-restful/">Creating a RESTful API</a>
+          <a class="sidebar-nav-item" href="/usage-web/">Creating a full web app</a>
+          <a class="sidebar-nav-item" href="https://github.com/niuware/web-framework">GitHub project</a>
+        </nav>
+        <p>Niuware 2017</p>
+      </div>
+    </div>
+    <div class="content container">
+      <div class="page">
+        <h1 id="introduction" class="page-title"><small>Niuware\WebFramework\Router\</small>RouteParser</h1>
+        <h4>Parses a route</h4>
+        <p/>
+        <h2 id="synopsis">Synopsis</h2>
+        <div class="synopsis">class RouteParser
+            {<br/><ul class="none"><li>// members</li><li>private  <a href="#members">$path</a>;
+                    </li><li>private bool <a href="#members">$routeRequireLogin</a> =
+                        false;
+                    </li><li>private bool <a href="#members">$routeRequireCsrf</a> =
+                        false;
+                    </li><li>private bool <a href="#members">$routeIsAdmin</a> =
+                        false;
+                    </li><li>private  <a href="#members">$routeControllerPath</a>;
+                    </li><li>private  <a href="#members">$routeController</a>;
+                    </li><li>private string <a href="#members">$routeAction</a> =
+                        "";
+                    </li><li>private string <a href="#members">$routeRequest</a> =
+                        "";
+                    </li><li>private array <a href="#members">$routeMappedParams</a> =
+                        ;
+                    </li><li>private string <a href="#members">$routeMode</a> =
+                        "main";
+                    </li><li>private <span title="Niuware\WebFramework\Router\type">type</span> <a href="#members">$method</a> =
+                        "";
+                    </li></ul><ul class="none"><li>// methods</li><li>public void <a title="Niuware\WebFramework\Router\RouteParser" href="../classes/Niuware_WebFramework_Router_RouteParser/__construct.html">__construct</a>()
+                    </li><li>public void <a title="Niuware\WebFramework\Router\RouteParser" href="../classes/Niuware_WebFramework_Router_RouteParser/parse.html">parse</a>()
+                    </li><li>public void <a title="Niuware\WebFramework\Router\RouteParser" href="../classes/Niuware_WebFramework_Router_RouteParser/setRouteDefinition.html">setRouteDefinition</a>()
+                    </li><li>private array <a title="Niuware\WebFramework\Router\RouteParser" href="../classes/Niuware_WebFramework_Router_RouteParser/getMatchingRoutes.html">getMatchingRoutes</a>()
+                    </li><li>private void <a title="Niuware\WebFramework\Router\RouteParser" href="../classes/Niuware_WebFramework_Router_RouteParser/setRouteParameters.html">setRouteParameters</a>()
+                    </li><li>private void <a title="Niuware\WebFramework\Router\RouteParser" href="../classes/Niuware_WebFramework_Router_RouteParser/setController.html">setController</a>()
+                    </li><li>private void <a title="Niuware\WebFramework\Router\RouteParser" href="../classes/Niuware_WebFramework_Router_RouteParser/setControllerRequirements.html">setControllerRequirements</a>()
+                    </li><li>private void <a title="Niuware\WebFramework\Router\RouteParser" href="../classes/Niuware_WebFramework_Router_RouteParser/setLoginOptions.html">setLoginOptions</a>()
+                    </li><li>private void <a title="Niuware\WebFramework\Router\RouteParser" href="../classes/Niuware_WebFramework_Router_RouteParser/setCsrfOptions.html">setCsrfOptions</a>()
+                    </li><li>private void <a title="Niuware\WebFramework\Router\RouteParser" href="../classes/Niuware_WebFramework_Router_RouteParser/setControllerRequest.html">setControllerRequest</a>()
+                    </li><li>private void <a title="Niuware\WebFramework\Router\RouteParser" href="../classes/Niuware_WebFramework_Router_RouteParser/setRouteAction.html">setRouteAction</a>()
+                    </li><li>private void <a title="Niuware\WebFramework\Router\RouteParser" href="../classes/Niuware_WebFramework_Router_RouteParser/setMappedParameters.html">setMappedParameters</a>()
+                    </li><li>private string <a title="Niuware\WebFramework\Router\RouteParser" href="../classes/Niuware_WebFramework_Router_RouteParser/removeTrailingSlash.html">removeTrailingSlash</a>()
+                    </li></ul>
+
+            }<br/></div>
+        <h2 id="members">Members</h2>
+        <div class="styled members">
+          <h4>private</h4>
+          <ul class="members">
+            <li id="method"><strong>$method</strong>
+                —
+                <a title="Niuware\WebFramework\Router\type" href="../classes/Niuware_WebFramework_Router_type.html">Niuware\WebFramework\Router\type</a><br/><span class="indent">The request method</span></li>
+            <li id="path"><strong>$path</strong>
+                —
+                array<br/><span class="indent">The route path</span></li>
+            <li id="routeAction"><strong>$routeAction</strong>
+                —
+                string<br/><span class="indent">The route controller action</span></li>
+            <li id="routeController"><strong>$routeController</strong>
+                —
+                string<br/><span class="indent">The route controller name</span></li>
+            <li id="routeControllerPath"><strong>$routeControllerPath</strong>
+                —
+                string<br/><span class="indent">The route controller path</span></li>
+            <li id="routeIsAdmin"><strong>$routeIsAdmin</strong>
+                —
+                bool<br/><span class="indent">A flag to determine if the route is in the Application Admin Space</span></li>
+            <li id="routeMappedParams"><strong>$routeMappedParams</strong>
+                —
+                array<br/><span class="indent">The route mapped parameters</span></li>
+            <li id="routeMode"><strong>$routeMode</strong>
+                —
+                string<br/><span class="indent">The route Application Space</span></li>
+            <li id="routeRequest"><strong>$routeRequest</strong>
+                —
+                string<br/><span class="indent">The route request class name</span></li>
+            <li id="routeRequireCsrf"><strong>$routeRequireCsrf</strong>
+                —
+                bool<br/><span class="indent">A flag to determine if the route requires a valid CSRF token</span></li>
+            <li id="routeRequireLogin"><strong>$routeRequireLogin</strong>
+                —
+                bool<br/><span class="indent">A flag to determine if the route requires an authentication</span></li>
+          </ul>
+        </div>
+        <h2 id="methods">Methods</h2>
+        <div class="styled">
+          <h4>private</h4>
+          <ul>
+            <li id="getMatchingRoutes"><a title="Niuware\WebFramework\Router\RouteParser" href="../classes/Niuware_WebFramework_Router_RouteParser/getMatchingRoutes.html">getMatchingRoutes()</a>
+                — Gets all matching controller routes</li>
+            <li id="removeTrailingSlash"><a title="Niuware\WebFramework\Router\RouteParser" href="../classes/Niuware_WebFramework_Router_RouteParser/removeTrailingSlash.html">removeTrailingSlash()</a>
+                — Removes a trailing slash of a string</li>
+            <li id="setController"><a title="Niuware\WebFramework\Router\RouteParser" href="../classes/Niuware_WebFramework_Router_RouteParser/setController.html">setController()</a>
+                — Sets the controller name and path</li>
+            <li id="setControllerRequest"><a title="Niuware\WebFramework\Router\RouteParser" href="../classes/Niuware_WebFramework_Router_RouteParser/setControllerRequest.html">setControllerRequest()</a>
+                — Sets the custom Request class</li>
+            <li id="setControllerRequirements"><a title="Niuware\WebFramework\Router\RouteParser" href="../classes/Niuware_WebFramework_Router_RouteParser/setControllerRequirements.html">setControllerRequirements()</a>
+                — Sets the controller required attributes</li>
+            <li id="setCsrfOptions"><a title="Niuware\WebFramework\Router\RouteParser" href="../classes/Niuware_WebFramework_Router_RouteParser/setCsrfOptions.html">setCsrfOptions()</a>
+                — Sets the CSRF validation options for the route</li>
+            <li id="setLoginOptions"><a title="Niuware\WebFramework\Router\RouteParser" href="../classes/Niuware_WebFramework_Router_RouteParser/setLoginOptions.html">setLoginOptions()</a>
+                — Sets the login options for the route</li>
+            <li id="setMappedParameters"><a title="Niuware\WebFramework\Router\RouteParser" href="../classes/Niuware_WebFramework_Router_RouteParser/setMappedParameters.html">setMappedParameters()</a>
+                — Maps the route parameters</li>
+            <li id="setRouteAction"><a title="Niuware\WebFramework\Router\RouteParser" href="../classes/Niuware_WebFramework_Router_RouteParser/setRouteAction.html">setRouteAction()</a>
+                — Sets the controller's method to execute</li>
+            <li id="setRouteParameters"><a title="Niuware\WebFramework\Router\RouteParser" href="../classes/Niuware_WebFramework_Router_RouteParser/setRouteParameters.html">setRouteParameters()</a>
+                — Sets the controller and route parameters for the current route</li>
+          </ul>
+          <h4>public</h4>
+          <ul>
+            <li id="__construct"><a title="Niuware\WebFramework\Router\RouteParser" href="../classes/Niuware_WebFramework_Router_RouteParser/__construct.html">__construct()</a>
+                — Initializes the default parser values</li>
+            <li id="parse"><a title="Niuware\WebFramework\Router\RouteParser" href="../classes/Niuware_WebFramework_Router_RouteParser/parse.html">parse()</a>
+                — Parses the route parameters</li>
+            <li id="setRouteDefinition"><a title="Niuware\WebFramework\Router\RouteParser" href="../classes/Niuware_WebFramework_Router_RouteParser/setRouteDefinition.html">setRouteDefinition()</a>
+                — Sets all route attributes</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
