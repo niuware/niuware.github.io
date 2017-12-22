@@ -2375,7 +2375,7 @@ A request validation ensures the user has sent valid data to your application, b
             <td>default</td>
             <td>string (optional)</td>
             <td>
-                Adds the field with the default value if it does not exist or mutate the value if it is different from the parameter value.
+                Adds the field with the default value if it does not exist otherwise mutates the value if it is different from the parameter string value. The string can be a comma separated array of values.
             </td>
         </tr>
         <tr>
@@ -2395,7 +2395,7 @@ A request validation ensures the user has sent valid data to your application, b
     </tbody>
 </table>
 
-In the following example the field `search` will be trimmed, and then cast to an integer type. The `order` field will be added to the request if does not exist with a value of `ASC`. It also will be assigned de `ASC` value if it has a different value from `DESC`:
+In the following example the field `search` will be trimmed, and then cast to an integer type. The `order` field will be added to the request if does not exist with a value of `ASC`. It also will be assigned de `ASC` value if it has a different value from `DESC`. Finally the third field `orderBy` will have the default value `name` if its value is different from `id` or `name`, if it does not exist in the request, `orderBy` will be equal to `name` as well.
 
 {% highlight php %}
 [App/Requests/MyRequest.php]
@@ -2422,6 +2422,9 @@ final class SearchRequest extends Request implements RequestInterface {
                 ],
                 'order' => [
                     'default|DESC' => 'ASC'
+                ],
+                'orderBy' => [
+                    'default|id,name' => 'name'
                 ]
             ]
         ];
