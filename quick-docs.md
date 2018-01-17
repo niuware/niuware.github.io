@@ -2036,13 +2036,13 @@ For example if you access:
 
 > http://my_url/api/cart/product
 
-the framework will load the default class version which should be found in `App/Api/Product`. On the contrary, if you access:
+the framework will load the default class version which should be found in `App/Api/Cart` and execute the method `product`. On the contrary, if you access:
 
 > http://my_url/api/**v2.1.0**/cart/product
 
-then the framework will try to load the class version found in the subdirectory v2.1.0 -> **V210**: `App/Api/V210/Product`.
+then the framework will try to load the class version found in the subdirectory v2.1.0 -> **V210**: `App/Api/V210/Cart` and execute the method `product`.
 
-Notice that there is no fallback for the default version if the class version, so if the version is not found an *API Not found class* error code will be rendered instead.
+Notice that there is no fallback to the default version, so if the looked up version is not found an *API Not found class* error code will be rendered instead.
 
 <a name="security"></a>
 ## 9. Security
