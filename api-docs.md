@@ -7,7 +7,7 @@ title: API documentation
 2. <a href="#interfaces">Interfaces</a>  
 
 <a name="classes">
-<h2>Classes</h2>
+<h2>1. Classes</h2>
 
 <h3 id="Niuware_WebFramework_Application">\Niuware\WebFramework\Application</h3>
 <table class="styled">
@@ -267,7 +267,7 @@ title: API documentation
 <br/>
 
 <a name="interfaces">
-<h3>Interfaces</h3>
+<h2>2. Interfaces</h2>
 
 <h3 id="Niuware_WebFramework_Http">\Niuware\WebFramework\Http</h3>
 <table class="styled">
