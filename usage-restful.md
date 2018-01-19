@@ -1,6 +1,6 @@
 ---
 layout: page
-title: Creating a RESTful API
+title: RESTful API example
 ---
 
 > Full example coming soon : )

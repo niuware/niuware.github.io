@@ -1,6 +1,6 @@
 ---
 layout: page
-title: Creating a full web app
+title: Full web app example
 ---
 
 > Full example coming soon : )

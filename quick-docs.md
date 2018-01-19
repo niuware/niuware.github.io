@@ -1,6 +1,6 @@
 ---
 layout: page
-title: Quick documentation
+title: Documentation
 ---
 
 This is a quick documentation on how to use all of the available features in Niuware WebFramework.
