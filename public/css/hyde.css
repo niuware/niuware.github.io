@@ -254,3 +254,13 @@ a.sidebar-nav-item:focus {
 .synopsis ul {
   list-style-type: none;
 }
+.anchor-left {
+  float: left;
+}
+.anchor-right {
+  float: right;
+}
+.tutorial-nav {
+  margin: 20px 0;
+  display: flow-root;
+}

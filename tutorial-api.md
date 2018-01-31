@@ -1,6 +1,6 @@
 ---
 layout: page
-title: RESTful API example
+title: RESTful API tutorial
 ---
 
 > Full example coming soon : )

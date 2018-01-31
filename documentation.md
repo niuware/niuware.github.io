@@ -3,7 +3,7 @@ layout: page
 title: Documentation
 ---
 
-This is a quick documentation on how to use all of the available features in Niuware WebFramework.
+This is the documentation of all available features in Niuware WebFramework.
 
 1. <a href="#install">Installation</a>  
   1.1 <a href="#install-config">Configuration File</a>  
@@ -75,7 +75,7 @@ This is a quick documentation on how to use all of the available features in Niu
 
 For using the Niuware WebFramework follow this steps:
 
-1. Download the repository from [GitHub](https://github.com/niuware/web-framework.git).
+1. Download or clone the repository from [GitHub](https://github.com/niuware/web-framework.git).
 2. Run `composer install` to install the dependencies. 
 
 <a name="install-config"></a>
