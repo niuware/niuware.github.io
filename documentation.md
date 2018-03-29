@@ -62,10 +62,11 @@ This is the documentation of all available features in Niuware WebFramework.
   11.1 <a href="#file-attrib">Attributes</a>  
 12. <a href="#console">Console</a>  
 13. <a href="#migration">Database Migrations</a>  
-  13.1 <a href="#migration-migrate">Migration files</a>  
+  13.1 <a href="#migration-migrate">Migration definitions</a>  
   13.2 <a href="#migration-seed">Seeding</a>  
   13.3 <a href="#migration-rollback">Rollback</a>  
   13.4 <a href="#migration-status">Status</a>  
+  13.5 <a href="#migration-connection">Change connection</a>
 14. <a href="#pagination">Pagination</a>  
 15. <a href="#exception">Exceptions</a>
 16. <a href="#compatibility">PHP < 7.0 compatibility</a>  
@@ -2787,7 +2788,7 @@ Terminal mode:
 > $ php vendor/bin/nwf migrations migrate -t [MigrationVersion]
 
 Web mode:
-> http//my_url/console/migrations/migrate/-t/MigrationVersion
+> http://my_url/console/migrations/migrate/-t/MigrationVersion
 
 Notice that if you do not add the target for the migration (Migration class name), all migrations that haven't been run will be executed.
 
@@ -2809,8 +2810,8 @@ Terminal mode:
 > $ php vendor/bin/nwf migrations rollback [-d RollbackToDate]
 
 Web mode:
-> http//my_url/console/migrations/rollback/-t/TargetMigrationVersion
-> http//my_url/console/migrations/rollback/-d/RollbackToDate
+> http://my_url/console/migrations/rollback/-t/TargetMigrationVersion
+> http://my_url/console/migrations/rollback/-d/RollbackToDate
 
 For more information on how to use the rollback -t and -d commands, visit the Phinx [documentation](http://docs.phinx.org/en/latest/commands.html#the-rollback-command).
 
@@ -2823,7 +2824,7 @@ Terminal mode:
 > $ php vendor/bin/nwf migrations seedcreate [NameOfSeedClass]
 
 Web mode:
-> http//my_url/console/migrations/seedcreate/NameOfSeedClass
+> http://my_url/console/migrations/seedcreate/NameOfSeedClass
 
 This will create a new seeding class in the `App/Migrations/Seeds` directory. For example:
 
@@ -2893,7 +2894,7 @@ Terminal mode:
 > $ php vendor/bin/nwf migrations seedrun -s [NameOfSeedClass]
 
 Web mode:
-> http//my_url/console/migrations/seedrun/-s/NameOfSeedClass
+> http://my_url/console/migrations/seedrun/-s/NameOfSeedClass
 
 Notice that if you do not add the name of the seed class name, all seed files will be run. Be careful as seeds do not look up for repeated data, so if you run all seeds twice, data will be duplicated.
 
@@ -2906,7 +2907,18 @@ Terminal mode:
 > $ php vendor/bin/nwf migrations status
 
 Web mode:
-> http//my_url/console/migrations/status
+> http://my_url/console/migrations/status
+
+<a name="migration-connection"></a>
+### Database Migrations: Connection
+
+You can add the parameter `conn={connection_name}` to use any of the connections defined in your application `Settings.php` file. For example, for migrating your database using a *development* connection you can use:
+
+Terminal mode:
+> $ php vendor/bin/nwf migrations migrate conn=development
+
+Web mode:
+> http://my_url/console/migrations/migrate/conn=development
 
 <a name="pagination"></a>
 ## 14. Pagination
