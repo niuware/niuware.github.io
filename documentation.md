@@ -62,14 +62,14 @@ This is the documentation of all available features in Niuware WebFramework.
   11.1 <a href="#file-attrib">Attributes</a>  
 12. <a href="#console">Console</a>  
 13. <a href="#migration">Database Migrations</a>  
-  13.1 <a href="#migration-migrate">Migration definitions</a>  
+  13.1 <a href="#migration-migrate">Migration Definitions</a>  
   13.2 <a href="#migration-seed">Seeding</a>  
   13.3 <a href="#migration-rollback">Rollback</a>  
   13.4 <a href="#migration-status">Status</a>  
-  13.5 <a href="#migration-connection">Change connection</a>
+  13.5 <a href="#migration-connection">Custom Connection</a>
 14. <a href="#pagination">Pagination</a>  
 15. <a href="#exception">Exceptions</a>
-16. <a href="#compatibility">PHP < 7.0 compatibility</a>  
+16. <a href="#compatibility">PHP < 7.0 Compatibility</a>  
 
 <a name="install"></a>
 ## 1. Installation
@@ -2586,7 +2586,9 @@ final class MyController extends Controller {
 <a name="file-attrib"></a>
 ### Files: Attributes
 
-The return value for the `save` method is an `Niuware\WebFramework\Http\File` object, or `null` if there was an error uploading the file. You can retrieve the following attributes:
+The return value for the `save` method is an `Niuware\WebFramework\Http\File` object when succeed, `false` if there was an error creating the path to save the file (for example, access denied) or `null` if there was an error uploading the file (no file in the request or fail to moving the file from the temporary directory to the specified destination). 
+
+You can retrieve the following attributes from the returned `Niuware\WebFramework\Http\File` instance:
 
 {% highlight php %}
 [App/Controllers/MyController.php]
@@ -2910,7 +2912,7 @@ Web mode:
 > http://my_url/console/migrations/status
 
 <a name="migration-connection"></a>
-### Database Migrations: Connection
+### Database Migrations: Custom Connection
 
 You can add the parameter `conn={connection_name}` to use any of the connections defined in your application `Settings.php` file. For example, for migrating your database using a *development* connection you can use:
 

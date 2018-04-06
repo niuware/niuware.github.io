@@ -9,7 +9,7 @@ permalink:        pretty
 title:            Niuware WebFramework
 tagline:          ''
 description:      'Lightweight and ready-to-go Web and API framework for PHP.'
-url:              http://niuware.github.io
+url:              https://niuware.github.io
 baseurl:          /
 
 author:
