@@ -60,7 +60,7 @@
             [bool
         $mimeTypeSuffix = true,
             [bool
-        $overwrite = false]]]] )
+        $overwrite = false, [array $allowedExtensions = []]]]]] )
             </code>
         </div>
         <h2 id="parameterlist">Parameters</h2>
@@ -81,10 +81,14 @@
                 —
                 bool</dt>
           <dd/>
+          <dt><code>$allowedExtensions</code>
+            —
+            array</dt>
+          <dd/>
         </dl>
         <h2 id="return">Returns</h2>
         <dl class="styled">
-          <dt>bool|$this|null</dt>
+          <dt>$this|null</dt>
           <dd><br/>
         </dd>
         </dl>

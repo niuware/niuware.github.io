@@ -2534,6 +2534,7 @@ namespace App\Controllers;
 use Niuware\WebFramework\Application\Controller;
 use Niuware\WebFramework\Http\HttpRequest;
 use Niuware\WebFramework\Auth\Security;
+use Niuware\WebFramework\Exception\FrameworkException;
 
 final class MyController extends Controller {
 
@@ -2546,34 +2547,52 @@ final class MyController extends Controller {
         if ($request->hasFile('myfile')) {
 
             // Use one of the following options to save a file
+            try {
+                // Option 1
+                // Upload the file with default options
+                $file = $request->getFile('myfile')->save();
 
-            // Option 1
-            // Upload the file with default options
-            $file = $request->getFile('myfile')->save();
+                // Option 2
+                // Renaming the file
+                // Notice no extension is needed
+                $request->getFile('myfile')->save('newName');
 
-            // Option 2
-            // Renaming the file
-            // Notice no extension is needed
-            $request->getFile('myfile')->save('newName');
+                // Option 3
+                // Renaming the file to a unique random 32 lenght filename
+                $request->getFile('myfile')->save('unique');
 
-            // Option 3
-            // Renaming the file to a unique random 32 lenght filename
-            $request->getFile('myfile')->save('unique');
+                // Option 4
+                // Changing the save path
+                $request->getFile('myfile')->save('', 'my/new/path');
 
-            // Option 4
-            // Changing the save path
-            $request->getFile('myfile')->save('', 'my/new/path');
+                // Option 5
+                // Renaming the file and changing the save path
+                $request->getFile('myfile')->save('newName', 'my/new/path');
 
-            // Option 5
-            // Renaming the file and changing the save path
-            $request->getFile('myfile')->save('newName', 'my/new/path');
+                // Option 6
+                // By default a MIME type directory will be appended to the path
+                // If the file is an image then the file path will be:
+                // my/new/path/image
+                // You can remove this setting the third argument as false
+                $request->getFile('myfile')->save('newName', 'my/new/path', false);
 
-            // Option 6
-            // By default a MIME type directory will be appended to the path
-            // If the file is an image then the file path will be:
-            // my/new/path/image
-            // You can remove this setting the third argument as false
-            $request->getFile('myfile')->save('newName', 'my/new/path', false);
+                // Option 7
+                // Add the fourth parameter to overwrite the file if exists
+                // By default if the file exists the framework will append a 
+                // timestamp to the file name
+                $request->getFile('myfile')->save('newName', 'my/new/path', false, true);
+
+                // Option 8
+                // Add the fifth parameter to restrict the file extensions for 
+                // the uploaded file. This will throw an exception if the file  
+                // extension is not present in the provided array
+                $request->getFile('myfile')->save('newName', 'my/new/path', false, false, ['jpg', 'png', 'gif']);
+            }
+            catch FrameworkException $exception {
+
+                // File path access denied or extension not allowed
+                throw $exception;
+            }
         }
 
         ... 
@@ -2586,7 +2605,7 @@ final class MyController extends Controller {
 <a name="file-attrib"></a>
 ### Files: Attributes
 
-The return value for the `save` method is an `Niuware\WebFramework\Http\File` object when succeed, `false` if there was an error creating the path to save the file (for example, access denied) or `null` if there was an error uploading the file (no file in the request or fail to moving the file from the temporary directory to the specified destination). 
+The return value for the `save` method is an `Niuware\WebFramework\Http\File` object when succeed or `null` if there was an error uploading the file (no file in the request or fail to moving the file from the temporary directory to the specified destination). It will throw a `FrameworkException` if there was an error creating the path to save the file (for example, access denied) or the extension is not contained in the allowed extensions array.
 
 You can retrieve the following attributes from the returned `Niuware\WebFramework\Http\File` instance:
 
@@ -2610,9 +2629,9 @@ final class MyController extends Controller {
             $file = $request->getFile('myfile')->save();
 
             $fileName = $file->filename;
-            $fileExtension = $file->extension;
+            $fileExtension = $file->extension; // As provided in the file name
             $fileSize = $file->size;
-            $fileType = $file->filetype;
+            $fileType = $file->filetype; // Real MIME Content-Type
             $filePath = $file->filepath;
             $fileNameAndPath = $file->filenameAndPath;
             $fileUrl = $file->public_url; // may be empty if the path is not public
