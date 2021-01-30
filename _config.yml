@@ -16,7 +16,7 @@ author:
   name:           'niuware'
   url:            https://niuware.github.io
 
-github:           https://github.com/niuware
+github:
   repo:           https://github.com/niuware/niuware.github.io
 
 exclude:          [ Gemfile, Gemfile.lock, LICENSE.md, README.md ]
