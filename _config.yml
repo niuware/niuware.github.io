@@ -6,17 +6,17 @@ highlighter:      rouge
 permalink:        pretty
 
 # Setup
-title:            Niuware WebFramework
+title:            \@niuware
 tagline:          ''
-description:      'Lightweight and ready-to-go Web and API framework for PHP.'
+description:      ''
 url:              https://niuware.github.io
 baseurl:          /
 
 author:
-  name:           'Niuware'
+  name:           'niuware'
   url:            https://niuware.github.io
 
-github:
-  repo:           https://github.com/niuware/web-framework
+github:           https://github.com/niuware
+  repo:           
 
 exclude:          [ Gemfile, Gemfile.lock, LICENSE.md, README.md ]
